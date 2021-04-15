@@ -179,6 +179,50 @@ void Image::FrameRender(HDC hdc, int destX, int destY,
     }
 }
 
+void Image::MapRender(HDC hdc, int mapSpeed)
+{
+    if (imageInfo->ReY < 0)
+    {
+        BitBlt(
+            hdc,
+            0, -(imageInfo->ReY) - WINSIZE_Y,
+            imageInfo->width,
+            720,
+            imageInfo->hMemDC,
+            0, 0,
+            SRCCOPY
+        );
+
+        BitBlt(
+            hdc,
+            0, -(imageInfo->ReY),
+            imageInfo->width,
+            WINSIZE_Y + imageInfo->ReY,
+            imageInfo->hMemDC,
+            0, 0,
+            SRCCOPY
+        );
+    }
+    else
+    {
+        BitBlt(
+            hdc,
+            0, 0,
+            imageInfo->width,
+            imageInfo->height,
+            imageInfo->hMemDC,
+            0, imageInfo->ReY,
+            SRCCOPY
+        );
+    }
+
+    if (imageInfo->ReY + WINSIZE_Y <= 0)
+    {
+        imageInfo->ReY += WINSIZE_Y;
+    }
+    imageInfo->ReY -= mapSpeed;
+}
+
 void Image::Release()
 {
     if (imageInfo)

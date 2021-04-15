@@ -30,6 +30,8 @@ public:
 		int currFrameX;
 		int currFrameY;
 
+		int ReY;  //test ∏  y ¡ı∞°
+
 		tagImageInfo()
 		{
 			resID = 0;
@@ -46,6 +48,8 @@ public:
 			frameHeight = 0;
 			currFrameX = 0;
 			currFrameY = 0;
+
+			ReY = 0;  //test
 		};
 	} IMAGE_INFO, * LPIMAGE_INFO;
 
@@ -72,6 +76,8 @@ public:
 		bool isCenterRenderring = false);
 	void FrameRender(HDC hdc, int destX, int destY,
 		int currFrameX, int currFrameY, bool isCenterRenderring = false);
+
+	void MapRender(HDC hdc,int mapSpeed);
 
 	void Release();
 

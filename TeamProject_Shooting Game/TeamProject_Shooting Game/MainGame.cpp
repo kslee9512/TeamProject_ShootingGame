@@ -25,10 +25,10 @@ HRESULT MainGame::Init()
 
 	// 백버퍼 이미지
 	backBuffer = new Image();
-	backBuffer->Init(WINSIZE_X, WINSIZE_Y);
+	backBuffer->Init(WINSIZE_X, WINSIZE_Y); 
 
 	bin = new Image();
-	bin->Init("Image/backGround_01.bmp", WINSIZE_X, WINSIZE_Y);
+	bin->Init("Image/Map01.bmp", WINSIZE_X, WINSIZE_Y);
 
 	enemyMgr = new EnemyManager();
 	enemyMgr->Init();
@@ -78,9 +78,8 @@ void MainGame::Render()
 
 	if (bin)
 	{
-		bin->Render(hBackDC/*, -100, 100*/);
+		bin->MapRender(hBackDC, 1);
 	}
-
 
 	if (playerShip)
 	{
