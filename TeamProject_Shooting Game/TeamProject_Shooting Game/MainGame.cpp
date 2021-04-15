@@ -56,10 +56,6 @@ void MainGame::Release()
 
 void MainGame::Update()
 {
-	if (tank)
-	{
-		//tank->Update();
-	}
 
 	float currTime1 = TimerManager::GetSingleton()->GetCurrTime();
 
