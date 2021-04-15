@@ -1,0 +1,111 @@
+﻿  Enemy.cpp
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\CommonFunction.h(13,15): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\Enemy.cpp(11,9): error C2664: 'int MessageBoxW(HWND,LPCWSTR,LPCWSTR,UINT)': 인수 2을(를) 'const char [43]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\Enemy.cpp(12,13): message : 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\winuser.h(9153,1): message : 'MessageBoxW' 선언을 참조하십시오.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\Enemy.cpp(19,14): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\Enemy.cpp(20,13): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\Enemy.cpp(84,46): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\Enemy.cpp(84,39): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\Enemy.cpp(88,47): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\Enemy.cpp(88,40): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  EnemyManager.cpp
+  GameNode.cpp
+  Image.cpp
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\Image.cpp(40,95): error C2664: 'HANDLE LoadImageW(HINSTANCE,LPCWSTR,UINT,int,int,UINT)': 인수 2을(를) 'const char *'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\Image.cpp(40,41): message : 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\winuser.h(10815,1): message : 'LoadImageW' 선언을 참조하십시오.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\Image.cpp(69,95): error C2664: 'HANDLE LoadImageW(HINSTANCE,LPCWSTR,UINT,int,int,UINT)': 인수 2을(를) 'const char *'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\Image.cpp(69,41): message : 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\winuser.h(10815,1): message : 'LoadImageW' 선언을 참조하십시오.
+  ImageManager.cpp
+  KeyManager.cpp
+  main.cpp
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main.cpp(32,38): error C2440: '=': 'LPSTR'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main.cpp(32,27): message : 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main.cpp(35,50): warning C4302: '형식 캐스트': 'LPWSTR'에서 'WORD'(으)로 잘립니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main.cpp(55,11): error C2664: 'HWND CreateWindowExW(DWORD,LPCWSTR,LPCWSTR,DWORD,int,int,int,int,HWND,HMENU,HINSTANCE,LPVOID)': 인수 2을(를) 'LPSTR'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main.cpp(55,44): message : 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\winuser.h(4436,1): message : 'CreateWindowExW' 선언을 참조하십시오.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main.cpp(73,73): error C2664: 'int MessageBoxW(HWND,LPCWSTR,LPCWSTR,UINT)': 인수 2을(를) 'const char [24]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main.cpp(73,22): message : 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\winuser.h(9153,1): message : 'MessageBoxW' 선언을 참조하십시오.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main.cpp(107,16): warning C4244: 'return': 'WPARAM'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  MainGame.cpp
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\MainGame.cpp(59,6): error C2065: 'tank': 선언되지 않은 식별자입니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\MainGame.cpp(100,79): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'const char [17]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\MainGame.cpp(100,27): message : 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\wingdi.h(5101,25): message : 'TextOutW' 선언을 참조하십시오.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\MainGame.cpp(102,57): error C2664: 'int wsprintfW(LPWSTR,LPCWSTR,...)': 인수 1을(를) 'char [128]'에서 'LPWSTR'(으)로 변환할 수 없습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\MainGame.cpp(102,11): message : 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\winuser.h(333,1): message : 'wsprintfW' 선언을 참조하십시오.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\MainGame.cpp(103,50): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [128]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\MainGame.cpp(103,28): message : 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\wingdi.h(5101,25): message : 'TextOutW' 선언을 참조하십시오.
+  main_Timer.cpp
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(58,38): error C2440: '=': 'LPSTR'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(58,27): message : 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(66,1): error C2664: 'HWND CreateWindowExW(DWORD,LPCWSTR,LPCWSTR,DWORD,int,int,int,int,HWND,HMENU,HINSTANCE,LPVOID)': 인수 2을(를) 'LPSTR'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(66,1): message : 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\winuser.h(4436,1): message : 'CreateWindowExW' 선언을 참조하십시오.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(82,16): warning C4244: 'return': 'WPARAM'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(120,61): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(120,20): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(132,62): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(132,21): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(151,70): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'const char [17]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(151,24): message : 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\wingdi.h(5101,25): message : 'TextOutW' 선언을 참조하십시오.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(153,58): error C2664: 'int wsprintfW(LPWSTR,LPCWSTR,...)': 인수 1을(를) 'char [128]'에서 'LPWSTR'(으)로 변환할 수 없습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(153,12): message : 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\winuser.h(333,1): message : 'wsprintfW' 선언을 참조하십시오.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(154,47): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [128]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(154,25): message : 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\wingdi.h(5101,25): message : 'TextOutW' 선언을 참조하십시오.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(156,50): error C2664: 'int wsprintfW(LPWSTR,LPCWSTR,...)': 인수 1을(를) 'char [128]'에서 'LPWSTR'(으)로 변환할 수 없습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(156,12): message : 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\winuser.h(333,1): message : 'wsprintfW' 선언을 참조하십시오.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(157,47): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [128]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(157,25): message : 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\wingdi.h(5101,25): message : 'TextOutW' 선언을 참조하십시오.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(246,48): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(247,42): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(247,19): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(248,41): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(248,19): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(249,42): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(249,19): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(250,41): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(250,19): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\main_Timer.cpp(251,25): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Missile.cpp
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\CommonFunction.h(13,15): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\Missile.cpp(27,3): error C2664: 'int MessageBoxW(HWND,LPCWSTR,LPCWSTR,UINT)': 인수 2을(를) 'const char [50]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\Missile.cpp(28,4): message : 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\winuser.h(9153,1): message : 'MessageBoxW' 선언을 참조하십시오.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\Missile.cpp(65,21): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\Missile.cpp(66,20): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\Missile.cpp(67,22): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\Missile.cpp(68,23): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\Missile.cpp(75,30): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\Missile.cpp(75,23): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  MissileManager.cpp
+  PlayerShip.cpp
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\PlayerShip.cpp(11,97): error C2664: 'int MessageBoxW(HWND,LPCWSTR,LPCWSTR,UINT)': 인수 2을(를) 'const char [33]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\PlayerShip.cpp(11,22): message : 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\winuser.h(9153,1): message : 'MessageBoxW' 선언을 참조하십시오.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\PlayerShip.cpp(52,32): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\PlayerShip.cpp(52,25): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Timer.cpp
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\Timer.cpp(8,16): warning C4244: '=': 'double'에서 '__int64'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\Timer.cpp(9,16): warning C4244: '=': 'double'에서 '__int64'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\Timer.cpp(10,23): warning C4244: '=': 'double'에서 '__int64'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\Timer.cpp(51,25): warning C4244: '=': 'float'에서 'unsigned long'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  TimerManager.cpp
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\TimerManager.cpp(29,53): error C2664: 'int wsprintfW(LPWSTR,LPCWSTR,...)': 인수 1을(를) 'char [128]'에서 'LPWSTR'(으)로 변환할 수 없습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\TimerManager.cpp(29,18): message : 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\winuser.h(333,1): message : 'wsprintfW' 선언을 참조하십시오.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\TimerManager.cpp(30,65): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [128]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+C:\Users\KGA_16\Desktop\TeamProject_ShootingGame\TeamProject_Shooting Game\TeamProject_Shooting Game\TimerManager.cpp(30,43): message : 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\wingdi.h(5101,25): message : 'TextOutW' 선언을 참조하십시오.
+  코드를 생성하고 있습니다...

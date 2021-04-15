@@ -2,6 +2,7 @@
 #include "config.h"
 #include "MainGame.h"
 
+// hi bye my
 // 전역변수
 // 인스턴스 : 객체 메모리상에 존재하는 객체
 HINSTANCE g_hInstance;		// 프로그램 인스턴스 핸들
