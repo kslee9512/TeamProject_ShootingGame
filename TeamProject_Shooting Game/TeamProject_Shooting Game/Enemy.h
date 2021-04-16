@@ -4,7 +4,7 @@
 // TODO : 업캐스팅, 다운캐스팅 설명
 class Image;
 class MissileManager;
-enum ENEMYSTATUS{ NONE, ENTERANCE, MOVE, ENDSTATUS};
+enum ENEMYSTATUS{ NONE, ENTERANCE, MOVE, FIRE, ENDSTATUS};
 enum ENEMYTYPE { NORMAL, BOSS, ENDTYPE};
 class Enemy : public GameNode
 {
@@ -14,7 +14,7 @@ private:
 	Image* image;
 	int currFrameX;
 	int updateCount;
-
+	float timer;
 	ENEMYSTATUS enemyStatus;
 	ENEMYTYPE enemyType;
 	FPOINT pos;
@@ -44,6 +44,7 @@ public:
 	void SlideEnterance_02();
 	void PointEnterance_01();
 	void PointEnterance_02();
+	void BossEnterance();
 	void HorizonMove();
 
 	// get, set

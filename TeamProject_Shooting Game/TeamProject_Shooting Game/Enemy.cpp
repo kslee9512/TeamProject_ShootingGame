@@ -11,7 +11,7 @@ HRESULT Enemy::Init(int posX, int posY)
             "Enemy에 해당하는 이미지가 추가되지 않았음!", "경고", MB_OK);
         return E_FAIL;
     }
-
+    timer = 0;
     enemyType = ENEMYTYPE::NORMAL;
     currFrameX = 0;
     updateCount = 0;
@@ -21,7 +21,6 @@ HRESULT Enemy::Init(int posX, int posY)
     size = 80;
     name = "NormalEnemy";
     shape = { 0, 0, 0, 0 };
-    moveSpeed = 3.3f;
     isAlive = true;
     endMovePattern = false;
     moveSpeed = 200.0f;
@@ -47,7 +46,7 @@ HRESULT Enemy::BossInit(int posX, int posY)
             "Boss에 해당하는 이미지가 추가되지 않았음!", "경고", MB_OK);
         return E_FAIL;
     }
-
+    timer = 0;
     enemyType = ENEMYTYPE::BOSS;
     currFrameX = 0;
     updateCount = 0;
@@ -57,7 +56,6 @@ HRESULT Enemy::BossInit(int posX, int posY)
     size = 80;
     name = "NormalEnemy";
     shape = { 0, 0, 0, 0 };
-    moveSpeed = 3.3f;
     isAlive = true;
     endMovePattern = false;
     moveSpeed = 200.0f;
@@ -86,7 +84,7 @@ void Enemy::Update()
         Enterance();
         Move();
 
-        if (enemyStatus == ENEMYSTATUS::MOVE)
+        if (enemyStatus == ENEMYSTATUS::FIRE)
         {
             // 미사일 발사
             if (missileMgr)
@@ -160,6 +158,10 @@ void Enemy::Move()
         {
             PointEnterance_02();
         }
+        else if (enterType = 6 )
+        {
+            BossEnterance();
+        }
     }
     else if (enemyStatus == ENEMYSTATUS::MOVE)
     {
@@ -176,7 +178,7 @@ void Enemy::Enterance()
 
         if (enterType == 0)
         {
-            SetPos({ 0, 100 });
+            SetPos({ 0, 150 });
         }
         else if (enterType == 1)
         {
@@ -184,11 +186,16 @@ void Enemy::Enterance()
         }
         else if (enterType == 2)
         {
-            SetPos({ WINSIZE_X, 100 });
+            SetPos({ WINSIZE_X, 150 });
         }
         else if (enterType == 3)
         {
             SetPos({ WINSIZE_X / 2, 0 });
+        }
+        if (enemyType == ENEMYTYPE::BOSS)
+        {
+            enterType = 6;
+            SetPos({ WINSIZE_X / 2, WINSIZE_Y });
         }
         SetStatus(ENEMYSTATUS::ENTERANCE);
     }
@@ -228,7 +235,7 @@ void Enemy::PointEnterance_01() //기습등장
     {
         pos.y -= 300 * (TimerManager::GetSingleton()->GetElapsedTime());
         pos.x += moveSpeed * (TimerManager::GetSingleton()->GetElapsedTime());
-        if (pos.y <= 100)
+        if (pos.y <= 150)
         {
             endMovePattern = false;
             SetStatus(ENEMYSTATUS::MOVE);
@@ -250,9 +257,30 @@ void Enemy::PointEnterance_02()
     {
         pos.y -= 300 * (TimerManager::GetSingleton()->GetElapsedTime());
         pos.x -= moveSpeed * (TimerManager::GetSingleton()->GetElapsedTime());
-        if (pos.y <= 100)
+        if (pos.y <= 150)
         {
             endMovePattern = false;
+            SetStatus(ENEMYSTATUS::MOVE);
+        }
+    }
+}
+
+void Enemy::BossEnterance()
+{
+    timer += TimerManager::GetSingleton()->GetElapsedTime();
+    if (endMovePattern != true)
+    {
+        pos.y -= 2000 * (TimerManager::GetSingleton()->GetElapsedTime());
+        if (pos.y < -300)
+        {
+            endMovePattern = true;
+        }
+    }
+    if (endMovePattern == true && timer >= 1)
+    {
+        pos.y += moveSpeed * (TimerManager::GetSingleton()->GetElapsedTime());
+        if (pos.y >= 150)
+        {
             SetStatus(ENEMYSTATUS::MOVE);
         }
     }
@@ -265,8 +293,4 @@ void Enemy::HorizonMove() // 기본 이동
         dir *= -1;
     }
     pos.x -= -dir * moveSpeed * TimerManager::GetSingleton()->GetElapsedTime();
-    if (pos.y != 300)
-    {
-        pos.y = 150;
-    }
 }
