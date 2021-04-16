@@ -30,7 +30,9 @@ public:
 		int currFrameX;
 		int currFrameY;
 
-		int ReY;  //test ∏  y ¡ı∞°
+		float ReY;		// moveMap
+		float mapSpeed;
+		float mapTime;
 
 		tagImageInfo()
 		{
@@ -49,7 +51,9 @@ public:
 			currFrameX = 0;
 			currFrameY = 0;
 
-			ReY = 0;  //test
+			ReY = 0;
+			mapSpeed = 0;
+			mapTime = 0;
 		};
 	} IMAGE_INFO, * LPIMAGE_INFO;
 
