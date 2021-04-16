@@ -1,5 +1,6 @@
 #include "Missile.h"
 #include "Enemy.h"
+#include "PlayerShip.h"
 #include "CommonFunction.h"
 #include "Image.h"
 
@@ -30,6 +31,35 @@ HRESULT Missile::Init(Enemy* owner)
 	}
 
     return S_OK;
+}
+
+HRESULT Missile::PInit(PlayerShip* owner)
+{
+	this->Powner = owner;
+
+	pos = { -100, -100 };
+	moveSpeed = 5000.0f;
+	moveTime = 10.0f;
+	size = 50;
+	shape = { 0, 0, 0, 0 };
+	damage = 5000;
+	angle = 0.0f;
+	isFired = false;
+	missileType = TYPE::Normal;
+	fireStep = 0;
+	target = nullptr;
+	destAngle = 0.0f;
+
+	// 이미지
+	img = ImageManager::GetSingleton()->FindImage("EnemyMissile");
+	if (img == nullptr)
+	{
+		MessageBox(g_hWnd,
+			"playerMissile에 해당하는 이미지가 추가되지 않았음!", "경고", MB_OK);
+		return E_FAIL;
+	}
+
+	return S_OK;
 }
 
 void Missile::Release()
@@ -120,6 +150,16 @@ void Missile::MovingFollowTarget()
 void Missile::SetIsFired(bool isFired)
 {
 	this->isFired = isFired;
-	pos.x = owner->GetPos().x;
-	pos.y = owner->GetPos().y;
+
+	if (owner)
+	{
+		pos.x = owner->GetPos().x;
+		pos.y = owner->GetPos().y;
+	}
+
+	else if (Powner)
+	{
+		pos.x = Powner->GetPos().x;
+		pos.y = Powner->GetPos().y-55;
+	}
 }

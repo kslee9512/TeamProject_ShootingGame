@@ -1,8 +1,11 @@
 #include "PlayerShip.h"
 #include "Image.h"
+#include "MissileManager.h"
 
 HRESULT PlayerShip::Init()
 {
+	fireImage = ImageManager::GetSingleton()->AddImage("플레이어발사",
+		"Image/Fire.bmp", 80, 35, 4, 1, true, RGB(0, 0, 0));
 	image = ImageManager::GetSingleton()->AddImage("플레이어이동",
 		"Image/MOVE.bmp", 350, 115, 5, 1, true, RGB(255, 255, 255));
 
@@ -13,27 +16,85 @@ HRESULT PlayerShip::Init()
 		return E_FAIL;
 	}
 
+	// 미사일 매니저
+	missileMgr = new MissileManager();
+	missileMgr->PInit(this);
+
 	pos.x = WINSIZE_X / 2;
 	pos.y = WINSIZE_Y / 2;
 
 	moveSpeed = 150.0f;
 
+	fireFrame = 0;
 	frame = 2;
 
 	ready = true;
+	fire = false;
+	lastUsed = 0;
+	currFire = 0;
 
 	return S_OK;
 }
 
 void PlayerShip::Release()
 {
+	SAFE_RELEASE(missileMgr);
 }
 
 void PlayerShip::Update()
 {
-	currElapsed += TimerManager::GetSingleton()->GetElapsedTime();
+	currElapsed += TimerManager::GetSingleton()->GetElapsedTime();	// 현재 경과된 시간 1초 단위로 초기화
+	lastUsed += TimerManager::GetSingleton()->GetElapsedTime();	// 마지막으로 사용한 키를 기준으로 경과 시간 검사 ( 하나라도 눌려있으면 0으로 계속 초기화 중)
+	currFire += TimerManager::GetSingleton()->GetElapsedTime();
 
-	if (ready)
+	Move();
+
+	if (missileMgr)
+	{
+		// 함수 호출 주기를 바꿔보자.
+		if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_SPACE))
+		{
+			fire = true;
+			currFire = 0;
+			missileMgr->playerFire();
+		}
+
+		missileMgr->Update();
+	}
+
+	if (fire && currFire >= 0.02f)
+	{
+		fireFrame++;
+		currFire = 0;
+		if (fireFrame > 3)
+		{
+			fireFrame = 0;
+			fire = false;
+		}
+	}
+
+	if (currElapsed >= 1.0f)	currElapsed = 0;
+
+}
+
+void PlayerShip::Render(HDC hdc)
+{
+	if (image)
+	{
+		image->FrameRender(hdc, pos.x, pos.y, frame, 0, true);
+
+		if (fire) fireImage->FrameRender(hdc, pos.x-2, pos.y-55, fireFrame, 0, true);
+	}
+
+	if (missileMgr)
+	{
+		missileMgr->Render(hdc);
+	}
+}
+
+void PlayerShip::Move()
+{
+	if (lastUsed >= 1.0f)		// 키를 사용한 이력이 1초를 지나가면 다시 원상태로 복귀
 	{
 		if (frame > 2 && currElapsed >= 1.0f)
 		{
@@ -75,8 +136,9 @@ void PlayerShip::Update()
 	{
 
 		pos.x -= moveSpeed * TimerManager::GetSingleton()->GetElapsedTime();
+		lastUsed = 0;
 
-		if (frame>0 && frame <= 2 && currElapsed>=1.0f)
+		if (frame > 0 && frame <= 2 && currElapsed >= 1.0f)
 		{
 			frame--;
 		}
@@ -85,8 +147,9 @@ void PlayerShip::Update()
 	{
 
 		pos.x += moveSpeed * TimerManager::GetSingleton()->GetElapsedTime();
+		lastUsed = 0;
 
-		if (frame<4 && frame >= 2 && currElapsed >= 1.0f)
+		if (frame < 4 && frame >= 2 && currElapsed >= 1.0f)
 		{
 			frame++;
 		}
@@ -95,20 +158,12 @@ void PlayerShip::Update()
 	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_UP))
 	{
 		pos.y -= moveSpeed * TimerManager::GetSingleton()->GetElapsedTime();
+		lastUsed = 0;
+
 	}
 	else if (KeyManager::GetSingleton()->IsStayKeyDown(VK_DOWN))
 	{
 		pos.y += moveSpeed * TimerManager::GetSingleton()->GetElapsedTime();
-	}
-
-	if (currElapsed >= 1.0f)	currElapsed = 0;
-
-}
-
-void PlayerShip::Render(HDC hdc)
-{
-	if (image)
-	{
-		image->FrameRender(hdc, pos.x, pos.y, frame, 0, true);
+		lastUsed = 0;
 	}
 }

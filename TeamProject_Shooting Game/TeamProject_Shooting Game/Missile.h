@@ -3,6 +3,7 @@
 
 class Image;
 class Enemy;
+class PlayerShip;
 class Missile : public GameNode
 {
 public:
@@ -29,9 +30,11 @@ private:
 	float destAngle;
 
 	Enemy* owner;
+	PlayerShip* Powner;
 
 public:
 	HRESULT Init(Enemy* owner);
+	HRESULT PInit(PlayerShip* owner);
 	void Release();		
 	void Update();		
 	void Render(HDC hdc);
