@@ -20,6 +20,7 @@ HRESULT Missile::Init(Enemy* owner)
 	fireStep = 0;
 	target = nullptr;
 	destAngle = 0.0f;
+	isPlayer = false;
 
 	// 이미지
 	img = ImageManager::GetSingleton()->FindImage("EnemyMissile");
@@ -49,9 +50,12 @@ HRESULT Missile::PInit(PlayerShip* owner)
 	fireStep = 0;
 	target = nullptr;
 	destAngle = 0.0f;
+	isPlayer = true;
+	frame = 0;
+	currElapsed = 0;
 
 	// 이미지
-	img = ImageManager::GetSingleton()->FindImage("EnemyMissile");
+	img = ImageManager::GetSingleton()->FindImage("PlayerMissile");
 	if (img == nullptr)
 	{
 		MessageBox(g_hWnd,
@@ -72,6 +76,16 @@ void Missile::Update()
 	// 위치 이동
 	if (isFired)
 	{
+		currElapsed += TimerManager::GetSingleton()->GetElapsedTime();	// 현재 경과된 시간 1초 단위로 초기화
+
+		if (currElapsed >= 0.02f)
+		{
+			frame++;
+			currElapsed = 0;
+			if (frame > 5)
+				frame = 0;
+		}
+
 		switch (missileType)
 		{
 		case TYPE::Normal:
@@ -89,20 +103,18 @@ void Missile::Update()
 		{
 			isFired = false;
 			fireStep = 0;
+			currElapsed = 0;
+			frame = 0;
 		}
 	}
-
-	shape.left = pos.x - size / 2;
-	shape.top = pos.y - size / 2;
-	shape.right = pos.x + size / 2;
-	shape.bottom = pos.y + size / 2;
 }
 
 void Missile::Render(HDC hdc)
 {
 	if (isFired)
 	{
-		img->Render(hdc, pos.x, pos.y, true);
+		if (!isPlayer)	img->Render(hdc, pos.x, pos.y, true);
+		else if (isPlayer)	img->FrameRender(hdc, pos.x-12, pos.y, frame, 0);
 		//Ellipse(hdc, shape.left, shape.top, shape.right, shape.bottom);
 	}
 }

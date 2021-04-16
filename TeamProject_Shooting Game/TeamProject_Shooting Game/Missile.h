@@ -32,6 +32,10 @@ private:
 	Enemy* owner;
 	PlayerShip* Powner;
 
+	bool isPlayer;	//플레이어랑 에너미 불릿 이미지 구분을 위해서
+	int frame;
+	float currElapsed;
+
 public:
 	HRESULT Init(Enemy* owner);
 	HRESULT PInit(PlayerShip* owner);

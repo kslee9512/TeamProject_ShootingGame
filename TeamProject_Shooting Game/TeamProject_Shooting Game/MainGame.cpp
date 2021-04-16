@@ -20,6 +20,15 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->AddImage("EnemyMissile",
 		"Image/구슬.bmp", 20, 20, true, RGB(255, 0, 255));
 
+	ImageManager::GetSingleton()->AddImage("플레이어발사",
+		"Image/Fire.bmp", 80, 35, 4, 1, true, RGB(0, 0, 0));
+
+	ImageManager::GetSingleton()->AddImage("플레이어이동",
+		"Image/MOVE.bmp", 350, 115, 5, 1, true, RGB(255, 255, 255));
+
+	ImageManager::GetSingleton()->AddImage("PlayerMissile",
+		"Image/bullet.bmp", 120, 26, 6, 1, true, RGB(0, 0, 0));
+
 	// 메인게임의 초기화 함수
 	//hTimer = (HANDLE)SetTimer(g_hWnd, 0, 1, NULL);
 

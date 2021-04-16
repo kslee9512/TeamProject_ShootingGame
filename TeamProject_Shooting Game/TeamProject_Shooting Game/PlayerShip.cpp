@@ -4,11 +4,8 @@
 
 HRESULT PlayerShip::Init()
 {
-	fireImage = ImageManager::GetSingleton()->AddImage("플레이어발사",
-		"Image/Fire.bmp", 80, 35, 4, 1, true, RGB(0, 0, 0));
-	image = ImageManager::GetSingleton()->AddImage("플레이어이동",
-		"Image/MOVE.bmp", 350, 115, 5, 1, true, RGB(255, 255, 255));
-
+	fireImage = ImageManager::GetSingleton()->FindImage("플레이어발사");
+	image = ImageManager::GetSingleton()->FindImage("플레이어이동");
 
 	if (image == nullptr)
 	{
@@ -48,30 +45,7 @@ void PlayerShip::Update()
 	currFire += TimerManager::GetSingleton()->GetElapsedTime();
 
 	Move();
-
-	if (missileMgr)
-	{
-		// 함수 호출 주기를 바꿔보자.
-		if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_SPACE))
-		{
-			fire = true;
-			currFire = 0;
-			missileMgr->playerFire();
-		}
-
-		missileMgr->Update();
-	}
-
-	if (fire && currFire >= 0.02f)
-	{
-		fireFrame++;
-		currFire = 0;
-		if (fireFrame > 3)
-		{
-			fireFrame = 0;
-			fire = false;
-		}
-	}
+	Fire();
 
 	if (currElapsed >= 1.0f)	currElapsed = 0;
 
@@ -136,6 +110,9 @@ void PlayerShip::Move()
 	{
 
 		pos.x -= moveSpeed * TimerManager::GetSingleton()->GetElapsedTime();
+
+		if (pos.x < 20)	pos.x = 20;
+
 		lastUsed = 0;
 
 		if (frame > 0 && frame <= 2 && currElapsed >= 1.0f)
@@ -147,6 +124,9 @@ void PlayerShip::Move()
 	{
 
 		pos.x += moveSpeed * TimerManager::GetSingleton()->GetElapsedTime();
+
+		if (pos.x > WINSIZE_X-20)	pos.x = WINSIZE_X-20;
+
 		lastUsed = 0;
 
 		if (frame < 4 && frame >= 2 && currElapsed >= 1.0f)
@@ -165,5 +145,32 @@ void PlayerShip::Move()
 	{
 		pos.y += moveSpeed * TimerManager::GetSingleton()->GetElapsedTime();
 		lastUsed = 0;
+	}
+}
+
+void PlayerShip::Fire()
+{
+	if (missileMgr)
+	{
+		// 함수 호출 주기를 바꿔보자.
+		if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_SPACE))
+		{
+			fire = true;
+			currFire = 0;
+			missileMgr->playerFire();
+		}
+
+		missileMgr->Update();
+	}
+
+	if (fire && currFire >= 0.02f)
+	{
+		fireFrame++;
+		currFire = 0;
+		if (fireFrame > 3)
+		{
+			fireFrame = 0;
+			fire = false;
+		}
 	}
 }
