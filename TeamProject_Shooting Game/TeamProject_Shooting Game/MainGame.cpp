@@ -19,6 +19,9 @@ HRESULT MainGame::Init()
 
 	ImageManager::GetSingleton()->AddImage("EnemyMissile",
 		"Image/구슬.bmp", 20, 20, true, RGB(255, 0, 255));
+	
+	ImageManager::GetSingleton()->AddImage("Boss",
+		"Image/보스.bmp", 700, 300, true, RGB(255, 0, 255));
 
 	// 메인게임의 초기화 함수
 	//hTimer = (HANDLE)SetTimer(g_hWnd, 0, 1, NULL);
