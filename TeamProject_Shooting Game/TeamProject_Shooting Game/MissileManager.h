@@ -1,7 +1,7 @@
 #pragma once
 #include "GameNode.h"
 #include <vector>
-
+#include <algorithm>
 class Enemy;
 class Missile;
 class MissileManager : public GameNode

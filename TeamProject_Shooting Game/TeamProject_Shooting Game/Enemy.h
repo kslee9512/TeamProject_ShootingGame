@@ -14,7 +14,7 @@ private:
 	Image* image;
 	int currFrameX;
 	int updateCount;
-	float timer;
+	float checkTimer;
 	ENEMYSTATUS enemyStatus;
 	ENEMYTYPE enemyType;
 	FPOINT pos;

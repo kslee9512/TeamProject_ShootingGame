@@ -15,5 +15,6 @@ public:
 	void Render(HDC hdc);
 
 	void AddEnemy(int size);
+
 };
 

@@ -11,7 +11,7 @@ HRESULT Enemy::Init(int posX, int posY)
             "Enemy에 해당하는 이미지가 추가되지 않았음!", "경고", MB_OK);
         return E_FAIL;
     }
-    timer = 0;
+    checkTimer = 0;
     enemyType = ENEMYTYPE::NORMAL;
     currFrameX = 0;
     updateCount = 0;
@@ -46,7 +46,7 @@ HRESULT Enemy::BossInit(int posX, int posY)
             "Boss에 해당하는 이미지가 추가되지 않았음!", "경고", MB_OK);
         return E_FAIL;
     }
-    timer = 0;
+    checkTimer = 0;
     enemyType = ENEMYTYPE::BOSS;
     currFrameX = 0;
     updateCount = 0;
@@ -96,7 +96,7 @@ void Enemy::Update()
                     fireCount = 0;
                     missileMgr->Fire();
                 }
-                missileMgr->Update();
+                    missileMgr->Update();
             }
         }
         // 애니메이션 프레임
@@ -158,7 +158,7 @@ void Enemy::Move()
         {
             PointEnterance_02();
         }
-        else if (enterType = 6 )
+        else if (enterType == 6 )
         {
             BossEnterance();
         }
@@ -267,7 +267,7 @@ void Enemy::PointEnterance_02()
 
 void Enemy::BossEnterance()
 {
-    timer += TimerManager::GetSingleton()->GetElapsedTime();
+    checkTimer += TimerManager::GetSingleton()->GetElapsedTime();
     if (endMovePattern != true)
     {
         pos.y -= 2000 * (TimerManager::GetSingleton()->GetElapsedTime());
@@ -276,11 +276,12 @@ void Enemy::BossEnterance()
             endMovePattern = true;
         }
     }
-    if (endMovePattern == true && timer >= 1)
+    if (endMovePattern == true && checkTimer >= 1)
     {
         pos.y += moveSpeed * (TimerManager::GetSingleton()->GetElapsedTime());
         if (pos.y >= 150)
         {
+            checkTimer = 0;
             SetStatus(ENEMYSTATUS::MOVE);
         }
     }
@@ -288,9 +289,14 @@ void Enemy::BossEnterance()
 
 void Enemy::HorizonMove() // 기본 이동
 {
+    checkTimer += TimerManager::GetSingleton()->GetElapsedTime();
     if (pos.x > WINSIZE_X || pos.x < 0)
     {
         dir *= -1;
+        if (checkTimer >= 3)
+        {
+            checkTimer = 0;
+        }
     }
     pos.x -= -dir * moveSpeed * TimerManager::GetSingleton()->GetElapsedTime();
 }

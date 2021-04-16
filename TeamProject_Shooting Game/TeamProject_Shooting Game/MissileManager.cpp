@@ -5,14 +5,11 @@ HRESULT MissileManager::Init(Enemy* owner)
 {
     this->owner = owner;
 
-    vMissiles.resize(50);
-    vector<Missile*>::iterator it;
-    for (it = vMissiles.begin(); it != vMissiles.end(); it++)
+    vMissiles.resize(300);
+    for (int i = 0; i < 300; i++)
     {
-        (*it) = new Missile();
-        (*it)->Init(this->owner);
-
-        // 미사일 매니저를 들고 있는 적 객체의 정보를 전달
+        vMissiles[i] = new Missile;
+        vMissiles[i]->Init(owner);
     }
 
     return S_OK;
