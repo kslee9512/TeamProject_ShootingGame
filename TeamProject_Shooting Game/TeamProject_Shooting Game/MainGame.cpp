@@ -21,14 +21,14 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->AddImage("EnemyMissile",
 		"Image/구슬.bmp", 20, 20, true, RGB(255, 0, 255));
 
-<<<<<<< HEAD
+
 	ImageManager::GetSingleton()->AddImage("특수탄",
 		"Image/Score_Bullet.bmp", 18, 18, true, RGB(0, 0, 0));
 	
-=======
+
 	//ImageManager::GetSingleton()->AddImage("Boss",
 	//	"Image/보스.bmp", 700, 300, true, RGB(255, 0, 255));
->>>>>>> main
+
 	ImageManager::GetSingleton()->AddImage("Boss",
 		"Image/보스frame.bmp", 3000, 300, 4, 1, true, RGB(255, 0, 255));
 
@@ -41,12 +41,6 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->AddImage("PlayerMissile",
 		"Image/bullet.bmp", 120, 26, 6, 1, true, RGB(0, 0, 0));
 
-	ImageManager::GetSingleton()->AddImage("체력",
-		"Image/life.bmp", 60, 50, true, RGB(255, 0, 255));
-
-	ImageManager::GetSingleton()->AddImage("잃은체력",
-		"Image/unlife.bmp", 60, 50, true, RGB(255, 0, 255));
-
 	// 메인게임의 초기화 함수
 	//hTimer = (HANDLE)SetTimer(g_hWnd, 0, 1, NULL);
 
@@ -55,12 +49,6 @@ HRESULT MainGame::Init()
 	backBuffer->Init(WINSIZE_X, WINSIZE_Y);
 
 	stage = new Image();
-
-	life = new Image();
-	life = ImageManager::GetSingleton()->FindImage("체력");
-
-	losslife = new Image();
-	losslife = ImageManager::GetSingleton()->FindImage("잃은체력");
 
 	enemyMgr = new EnemyManager();
 	enemyMgr->Init();
@@ -92,9 +80,6 @@ HRESULT MainGame::Init()
 
 	isInited = true;
 
-	health = 4;
-	losshealth = 1;
-
 	return S_OK;
 }
 
@@ -108,8 +93,6 @@ void MainGame::Release()
 	SAFE_RELEASE(stage);
 	SAFE_RELEASE(enemyMgr);
 	SAFE_RELEASE(sceneMgr);
-	SAFE_RELEASE(life);
-	SAFE_RELEASE(losslife);
 
 	ReleaseDC(g_hWnd, hdc);
 }
@@ -159,26 +142,9 @@ void MainGame::Render()
 			playerShip->Render(hBackDC);
 		}
 
-		if (enemyMgr) 
+		if (enemyMgr)
 		{
 			enemyMgr->Render(hBackDC);
-		}
-
-		if (life)
-		{
-			for (int i = 0; i < health; i++)
-			{
-				life->Render(hBackDC, 50 * i, WINSIZE_Y - 50, false);
-			}
-
-		}
-
-		if (losslife)
-		{
-			for (int i = 0; i < losshealth; i++)
-			{
-				losslife->Render(hBackDC, (50*health-1)+50 * i, WINSIZE_Y - 50, false);
-			}
 		}
 		break;
 

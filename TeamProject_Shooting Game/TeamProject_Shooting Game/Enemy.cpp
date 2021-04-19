@@ -123,10 +123,10 @@ void Enemy::Update()
             }
         }
 
-<<<<<<< HEAD
+
 
         //if (enemyStatus == ENEMYSTATUS::FIRE)    SetStatus(ENEMYSTATUS::MOVE);
-=======
+
         if (enemyType == ENEMYTYPE::BOSS)
         {
             if (currElapsed >= 0.2f)
@@ -139,7 +139,6 @@ void Enemy::Update()
                 currElapsed = 0;
             }
         }
->>>>>>> main
     }
 }
 

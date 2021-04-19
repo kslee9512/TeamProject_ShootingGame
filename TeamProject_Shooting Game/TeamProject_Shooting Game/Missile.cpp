@@ -157,7 +157,7 @@ void Missile::MovingSkill_01()
 	}
 
 	pos.x += cosf(angle) * moveSpeed * elapsedTime / moveTime;
-	//pos.y -= sinf(angle) * moveSpeed * elapsedTime / moveTime;
+	pos.y -= sinf(angle) * moveSpeed * elapsedTime / moveTime;
 }
 
 void Missile::MovingFollowTarget()
@@ -169,14 +169,10 @@ void Missile::MovingFollowTarget()
 		destAngle = GetAngle(pos, target->GetPos());
 		float ratio = (destAngle - angle) / 50.0f;
 
-		//angle = destAngle;
-
-		if (-1.0f < ratio && ratio < 0.01f)
+		if (-1.00f < ratio && ratio < 0.01f)
 		{
 			angle = destAngle;
 		}
-
-		//-1.179
 		else
 		{
 			angle += ratio;

@@ -34,12 +34,12 @@
     <Filter Include="리소스 파일\2DFrameWorks\Scene">
       <UniqueIdentifier>{f77e9cda-2fe7-4385-a210-5e210e56451c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\MainGame\Player">
-      <UniqueIdentifier>{bc4e63a3-b7a9-4609-aecb-ee517502e97d}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerShip.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="config.h">
@@ -89,6 +89,7 @@
     </ClInclude>
 <<<<<<< HEAD
     <ClInclude Include="TargetManager.h">
+<<<<<<< HEAD
       <Filter>리소스 파일\2DFrameWorks\Manager</Filter>
     </ClInclude>
     <ClInclude Include="PlayerShip.h">
@@ -100,6 +101,9 @@
     <ClInclude Include="EndScene_Win.h">
       <Filter>리소스 파일\2DFrameWorks\Scene</Filter>
 >>>>>>> main
+=======
+      <Filter>소스 파일</Filter>
+>>>>>>> parent of a791e3c (0419)
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +111,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="MainGame.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerShip.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="ImageManager.cpp">
@@ -146,6 +153,7 @@
       <Filter>리소스 파일\2DFrameWorks\Manager</Filter>
     </ClCompile>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <ClCompile Include="PlayerShip.cpp">
       <Filter>소스 파일\MainGame\Player</Filter>
 =======
@@ -155,6 +163,10 @@
     <ClCompile Include="EndScene_Win.cpp">
       <Filter>리소스 파일\2DFrameWorks\Scene</Filter>
 >>>>>>> main
+=======
+    <ClCompile Include="TargetManager.cpp">
+      <Filter>소스 파일</Filter>
+>>>>>>> parent of a791e3c (0419)
     </ClCompile>
   </ItemGroup>
 </Project>
