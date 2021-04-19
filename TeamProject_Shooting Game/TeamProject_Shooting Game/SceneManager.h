@@ -3,12 +3,14 @@
 #include "Singleton.h"
 
 class StartScene;
-class EndScene;
+class EndScene_Win;
+class EndScene_Lose;
 class SceneManager : public Singleton<SceneManager>
 {
 private:
 	StartScene* startScene;
-	EndScene* endScene;
+	EndScene_Win* endScene_Win;
+	EndScene_Lose* endScene_Lose;
 
 	int scenePage;
 

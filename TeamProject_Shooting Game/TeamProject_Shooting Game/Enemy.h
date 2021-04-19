@@ -31,6 +31,8 @@ private:
 	bool enterStage;
 	bool endMovePattern;
 
+	float currElapsed;
+
 	int fireCount;
 
 public:

@@ -29,7 +29,7 @@ HRESULT EnemyManager::Init()
     //}
 
     vEnemys.push_back(new Enemy());
-    vEnemys[0]->BossInit();
+    vEnemys[0]->BossInit();     //BossInit
 
     return S_OK;
 }

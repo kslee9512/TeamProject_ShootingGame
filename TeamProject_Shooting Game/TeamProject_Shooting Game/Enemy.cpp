@@ -13,7 +13,7 @@ HRESULT Enemy::Init(int posX, int posY)
         return E_FAIL;
     }
     checkTimer = 0;
-    enemyType = ENEMYTYPE::NORMAL;
+    enemyType = ENEMYTYPE::BOSS;
     currFrameX = 0;
     updateCount = 0;
     enterType = 0;
@@ -69,6 +69,7 @@ HRESULT Enemy::BossInit(int posX, int posY)
     missileMgr->Init(this);
 
     fireCount = 0;
+    currElapsed = 0;
 
     return S_OK;
 }
@@ -80,6 +81,7 @@ void Enemy::Release()
 
 void Enemy::Update()
 {
+    currElapsed += TimerManager::GetSingleton()->GetElapsedTime();
     if (isAlive)
     {
         Enterance();
@@ -121,8 +123,23 @@ void Enemy::Update()
             }
         }
 
+<<<<<<< HEAD
 
         //if (enemyStatus == ENEMYSTATUS::FIRE)    SetStatus(ENEMYSTATUS::MOVE);
+=======
+        if (enemyType == ENEMYTYPE::BOSS)
+        {
+            if (currElapsed >= 0.2f)
+            {
+                currFrameX++;
+                if (currFrameX >= 4)
+                {
+                    currFrameX = 0;
+                }
+                currElapsed = 0;
+            }
+        }
+>>>>>>> main
     }
 }
 
@@ -138,7 +155,8 @@ void Enemy::Render(HDC hdc)
         }
         else if (image && enemyType == ENEMYTYPE::BOSS)
         {
-            image->Render(hdc, pos.x, pos.y, true);
+            //image->Render(hdc, pos.x, pos.y, true);
+            image->FrameRender(hdc, pos.x, pos.y, currFrameX, 0, true);
         }
 
         if (missileMgr)
