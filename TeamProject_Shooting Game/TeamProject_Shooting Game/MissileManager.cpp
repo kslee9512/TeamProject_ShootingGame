@@ -5,17 +5,31 @@ HRESULT MissileManager::Init(Enemy* owner)
 {
     this->owner = owner;
 
-    vMissiles.resize(50);
-    vector<Missile*>::iterator it;
-    for (it = vMissiles.begin(); it != vMissiles.end(); it++)
+    vMissiles.resize(300);
+    for (int i = 0; i < 300; i++)
     {
-        (*it) = new Missile();
-        (*it)->Init(this->owner);
-
-        // ¹Ì»çÀÏ ¸Å´ÏÀú¸¦ µé°í ÀÖ´Â Àû °´Ã¼ÀÇ Á¤º¸¸¦ Àü´Þ
+        vMissiles[i] = new Missile;
+        vMissiles[i]->Init(owner);
     }
 
     return S_OK;
+}
+
+HRESULT MissileManager::PInit(PlayerShip* owner)
+{
+	this->Powner = owner;
+
+	vMissiles.resize(50);
+	vector<Missile*>::iterator it;
+	for (it = vMissiles.begin(); it != vMissiles.end(); it++)
+	{
+		(*it) = new Missile();
+		(*it)->PInit(this->Powner);
+
+		// ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	}
+
+	return S_OK;
 }
 
 void MissileManager::Release()
@@ -69,4 +83,21 @@ void MissileManager::Fire()
             break;
         }
     }
+
+}
+
+
+
+void MissileManager::playerFire()		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Enemyï¿½ï¿½ Playerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½ï¿½Ä¥ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½É¼ï¿½
+{
+	vector<Missile*>::iterator it;
+	for (it = vMissiles.begin(); it != vMissiles.end(); it++)
+	{
+		if ((*it)->GetIsFired() == false)
+		{
+			(*it)->SetIsFired(true);
+			(*it)->SetAngle(DegToRad(90));
+			break;
+		}
+	}
 }
