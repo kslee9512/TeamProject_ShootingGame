@@ -3,11 +3,11 @@
 #include "GameNode.h"
 
 class Image;
-class EndScene : public GameNode
+class EndScene_Win : public GameNode
 {
 private:
-	Image* endPhaseBG;
-	const char* endPhaseBG_dir = "Image/endingPhaseBG.bmp";
+	Image* endPhaseBG_Win;
+	const char* endPhaseBG_Win_dir = "Image/endingPhaseBG_Win.bmp";
 	POINT endPhaseBG_size = { WINSIZE_X, WINSIZE_Y };
 
 public:
@@ -16,3 +16,4 @@ public:
 	void Update();
 	void Render(HDC hdc);
 };
+

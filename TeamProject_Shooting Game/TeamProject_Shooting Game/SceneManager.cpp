@@ -1,6 +1,7 @@
 #include "SceneManager.h"
 #include "StartScene.h"
-#include "EndScene.h"
+#include "EndScene_Win.h"
+#include "EndScene_Lose.h"
 #include "KeyManager.h"
 
 HRESULT SceneManager::Init()
@@ -8,8 +9,11 @@ HRESULT SceneManager::Init()
 	startScene = new StartScene();
 	startScene->Init();
 
-	endScene = new EndScene();
-	endScene->Init();
+	endScene_Win = new EndScene_Win();
+	endScene_Win->Init();
+
+	endScene_Lose = new EndScene_Lose();
+	endScene_Lose->Init();
 
 	scenePage = 0;
 
@@ -19,7 +23,8 @@ HRESULT SceneManager::Init()
 void SceneManager::Release()
 {
 	SAFE_DELETE(startScene);
-	SAFE_DELETE(endScene);
+	SAFE_DELETE(endScene_Win);
+	SAFE_DELETE(endScene_Lose);
 }
 
 void SceneManager::Update()
@@ -44,6 +49,10 @@ void SceneManager::Update()
 	{
 		scenePage = 2;
 	}
+	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_NUMPAD3))
+	{
+		scenePage = 3;
+	}
 }
 
 void SceneManager::Render(HDC hdc)
@@ -56,6 +65,10 @@ void SceneManager::Render(HDC hdc)
 
 	if (startScene && scenePage == 2)
 	{
-		endScene->Render(hdc);
+		endScene_Win->Render(hdc);
+	}
+	if (startScene && scenePage == 3)
+	{
+		endScene_Lose->Render(hdc);
 	}
 }

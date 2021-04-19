@@ -141,7 +141,8 @@
   <ItemGroup>
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="config.h" />
-    <ClInclude Include="EndScene.h" />
+    <ClInclude Include="EndScene_Lose.h" />
+    <ClInclude Include="EndScene_Win.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="GameNode.h" />
@@ -159,7 +160,8 @@
     <ClInclude Include="TimerManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EndScene.cpp" />
+    <ClCompile Include="EndScene_Lose.cpp" />
+    <ClCompile Include="EndScene_Win.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="GameNode.cpp" />

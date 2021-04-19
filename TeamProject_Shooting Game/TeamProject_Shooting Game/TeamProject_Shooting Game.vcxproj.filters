@@ -81,14 +81,17 @@
     <ClInclude Include="MissileManager.h">
       <Filter>소스 파일\MainGame\Missile</Filter>
     </ClInclude>
-    <ClInclude Include="EndScene.h">
-      <Filter>리소스 파일\2DFrameWorks\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="StartScene.h">
       <Filter>리소스 파일\2DFrameWorks\Scene</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>리소스 파일\2DFrameWorks\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="EndScene_Lose.h">
+      <Filter>리소스 파일\2DFrameWorks\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="EndScene_Win.h">
+      <Filter>리소스 파일\2DFrameWorks\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -134,11 +137,14 @@
     <ClCompile Include="StartScene.cpp">
       <Filter>리소스 파일\2DFrameWorks\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="EndScene.cpp">
-      <Filter>리소스 파일\2DFrameWorks\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>리소스 파일\2DFrameWorks\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="EndScene_Lose.cpp">
+      <Filter>리소스 파일\2DFrameWorks\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="EndScene_Win.cpp">
+      <Filter>리소스 파일\2DFrameWorks\Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -144,6 +144,10 @@ void MainGame::Render()
 		sceneMgr->Render(hBackDC);
 		break;
 
+	case 3:
+		sceneMgr->Render(hBackDC);
+		break;
+
 	default:
 		break;
 	}
