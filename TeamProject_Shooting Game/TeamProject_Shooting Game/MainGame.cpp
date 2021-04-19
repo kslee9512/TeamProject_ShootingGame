@@ -37,6 +37,12 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->AddImage("PlayerMissile",
 		"Image/bullet.bmp", 120, 26, 6, 1, true, RGB(0, 0, 0));
 
+	ImageManager::GetSingleton()->AddImage("체력",
+		"Image/life.bmp", 60, 50, true, RGB(255, 0, 255));
+
+	ImageManager::GetSingleton()->AddImage("잃은체력",
+		"Image/unlife.bmp", 60, 50, true, RGB(255, 0, 255));
+
 	// 메인게임의 초기화 함수
 	//hTimer = (HANDLE)SetTimer(g_hWnd, 0, 1, NULL);
 
@@ -46,6 +52,12 @@ HRESULT MainGame::Init()
 
 	bin = new Image();
 	bin->Init("Image/Map01.bmp", WINSIZE_X, WINSIZE_Y);
+
+	life = new Image();
+	life = ImageManager::GetSingleton()->FindImage("체력");
+
+	losslife = new Image();
+	losslife = ImageManager::GetSingleton()->FindImage("잃은체력");
 
 	enemyMgr = new EnemyManager();
 	enemyMgr->Init();
@@ -60,6 +72,9 @@ HRESULT MainGame::Init()
 
 	isInited = true;
 
+	health = 4;
+	losshealth = 1;
+
 	return S_OK;
 }
 
@@ -73,6 +88,8 @@ void MainGame::Release()
 	SAFE_RELEASE(bin);
 	SAFE_RELEASE(enemyMgr);
 	SAFE_RELEASE(sceneMgr);
+	SAFE_RELEASE(life);
+	SAFE_RELEASE(losslife);
 
 	ReleaseDC(g_hWnd, hdc);
 }
@@ -122,9 +139,26 @@ void MainGame::Render()
 			playerShip->Render(hBackDC);
 		}
 
-		if (enemyMgr)
+		if (enemyMgr) 
 		{
 			enemyMgr->Render(hBackDC);
+		}
+
+		if (life)
+		{
+			for (int i = 0; i < health; i++)
+			{
+				life->Render(hBackDC, 50 * i, WINSIZE_Y - 50, false);
+			}
+
+		}
+
+		if (losslife)
+		{
+			for (int i = 0; i < losshealth; i++)
+			{
+				losslife->Render(hBackDC, (50*health-1)+50 * i, WINSIZE_Y - 50, false);
+			}
 		}
 		break;
 

@@ -19,11 +19,16 @@ private:
 
 	Image* backBuffer;
 	Image* bin;
+	Image* life;
+	Image* losslife;
 
 	EnemyManager* enemyMgr;
 	SceneManager* sceneMgr;
 
 	PlayerShip* playerShip;
+
+	int health;
+	int losshealth;
 
 	//int scenePage;
 

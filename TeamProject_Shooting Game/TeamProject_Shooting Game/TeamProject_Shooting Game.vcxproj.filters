@@ -34,12 +34,12 @@
     <Filter Include="리소스 파일\2DFrameWorks\Scene">
       <UniqueIdentifier>{f77e9cda-2fe7-4385-a210-5e210e56451c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\MainGame\Player">
+      <UniqueIdentifier>{bc4e63a3-b7a9-4609-aecb-ee517502e97d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerShip.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="config.h">
@@ -91,7 +91,10 @@
       <Filter>리소스 파일\2DFrameWorks\Manager</Filter>
     </ClInclude>
     <ClInclude Include="TargetManager.h">
-      <Filter>소스 파일</Filter>
+      <Filter>리소스 파일\2DFrameWorks\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerShip.h">
+      <Filter>소스 파일\MainGame\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -99,9 +102,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="MainGame.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerShip.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="ImageManager.cpp">
@@ -143,8 +143,8 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>리소스 파일\2DFrameWorks\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="TargetManager.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="PlayerShip.cpp">
+      <Filter>소스 파일\MainGame\Player</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

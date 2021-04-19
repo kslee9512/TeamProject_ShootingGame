@@ -12,6 +12,11 @@ inline float GetAngle(FPOINT pos, FPOINT targetPos)
 
 	angle = atan2(-y, x);
 
+	//if (angle < -PI)
+	//{
+	//	angle += (PI * 2.0f);
+	//}
+
 	return angle;
 }
 

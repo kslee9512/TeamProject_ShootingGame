@@ -6,8 +6,8 @@ HRESULT MissileManager::Init(Enemy* owner)
 {
     this->owner = owner;
 
-    vMissiles.resize(50);
-    for (int i = 0; i < 50; i++)
+    vMissiles.resize(600);
+    for (int i = 0; i < 600; i++)
     {
         vMissiles[i] = new Missile;
         vMissiles[i]->Init(owner);
