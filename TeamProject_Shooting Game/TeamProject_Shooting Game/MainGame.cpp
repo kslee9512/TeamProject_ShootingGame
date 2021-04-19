@@ -21,10 +21,10 @@ HRESULT MainGame::Init()
 		true, RGB(255, 0, 255));
 
 	ImageManager::GetSingleton()->AddImage("EnemyMissile",
-		"Image/����.bmp", 20, 20, true, RGB(255, 0, 255));
+		"Image/구슬.bmp", 20, 20, true, RGB(255, 0, 255));
 
 
-	ImageManager::GetSingleton()->AddImage("Ư��ź",
+	ImageManager::GetSingleton()->AddImage("scoreBullet",
 		"Image/Score_Bullet.bmp", 18, 18, true, RGB(0, 0, 0));
 	
 
@@ -32,12 +32,12 @@ HRESULT MainGame::Init()
 	//	"Image/����.bmp", 700, 300, true, RGB(255, 0, 255));
 
 	ImageManager::GetSingleton()->AddImage("Boss",
-		"Image/����frame.bmp", 3000, 300, 4, 1, true, RGB(255, 0, 255));
+		"Image/보스frame.bmp", 3000, 300, 4, 1, true, RGB(255, 0, 255));
 
-	ImageManager::GetSingleton()->AddImage("�÷��̾�߻�",
+	ImageManager::GetSingleton()->AddImage("Fire",
 		"Image/Fire.bmp", 80, 35, 4, 1, true, RGB(0, 0, 0));
 
-	ImageManager::GetSingleton()->AddImage("�÷��̾��̵�",
+	ImageManager::GetSingleton()->AddImage("Move",
 		"Image/MOVE.bmp", 350, 115, 5, 1, true, RGB(255, 255, 255));
 
 	ImageManager::GetSingleton()->AddImage("PlayerMissile",

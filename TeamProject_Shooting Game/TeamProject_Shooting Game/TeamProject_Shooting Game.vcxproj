@@ -163,7 +163,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionChecker.cpp" />
-    <ClCompile Include="EndScene.cpp" />
     <ClCompile Include="EndScene_Lose.cpp" />
     <ClCompile Include="EndScene_Win.cpp" />
     <ClCompile Include="Enemy.cpp" />

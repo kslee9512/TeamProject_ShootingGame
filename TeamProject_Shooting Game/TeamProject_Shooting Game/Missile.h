@@ -9,8 +9,6 @@ class Missile : public GameNode
 {
 public:
 	enum TYPE { Normal, Skill_01, FollowTarget, End };
-	enum TYPE2 { ENEMY,PLAYER };
-
 	enum FIRED { PLAYER, ENEMY, ENDFIRED };
 private:
 	// �̹���
@@ -38,8 +36,6 @@ private:
 	bool isPlayer;	//�÷��̾�� ���ʹ� �Ҹ� �̹��� ������ ���ؼ�
 	int frame;
 	float currElapsed;
-
-	TYPE2 whosType;
 	bool Special;		// Ư��ź �ߵ� ����
 
 public:
@@ -56,7 +52,7 @@ public:
 	inline FPOINT GetPos() { return this->pos; }
 	inline void SetPos(FPOINT pos) { this->pos = pos; }
 	inline bool GetIsFired() { return this->isFired; }
-	inline void SetTarget(Enemy* target) { this->target = target; }
+	inline void SetTarget(PlayerShip* target) { this->target = target; }
 	inline void SetType(TYPE type) { this->missileType = type; }
 	inline void SetAngle(float angle) { this->angle = angle; }
 	inline void SetFireIndex(int fireIndex) { this->fireIndex = fireIndex; }

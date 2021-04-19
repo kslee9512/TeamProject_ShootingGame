@@ -22,7 +22,6 @@ HRESULT Missile::Init(CollisionChecker* collisionChecker, Enemy* owner)
 	target = nullptr;
 	destAngle = 0.0f;
 	isPlayer = false;
-	whosType = ENEMY;
 	Special = false;
 
 	checkFired = FIRED::ENEMY;
@@ -31,7 +30,7 @@ HRESULT Missile::Init(CollisionChecker* collisionChecker, Enemy* owner)
 	if (img == nullptr)
 	{
 		MessageBox(g_hWnd,
-			"EnemyMissile�� �ش��ϴ� �̹����� �߰����� �ʾ���!", "���", MB_OK);
+			"EnemyMissile가 로드안됨!", "실패!", MB_OK);
 		return E_FAIL;
 	}
 	this->collisionChecker = collisionChecker;
@@ -57,7 +56,6 @@ HRESULT Missile::PInit(CollisionChecker* collisionChecker, PlayerShip* owner)
 	isPlayer = true;
 	frame = 0;
 	currElapsed = 0;
-	whosType = PLAYER;
 
 	checkFired = FIRED::PLAYER;
 	// �̹���
@@ -65,7 +63,7 @@ HRESULT Missile::PInit(CollisionChecker* collisionChecker, PlayerShip* owner)
 	if (img == nullptr)
 	{
 		MessageBox(g_hWnd,
-			"playerMissile�� �ش��ϴ� �̹����� �߰����� �ʾ���!", "���", MB_OK);
+			"playerMissile가 로드안됨!", "실패!", MB_OK);
 		return E_FAIL;
 	}
 	this->collisionChecker = collisionChecker;
@@ -88,7 +86,7 @@ void Missile::Update()
 			if (Special)
 			{
 
-				img = ImageManager::GetSingleton()->FindImage("Ư��ź");
+				img = ImageManager::GetSingleton()->FindImage("Scorebullet");
 
 			}
 

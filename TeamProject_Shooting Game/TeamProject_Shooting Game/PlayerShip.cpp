@@ -4,8 +4,8 @@
 #include "CommonFunction.h"
 HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 {
-	fireImage = ImageManager::GetSingleton()->FindImage("플레이어발사");
-	image = ImageManager::GetSingleton()->FindImage("플레이어이동");
+	fireImage = ImageManager::GetSingleton()->FindImage("Fire");
+	image = ImageManager::GetSingleton()->FindImage("Move");
 	this->collisionChecker = collisionChecker;
 	if (image == nullptr)
 	{
@@ -47,8 +47,8 @@ void PlayerShip::Update()
 	currFire += TimerManager::GetSingleton()->GetElapsedTime();
 
 	Move();
-	hitBox = GetRectToCenter(pos.x, pos.y, 35, 65);
 	Fire();
+	hitBox = GetRectToCenter(pos.x, pos.y, 35, 65);
 
 	if (currElapsed >= 1.0f)	currElapsed = 0;
 

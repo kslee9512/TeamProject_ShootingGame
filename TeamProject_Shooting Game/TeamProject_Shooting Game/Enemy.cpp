@@ -10,7 +10,7 @@ HRESULT Enemy::Init(CollisionChecker* collisionChecker, int posX, int posY)
     if (image == nullptr)
     {
         MessageBox(g_hWnd, 
-            "Enemy�� �ش��ϴ� �̹����� �߰����� �ʾ���!", "���", MB_OK);
+            "Enemy가 로드안됨!", "실패!", MB_OK);
         return E_FAIL;
     }
     checkTimer = 0;
@@ -44,7 +44,7 @@ HRESULT Enemy::BossInit(CollisionChecker* collisionChecker, int posX, int posY)
     if (image == nullptr)
     {
         MessageBox(g_hWnd,
-            "Boss�� �ش��ϴ� �̹����� �߰����� �ʾ���!", "���", MB_OK);
+            "Boss가 안됨!", "실패!", MB_OK);
         return E_FAIL;
     }
     checkTimer = 0;
