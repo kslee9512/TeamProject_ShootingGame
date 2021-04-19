@@ -27,7 +27,7 @@ private:
 	int fireStep;
 
 	//GameNode* target;
-	Enemy* target;
+	PlayerShip* target;
 	float destAngle;
 
 	Enemy* owner;
@@ -56,10 +56,11 @@ public:
 	void SetIsFired(bool isFired);
 	inline bool GetIsFired() { return this->isFired; }
 
-	inline void SetTarget(Enemy* target) { this->target = target; }
+	inline void SetTarget(PlayerShip* target) { this->target = target; }
 	inline void SetType(TYPE type) { this->missileType = type; }
 	inline void SetAngle(float angle) { this->angle = angle; }
 	inline void SetFireIndex(int fireIndex) { this->fireIndex = fireIndex; }
+	inline void SetSpecial(int special) { this->Special = special; }
 
 	inline int GetSize() { return this->size; }
 };

@@ -2,6 +2,7 @@
 #include "CommonFunction.h"
 #include "Image.h"
 #include "MissileManager.h"
+
 HRESULT Enemy::Init(int posX, int posY)
 {
     image = ImageManager::GetSingleton()->FindImage("Enemy");
@@ -103,8 +104,6 @@ void Enemy::Update()
                 }
                     missileMgr->Update();
             }
-
-            missileMgr->Update();
         }
 
         // 애니메이션 프레임

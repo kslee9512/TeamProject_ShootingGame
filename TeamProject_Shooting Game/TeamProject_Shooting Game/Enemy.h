@@ -4,12 +4,14 @@
 // TODO : 업캐스팅, 다운캐스팅 설명
 class Image;
 class MissileManager;
+class TargetManager;
 enum ENEMYSTATUS{ NONE, ENTERANCE, MOVE, FIRE, ENDSTATUS};
 enum ENEMYTYPE { NORMAL, BOSS, ENDTYPE};
 class Enemy : public GameNode
 {
 private:
 	MissileManager* missileMgr;
+	TargetManager* target;
 
 	Image* image;
 	int currFrameX;

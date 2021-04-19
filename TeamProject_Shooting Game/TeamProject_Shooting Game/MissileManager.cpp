@@ -1,16 +1,21 @@
 #include "MissileManager.h"
+#include "TimerManager.h"
 #include "Missile.h"
 
 HRESULT MissileManager::Init(Enemy* owner)
 {
     this->owner = owner;
 
-    vMissiles.resize(300);
-    for (int i = 0; i < 300; i++)
+    vMissiles.resize(50);
+    for (int i = 0; i < 50; i++)
     {
         vMissiles[i] = new Missile;
         vMissiles[i]->Init(owner);
     }
+
+    Special = false;
+    cnt = 0;
+    currElapsed = 0;
 
     return S_OK;
 }
@@ -29,6 +34,8 @@ HRESULT MissileManager::PInit(PlayerShip* owner)
 		// �̻��� �Ŵ����� ��� �ִ� �� ��ü�� ������ ����
 	}
 
+    currElapsed = 0;
+
 	return S_OK;
 }
 
@@ -46,10 +53,31 @@ void MissileManager::Release()
 
 void MissileManager::Update()
 {
+    currElapsed+= TimerManager::GetSingleton()->GetElapsedTime();
+
+    if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_NUMPAD5))
+    {
+        currElapsed = 0;
+        Special = true;
+    }
+
     for (int i = 0; i < vMissiles.size(); i++)
     {
+        if (owner)
+        {
+            if (Special) vMissiles[i]->SetType(vMissiles[i]->FollowTarget);
+            else if (!Special)   vMissiles[i]->SetType(vMissiles[i]->Skill_01);
+            vMissiles[i]->SetSpecial(Special);
+        }
+
         vMissiles[i]->Update();
     }
+
+    if (currElapsed >= 4.0f && Special)
+    {
+        Special = false;
+    }
+
 
     //vector<Missile*>::iterator it;
     //for (it = vMissiles.begin(); it != vMissiles.end(); it++)
@@ -76,10 +104,13 @@ void MissileManager::Fire()
     vector<Missile*>::iterator it;
     for (it = vMissiles.begin(); it != vMissiles.end(); it++)
     {
-        if ((*it)->GetIsFired() == false)
+        if ((*it)->GetIsFired() == false && !Special)
         {
             (*it)->SetIsFired(true);
-            (*it)->SetAngle(DegToRad (-90));            
+            (*it)->SetFireIndex(cnt);
+            (*it)->SetAngle(DegToRad (-90));    
+            (*it)->SetTarget(TargetManager::GetSingleton()->GetTarget());
+            cnt++;
             break;
         }
     }

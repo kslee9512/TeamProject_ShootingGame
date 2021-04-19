@@ -7,6 +7,7 @@ class PlayerShip;
 class Missile;
 class MissileManager : public GameNode
 {
+
 private:
 
 	vector<Missile*> vMissiles;
@@ -14,6 +15,10 @@ private:
 
 	Enemy* owner;
 	PlayerShip* Powner;
+
+	bool Special;
+	int cnt;
+	float currElapsed;
 
 public:
 	HRESULT Init(Enemy* owner);

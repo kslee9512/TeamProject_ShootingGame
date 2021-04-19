@@ -21,6 +21,9 @@ HRESULT MainGame::Init()
 
 	ImageManager::GetSingleton()->AddImage("EnemyMissile",
 		"Image/구슬.bmp", 20, 20, true, RGB(255, 0, 255));
+
+	ImageManager::GetSingleton()->AddImage("특수탄",
+		"Image/Score_Bullet.bmp", 18, 18, true, RGB(0, 0, 0));
 	
 	ImageManager::GetSingleton()->AddImage("Boss",
 		"Image/보스.bmp", 700, 300, true, RGB(255, 0, 255));
@@ -85,6 +88,7 @@ void MainGame::Update()
 		{
 			if (enemyMgr)
 			{
+
 				enemyMgr->Update();
 			}
 			if (playerShip)

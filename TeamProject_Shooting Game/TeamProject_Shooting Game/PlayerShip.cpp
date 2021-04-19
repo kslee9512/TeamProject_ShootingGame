@@ -17,6 +17,8 @@ HRESULT PlayerShip::Init()
 	missileMgr = new MissileManager();
 	missileMgr->PInit(this);
 
+	TargetManager::GetSingleton()->SetTarget(this);
+
 	pos.x = WINSIZE_X / 2;
 	pos.y = WINSIZE_Y / 2;
 

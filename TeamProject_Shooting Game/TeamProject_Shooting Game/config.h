@@ -14,6 +14,7 @@ using namespace std;
 #include "KeyManager.h"
 #include "ImageManager.h"
 #include "TimerManager.h"
+#include "TargetManager.h"
 
 #define WINSIZE_X	1080
 #define WINSIZE_Y	720

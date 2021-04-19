@@ -16,12 +16,13 @@ HRESULT Missile::Init(Enemy* owner)
 	damage = 5000;
 	angle = 0.0f;
 	isFired = false;
-	missileType = TYPE::Normal;
+	missileType = TYPE::Skill_01;
 	fireStep = 0;
 	target = nullptr;
 	destAngle = 0.0f;
 	isPlayer = false;
 	whosType = ENEMY;
+	Special = false;
 
 	// 이미지
 	img = ImageManager::GetSingleton()->FindImage("EnemyMissile");
@@ -78,6 +79,23 @@ void Missile::Update()
 	// 위치 이동
 	if (isFired)
 	{
+
+		if (owner)
+		{
+			if (Special)
+			{
+
+				img = ImageManager::GetSingleton()->FindImage("특수탄");
+
+			}
+
+			else if (!Special)
+			{
+				img = ImageManager::GetSingleton()->FindImage("EnemyMissile");
+			}
+		}
+
+
 		currElapsed += TimerManager::GetSingleton()->GetElapsedTime();	// 현재 경과된 시간 1초 단위로 초기화
 
 		if (currElapsed >= 0.02f)
@@ -130,18 +148,22 @@ void Missile::MovingNormal()
 
 void Missile::MovingSkill_01()
 {
+	float elapsedTime = TimerManager::GetSingleton()->GetElapsedTime();
+
 	if (fireStep == 0 && pos.y < 300.0f)
 	{
 		angle = fireIndex * 3.14f * 2.0f / 36.0f;
 		fireStep++;
 	}
 
-	pos.x += cosf(angle) * moveSpeed;
-	pos.y -= sinf(angle) * moveSpeed;
+	pos.x += cosf(angle) * moveSpeed * elapsedTime / moveTime;
+	pos.y -= sinf(angle) * moveSpeed * elapsedTime / moveTime;
 }
 
 void Missile::MovingFollowTarget()
 {
+	float elapsedTime = TimerManager::GetSingleton()->GetElapsedTime();
+
 	if (target)
 	{
 		destAngle = GetAngle(pos, target->GetPos());
@@ -157,8 +179,14 @@ void Missile::MovingFollowTarget()
 		}
 	}
 
-	pos.x += cosf(angle) * moveSpeed;
-	pos.y -= sinf(angle) * moveSpeed;
+	pos.x += cosf(angle) * moveSpeed * elapsedTime / 2;
+	pos.y -= sinf(angle) * moveSpeed * elapsedTime / 2;
+
+	if (pos.x >= target->GetPos().x-20 && pos.x <= target->GetPos().x + 20 && pos.y <= target->GetPos().y+10 && pos.y >= target->GetPos().y- 10)
+	{
+		isFired = false;
+		fireStep = 0;
+	}
 }
 
 void Missile::SetIsFired(bool isFired)
