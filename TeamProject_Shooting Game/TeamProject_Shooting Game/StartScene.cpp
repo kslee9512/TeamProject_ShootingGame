@@ -57,14 +57,14 @@ void StartScene::Render(HDC hdc)
 
 	if (inputTime < 0)
 	{
-		if (imgPushStart && (waitTime / 480) % 3 != 0)
+		if (imgPushStart && (waitTime / 240) % 3 != 0)
 		{
 			imgPushStart->Render(hdc, imgPushStart_pos.x, imgPushStart_pos.y, true);
 		}
 	}
 	else
 	{
-		if (imgPushStart && (waitTime / 2) % 40 == 20 && waitTime < inputTime + 400)
+		if (imgPushStart && (waitTime / 2) % 20 == 10 && waitTime < inputTime + 200)
 		{
 			imgPushStart->Render(hdc, imgPushStart_pos.x, imgPushStart_pos.y, true);
 		}

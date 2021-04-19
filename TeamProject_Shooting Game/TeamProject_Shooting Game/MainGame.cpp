@@ -52,7 +52,7 @@ HRESULT MainGame::Init()
 	sceneMgr = new SceneManager();
 	sceneMgr->Init();
 
-	stageCnt = 4;	// stage 변경 변수
+	stageCnt = 1;	// stage 변경 변수
 	scoreCnt = 100;	// score 변수
 
 	switch (stageCnt)
@@ -152,6 +152,7 @@ void MainGame::Render()
 		break;
 	}
 
+	//SetBkMode(hBackDC, TRANSPARENT);
 	// 인사
 	TextOut(hBackDC, 20, 20, "MainGame 렌더 중", strlen("MainGame 렌더 중"));
 	// 마우스 좌표
