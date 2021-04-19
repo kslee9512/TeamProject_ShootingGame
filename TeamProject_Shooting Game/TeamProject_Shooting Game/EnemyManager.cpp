@@ -1,5 +1,6 @@
 #include "EnemyManager.h"
 #include "Enemy.h"
+#include <ctime>
 
 HRESULT EnemyManager::Init()
 {
@@ -19,23 +20,16 @@ HRESULT EnemyManager::Init()
     //}
 
     // 3) vector resize()
-    vEnemys.resize(10);
-    for (int i = 0; i < 10; i++)
-    {
-        //vEnemys.push_back(new Enemy());
-        vEnemys[i] = new Enemy();
-        vEnemys[i]->Init(150 + (i % 5) * 200, 100 + (i / 5) * 500);
-    }
-
-
-    //// 4) vector reserve()
-    //vEnemys.reserve(10);
+    //vEnemys.resize(10);
     //for (int i = 0; i < 10; i++)
     //{
-    //    vEnemys.push_back(new Enemy());
-    //    vEnemys[i]->Init();
+    //    //vEnemys.push_back(new Enemy());
+    //    vEnemys[i] = new Enemy();
+    //    vEnemys[i]->Init(150 + (i % 5) * 200, 100 + (i / 5) * 500);
     //}
 
+    vEnemys.push_back(new Enemy());
+    vEnemys[0]->BossInit();
 
     return S_OK;
 }

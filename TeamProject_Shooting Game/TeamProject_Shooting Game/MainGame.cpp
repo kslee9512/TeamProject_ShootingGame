@@ -21,6 +21,9 @@ HRESULT MainGame::Init()
 
 	ImageManager::GetSingleton()->AddImage("EnemyMissile",
 		"Image/구슬.bmp", 20, 20, true, RGB(255, 0, 255));
+	
+	ImageManager::GetSingleton()->AddImage("Boss",
+		"Image/보스.bmp", 700, 300, true, RGB(255, 0, 255));
 
 	ImageManager::GetSingleton()->AddImage("플레이어발사",
 		"Image/Fire.bmp", 80, 35, 4, 1, true, RGB(0, 0, 0));
