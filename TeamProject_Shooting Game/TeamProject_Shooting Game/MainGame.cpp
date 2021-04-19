@@ -81,7 +81,7 @@ void MainGame::Render()
 
 	if (bin)
 	{
-		bin->MapRender(hBackDC, 1);
+		bin->MapRender(hBackDC, 1000);		// 속도 : 기본 1000
 	}
 
 	if (playerShip)

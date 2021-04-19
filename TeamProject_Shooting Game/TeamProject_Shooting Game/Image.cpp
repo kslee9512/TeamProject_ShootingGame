@@ -44,6 +44,10 @@ HRESULT Image::Init(const char* fileName, int width, int height,
     imageInfo->height = height;
     imageInfo->loadType = IMAGE_LOAD_KIND::FILE;
 
+    //imageInfo->ReY = 0;
+    imageInfo->mapSpeed = 0;
+    imageInfo->mapTime = 10.0f;
+
     ReleaseDC(g_hWnd, hdc);
 
     if (imageInfo->hBitmap == NULL)
@@ -79,6 +83,10 @@ HRESULT Image::Init(const char* fileName, int width, int height, int maxFrameX, 
     imageInfo->frameHeight = height / maxFrameY;
     imageInfo->currFrameX = 0;
     imageInfo->currFrameY = 0;
+
+    //imageInfo->ReY = 0;
+    imageInfo->mapSpeed = 0;
+    imageInfo->mapTime = 10.0f;
 
     ReleaseDC(g_hWnd, hdc);
 
@@ -181,6 +189,8 @@ void Image::FrameRender(HDC hdc, int destX, int destY,
 
 void Image::MapRender(HDC hdc, int mapSpeed)
 {
+    float elapsedTime = TimerManager::GetSingleton()->GetElapsedTime();
+
     if (imageInfo->ReY < 0)
     {
         BitBlt(
@@ -220,7 +230,10 @@ void Image::MapRender(HDC hdc, int mapSpeed)
     {
         imageInfo->ReY += WINSIZE_Y;
     }
-    imageInfo->ReY -= mapSpeed;
+    
+    //imageInfo->ReY -= mapSpeed;
+    imageInfo->mapSpeed = mapSpeed;
+    imageInfo->ReY -= imageInfo->mapSpeed * elapsedTime / imageInfo->mapTime;
 }
 
 void Image::Release()
