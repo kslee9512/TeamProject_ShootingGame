@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CollisionChecker.h" />
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="EndScene.h" />
@@ -159,6 +160,7 @@
     <ClInclude Include="TimerManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CollisionChecker.cpp" />
     <ClCompile Include="EndScene.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyManager.cpp" />

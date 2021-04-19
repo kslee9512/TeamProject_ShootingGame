@@ -1,8 +1,8 @@
 #include "EnemyManager.h"
 #include "Enemy.h"
 #include <ctime>
-
-HRESULT EnemyManager::Init()
+#include "CollisionChecker.h"
+HRESULT EnemyManager::Init(CollisionChecker* collisionChecker)
 {
     // 1) ¹è¿­
     //Enemy* enemys = new Enemy[10];
@@ -27,9 +27,10 @@ HRESULT EnemyManager::Init()
     //    vEnemys[i] = new Enemy();
     //    vEnemys[i]->Init(150 + (i % 5) * 200, 100 + (i / 5) * 500);
     //}
-
+    this->collisionChecker = collisionChecker;
     vEnemys.push_back(new Enemy());
-    vEnemys[0]->BossInit();
+    vEnemys[0]->BossInit(collisionChecker);
+
 
     return S_OK;
 }
@@ -69,6 +70,6 @@ void EnemyManager::AddEnemy(int size)
     for (int i = 0; i < size; i++)
     {
         vEnemys.push_back(new Enemy());
-        vEnemys[vEnemys.size() - 1]->Init();
+        vEnemys[vEnemys.size() - 1]->Init(collisionChecker);
     }
 }

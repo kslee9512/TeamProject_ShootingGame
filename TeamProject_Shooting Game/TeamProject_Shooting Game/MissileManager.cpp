@@ -1,30 +1,30 @@
 #include "MissileManager.h"
 #include "Missile.h"
 
-HRESULT MissileManager::Init(Enemy* owner)
+HRESULT MissileManager::Init(CollisionChecker* collisionChecker, Enemy* owner)
 {
     this->owner = owner;
-
+    this->collisionChecker = collisionChecker;
     vMissiles.resize(300);
     for (int i = 0; i < 300; i++)
     {
         vMissiles[i] = new Missile;
-        vMissiles[i]->Init(owner);
+        vMissiles[i]->Init(collisionChecker, owner);
     }
 
     return S_OK;
 }
 
-HRESULT MissileManager::PInit(PlayerShip* owner)
+HRESULT MissileManager::PInit(CollisionChecker* collisionChecker, PlayerShip* owner)
 {
 	this->Powner = owner;
-
+    this->collisionChecker = collisionChecker;
 	vMissiles.resize(50);
 	vector<Missile*>::iterator it;
 	for (it = vMissiles.begin(); it != vMissiles.end(); it++)
 	{
 		(*it) = new Missile();
-		(*it)->PInit(this->Powner);
+		(*it)->PInit(collisionChecker, this->Powner);
 
 		// �̻��� �Ŵ����� ��� �ִ� �� ��ü�� ������ ����
 	}
@@ -71,6 +71,22 @@ void MissileManager::Render(HDC hdc)
     //}
 }
 
+bool MissileManager::CheckIsFired()
+{
+    for (itMissiles = vMissiles.begin(); itMissiles != vMissiles.end(); itMissiles++)
+    {
+        if ((*itMissiles)->GetIsFired())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+}
+
+
 void MissileManager::Fire()
 {
     vector<Missile*>::iterator it;
@@ -88,7 +104,7 @@ void MissileManager::Fire()
 
 
 
-void MissileManager::playerFire()		// ������ Ÿ������ Enemy�� Player�� �����ϰ� ���� ���� �̻��� ����ڿ� ��ĥ �� ���� ���ɼ�
+void MissileManager::playerFire()
 {
 	vector<Missile*>::iterator it;
 	for (it = vMissiles.begin(); it != vMissiles.end(); it++)

@@ -1,12 +1,12 @@
 #include "PlayerShip.h"
 #include "Image.h"
 #include "MissileManager.h"
-
-HRESULT PlayerShip::Init()
+#include "CommonFunction.h"
+HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 {
 	fireImage = ImageManager::GetSingleton()->FindImage("플레이어발사");
 	image = ImageManager::GetSingleton()->FindImage("플레이어이동");
-
+	this->collisionChecker = collisionChecker;
 	if (image == nullptr)
 	{
 		MessageBox(g_hWnd, "플레이어 우주선 이미지 로드 실패", "초기화 실패", MB_OK);
@@ -15,7 +15,7 @@ HRESULT PlayerShip::Init()
 
 	// 미사일 매니저
 	missileMgr = new MissileManager();
-	missileMgr->PInit(this);
+	missileMgr->PInit(collisionChecker, this);
 
 	pos.x = WINSIZE_X / 2;
 	pos.y = WINSIZE_Y / 2;
@@ -29,7 +29,7 @@ HRESULT PlayerShip::Init()
 	fire = false;
 	lastUsed = 0;
 	currFire = 0;
-
+	hitBox = { 0, 0, 0, 0 };
 	return S_OK;
 }
 
@@ -45,6 +45,7 @@ void PlayerShip::Update()
 	currFire += TimerManager::GetSingleton()->GetElapsedTime();
 
 	Move();
+	hitBox = GetRectToCenter(pos.x, pos.y, 35, 65);
 	Fire();
 
 	if (currElapsed >= 1.0f)	currElapsed = 0;
@@ -55,8 +56,8 @@ void PlayerShip::Render(HDC hdc)
 {
 	if (image)
 	{
+		Rectangle(hdc, hitBox.left, hitBox.top, hitBox.right, hitBox.bottom);
 		image->FrameRender(hdc, pos.x, pos.y, frame, 0, true);
-
 		if (fire) fireImage->FrameRender(hdc, pos.x-2, pos.y-55, fireFrame, 0, true);
 	}
 

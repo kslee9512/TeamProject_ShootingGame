@@ -2,7 +2,9 @@
 #include "CommonFunction.h"
 #include "Image.h"
 #include "MissileManager.h"
-HRESULT Enemy::Init(int posX, int posY)
+#include "CollisionChecker.h"
+
+HRESULT Enemy::Init(CollisionChecker* collisionChecker, int posX, int posY)
 {
     image = ImageManager::GetSingleton()->FindImage("Enemy");
     if (image == nullptr)
@@ -20,7 +22,7 @@ HRESULT Enemy::Init(int posX, int posY)
     pos.y = posY;
     size = 80;
     name = "NormalEnemy";
-    shape = { 0, 0, 0, 0 };
+    hitBox = { 0, 0, 0, 0 };
     isAlive = true;
     endMovePattern = false;
     moveSpeed = 200.0f;
@@ -29,15 +31,14 @@ HRESULT Enemy::Init(int posX, int posY)
     dir = 1;
     enemyStatus = NONE;
     // 미사일 매니저
+    this->collisionChecker = collisionChecker;
     missileMgr = new MissileManager();
-    missileMgr->Init(this);
-
+    missileMgr->Init(collisionChecker, this);
     fireCount = 0;
-
     return S_OK;
 }
 
-HRESULT Enemy::BossInit(int posX, int posY)
+HRESULT Enemy::BossInit(CollisionChecker* collisionChecker, int posX, int posY)
 {
     image = ImageManager::GetSingleton()->FindImage("Boss");
     if (image == nullptr)
@@ -55,7 +56,7 @@ HRESULT Enemy::BossInit(int posX, int posY)
     pos.y = posY;
     size = 80;
     name = "NormalEnemy";
-    shape = { 0, 0, 0, 0 };
+    hitBox = { 0, 0, 0, 0 };
     isAlive = true;
     endMovePattern = false;
     moveSpeed = 200.0f;
@@ -65,16 +66,18 @@ HRESULT Enemy::BossInit(int posX, int posY)
     enemyStatus = NONE;
     // 미사일 매니저
     missileMgr = new MissileManager();
-    missileMgr->Init(this);
-
+    this->collisionChecker = collisionChecker;
+    missileMgr->Init(collisionChecker, this);
     fireCount = 0;
-
+    collisionChecker->AddActiveEnemy(this);
+    fireCount = 0;
     return S_OK;
 }
 
 void Enemy::Release()
 {
     SAFE_RELEASE(missileMgr);
+
 }
 
 void Enemy::Update()
@@ -83,7 +86,7 @@ void Enemy::Update()
     {
         Enterance();
         Move();
-
+        hitBox = GetRectToCenter(pos.x, pos.y, 100, 200);
         if (enemyStatus == ENEMYSTATUS::FIRE)
         {
             // 미사일 발사
@@ -114,21 +117,23 @@ void Enemy::Update()
             }
         }
     }
+
 }
 
 void Enemy::Render(HDC hdc)
 {
     if (isAlive)
     {
-        RenderEllipseToCenter(hdc, pos.x, pos.y, size, size);
 
         if (image && enemyType == ENEMYTYPE::NORMAL)
         {
             image->FrameRender(hdc, pos.x, pos.y, currFrameX, 0, true);
+            RenderEllipseToCenter(hdc, pos.x, pos.y, size, size);
         }
         else if (image && enemyType == ENEMYTYPE::BOSS)
         {
             image->Render(hdc, pos.x, pos.y, true);
+            Rectangle(hdc, hitBox.left, hitBox.top, hitBox.right, hitBox.bottom);
         }
 
         if (missileMgr)
@@ -282,6 +287,7 @@ void Enemy::BossEnterance()
         if (pos.y >= 150)
         {
             checkTimer = 0;
+            endMovePattern = false;
             SetStatus(ENEMYSTATUS::MOVE);
         }
     }

@@ -6,6 +6,8 @@ class Enemy;
 class EnemyManager;
 class Image;
 class SceneManager;
+class Missile;
+class CollisionChecker;
 class MainGame : public GameNode
 {
 private:
@@ -22,9 +24,12 @@ private:
 
 	EnemyManager* enemyMgr;
 	SceneManager* sceneMgr;
-
 	PlayerShip* playerShip;
 
+	CollisionChecker* collisionChecker;
+
+	Missile* missile;
+	Enemy* enemy;
 	//int scenePage;
 
 public:
@@ -32,8 +37,6 @@ public:
 	void Release();
 	void Update();
 	void Render();
-
-	void CheckCollision();
 
 	LRESULT MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
 

@@ -4,6 +4,7 @@
 // TODO : 업캐스팅, 다운캐스팅 설명
 class Image;
 class MissileManager;
+class CollisionChecker;
 enum ENEMYSTATUS{ NONE, ENTERANCE, MOVE, FIRE, ENDSTATUS};
 enum ENEMYTYPE { NORMAL, BOSS, ENDTYPE};
 class Enemy : public GameNode
@@ -20,7 +21,7 @@ private:
 	FPOINT pos;
 	int size;
 	string name;
-	RECT shape;
+	RECT hitBox;
 	int enterType;
 	float moveSpeed;
 	float angle;
@@ -28,12 +29,12 @@ private:
 	bool isAlive;
 	bool enterStage;
 	bool endMovePattern;
-
+	CollisionChecker* collisionChecker;
 	int fireCount;
 
 public:
-	HRESULT Init(int posX = 0, int posY = 0);	
-	HRESULT BossInit(int posX = 0, int posY = 0);
+	HRESULT Init(CollisionChecker* collisionChecker, int posX = 0, int posY = 0);
+	HRESULT BossInit(CollisionChecker* collisionChecker, int posX = 0, int posY = 0);
 	void Release();		
 	void Update();		
 	void Render(HDC hdc);
@@ -57,5 +58,7 @@ public:
 	inline int GetSize() { return this->size; }
 	inline void SetIsAlive(bool isAlive) { this->isAlive = isAlive; }
 	inline bool GetIsAlive() { return this->isAlive; }
+	inline RECT GetHitBox() { return this->hitBox; }
+	inline bool GetMovePatternEnd() { return this->endMovePattern; }
 };
 

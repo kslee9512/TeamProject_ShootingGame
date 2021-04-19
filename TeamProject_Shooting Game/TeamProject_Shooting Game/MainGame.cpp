@@ -5,8 +5,9 @@
 #include "Missile.h"
 #include "Image.h"
 #include "PlayerShip.h"
-
-
+#include "Enemy.h"
+#include "MissileManager.h"
+#include "CollisionChecker.h"
 HRESULT MainGame::Init()
 {
 	hdc = GetDC(g_hWnd);
@@ -44,14 +45,16 @@ HRESULT MainGame::Init()
 	bin = new Image();
 	bin->Init("Image/Map01.bmp", WINSIZE_X, WINSIZE_Y);
 
-	enemyMgr = new EnemyManager();
-	enemyMgr->Init();
+	collisionChecker = new CollisionChecker();
 
+	enemyMgr = new EnemyManager();
+	enemyMgr->Init(collisionChecker);
 	playerShip = new PlayerShip();
-	playerShip->Init();
+	playerShip->Init(collisionChecker);
 
 	sceneMgr = new SceneManager();
 	sceneMgr->Init();
+
 
 	//scenePage = 0;
 
@@ -70,7 +73,7 @@ void MainGame::Release()
 	SAFE_RELEASE(bin);
 	SAFE_RELEASE(enemyMgr);
 	SAFE_RELEASE(sceneMgr);
-
+	delete collisionChecker;
 	ReleaseDC(g_hWnd, hdc);
 }
 
@@ -86,15 +89,15 @@ void MainGame::Update()
 			if (enemyMgr)
 			{
 				enemyMgr->Update();
+				
 			}
 			if (playerShip)
 			{
 				playerShip->Update();
 			}
+			collisionChecker->CheckCollision();
 		}
 	}
-
-	CheckCollision();
 }
 
 void MainGame::Render()
@@ -143,49 +146,6 @@ void MainGame::Render()
 	backBuffer->Render(hdc);
 }
 
-void MainGame::CheckCollision()
-{
-	// 利 <-> 攀农 固荤老 
-	float distance;
-	FPOINT enemyPos;
-	FPOINT missilePos;
-	float x, y;
-	int r1, r2;
-
-	//for (int i = 0; i < enemyCount; i++)
-	//{
-	//	if (enemy[i].GetIsAlive() == false)	continue;
-
-	//	for (int j = 0; j < tank->GetMissileCount(); j++)
-	//	{
-	//		if (missileArray[j].GetIsFired() == false)	continue;
-
-	//		enemyPos = enemy[i].GetPos();
-	//		missilePos = missileArray[j].GetPos();
-
-	//		x = enemyPos.x - missilePos.x;
-	//		y = enemyPos.y - missilePos.y;
-
-	//		distance = sqrtf(x * x + y * y);
-
-	//		r1 = enemy[i].GetSize() / 2;
-	//		r2 = missileArray[j].GetSize() / 2;
-
-	//		if (distance <= r1 + r2)
-	//		{
-	//			enemy[i].SetIsAlive(false);
-	//			missileArray[j].SetIsFired(false);
-	//			break;
-	//		}
-	//	}
-	//}
-
-	// 利 <-> 攀农
-
-	// 利 固荤老 <-> 攀农
-
-	// 利 固荤老 <-> 攀农 固荤老
-}
 
 LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 {
