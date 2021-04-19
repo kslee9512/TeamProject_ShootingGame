@@ -86,7 +86,7 @@ void Missile::Update()
 			if (Special)
 			{
 
-				img = ImageManager::GetSingleton()->FindImage("Scorebullet");
+				img = ImageManager::GetSingleton()->FindImage("scoreBullet");
 
 			}
 
