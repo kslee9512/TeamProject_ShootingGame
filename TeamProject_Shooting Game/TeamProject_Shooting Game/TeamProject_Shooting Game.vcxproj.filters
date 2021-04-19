@@ -1,114 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="리소스 파일\2DFrameWorks">
-      <UniqueIdentifier>{fcb7cff9-c007-4437-9512-76847aa93f4a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="리소스 파일\2DFrameWorks\Manager">
-      <UniqueIdentifier>{9cf1baa5-0119-4587-91ba-348c851473aa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="리소스 파일\2DFrameWorks\Timer">
-      <UniqueIdentifier>{1884e37e-7709-4876-86b3-fb8366643d50}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\MainGame">
-      <UniqueIdentifier>{ebaad090-4782-458b-8372-b3e36ad4b1a8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\MainGame\Enemy">
-      <UniqueIdentifier>{0ef07c32-83df-4552-b642-8d5c1ffa84a0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\MainGame\Missile">
-      <UniqueIdentifier>{23792240-6cb5-41ef-a183-1cc7af3271f2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="리소스 파일\2DFrameWorks\Scene">
-      <UniqueIdentifier>{f77e9cda-2fe7-4385-a210-5e210e56451c}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="MainGame.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerShip.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="config.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="CommonFunction.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="ImageManager.h">
-      <Filter>리소스 파일\2DFrameWorks\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyManager.h">
-      <Filter>리소스 파일\2DFrameWorks\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="TimerManager.h">
-      <Filter>리소스 파일\2DFrameWorks\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>리소스 파일\2DFrameWorks\Timer</Filter>
-    </ClInclude>
-    <ClInclude Include="GameNode.h">
-      <Filter>리소스 파일\2DFrameWorks</Filter>
-    </ClInclude>
-    <ClInclude Include="Image.h">
-      <Filter>리소스 파일\2DFrameWorks</Filter>
-    </ClInclude>
-    <ClInclude Include="Singleton.h">
-      <Filter>리소스 파일\2DFrameWorks</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
+    <ClCompile Include="Timer.cpp">
+      <Filter>2DFrameWorks\Manager\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="TargetManager.cpp">
+      <Filter>2DFrameWorks\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerManager.cpp">
+      <Filter>2DFrameWorks\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>2DFrameWorks\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="MissileManager.cpp">
+      <Filter>2DFrameWorks\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageManager.cpp">
+      <Filter>2DFrameWorks\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>2DFrameWorks\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyManager.cpp">
+      <Filter>2DFrameWorks\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
       <Filter>소스 파일\MainGame\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyManager.h">
-      <Filter>소스 파일\MainGame\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Missile.h">
-      <Filter>소스 파일\MainGame\Missile</Filter>
-    </ClInclude>
-    <ClInclude Include="MissileManager.h">
-      <Filter>소스 파일\MainGame\Missile</Filter>
-    </ClInclude>
-    <ClInclude Include="StartScene.h">
-      <Filter>리소스 파일\2DFrameWorks\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>리소스 파일\2DFrameWorks\Manager</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="TargetManager.h">
-<<<<<<< HEAD
-      <Filter>리소스 파일\2DFrameWorks\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerShip.h">
-      <Filter>소스 파일\MainGame\Player</Filter>
-=======
-    <ClInclude Include="EndScene_Lose.h">
-      <Filter>리소스 파일\2DFrameWorks\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="EndScene_Win.h">
-      <Filter>리소스 파일\2DFrameWorks\Scene</Filter>
->>>>>>> main
-=======
-      <Filter>소스 파일</Filter>
->>>>>>> parent of a791e3c (0419)
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="EndScene_Win.cpp">
+      <Filter>2DFrameWorks\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="EndScene_Lose.cpp">
+      <Filter>2DFrameWorks\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="StartScene.cpp">
+      <Filter>2DFrameWorks\Scene</Filter>
     </ClCompile>
     <ClCompile Include="MainGame.cpp">
       <Filter>소스 파일</Filter>
@@ -116,57 +43,108 @@
     <ClCompile Include="PlayerShip.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="ImageManager.cpp">
-      <Filter>리소스 파일\2DFrameWorks\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyManager.cpp">
-      <Filter>리소스 파일\2DFrameWorks\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="TimerManager.cpp">
-      <Filter>리소스 파일\2DFrameWorks\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>리소스 파일\2DFrameWorks\Timer</Filter>
-    </ClCompile>
-    <ClCompile Include="GameNode.cpp">
-      <Filter>리소스 파일\2DFrameWorks</Filter>
-    </ClCompile>
-    <ClCompile Include="Image.cpp">
-      <Filter>리소스 파일\2DFrameWorks</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>소스 파일\MainGame\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyManager.cpp">
-      <Filter>소스 파일\MainGame\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="Missile.cpp">
       <Filter>소스 파일\MainGame\Missile</Filter>
     </ClCompile>
-    <ClCompile Include="MissileManager.cpp">
-      <Filter>소스 파일\MainGame\Missile</Filter>
+    <ClCompile Include="Image.cpp">
+      <Filter>2DFrameWorks</Filter>
     </ClCompile>
-    <ClCompile Include="StartScene.cpp">
-      <Filter>리소스 파일\2DFrameWorks\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>리소스 파일\2DFrameWorks\Manager</Filter>
-    </ClCompile>
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <ClCompile Include="PlayerShip.cpp">
-      <Filter>소스 파일\MainGame\Player</Filter>
-=======
-    <ClCompile Include="EndScene_Lose.cpp">
-      <Filter>리소스 파일\2DFrameWorks\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="EndScene_Win.cpp">
-      <Filter>리소스 파일\2DFrameWorks\Scene</Filter>
->>>>>>> main
-=======
-    <ClCompile Include="TargetManager.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
->>>>>>> parent of a791e3c (0419)
     </ClCompile>
+    <ClCompile Include="GameNode.cpp">
+      <Filter>2DFrameWorks</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Timer.h">
+      <Filter>2DFrameWorks\Manager\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="TargetManager.h">
+      <Filter>2DFrameWorks\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerManager.h">
+      <Filter>2DFrameWorks\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>2DFrameWorks\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="MissileManager.h">
+      <Filter>2DFrameWorks\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageManager.h">
+      <Filter>2DFrameWorks\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>2DFrameWorks\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyManager.h">
+      <Filter>2DFrameWorks\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>소스 파일\MainGame\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EndScene_Lose.h">
+      <Filter>2DFrameWorks\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="EndScene_Win.h">
+      <Filter>2DFrameWorks\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="StartScene.h">
+      <Filter>2DFrameWorks\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MainGame.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerShip.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Missile.h">
+      <Filter>소스 파일\MainGame\Missile</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonFunction.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="config.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>2DFrameWorks</Filter>
+    </ClInclude>
+    <ClInclude Include="GameNode.h">
+      <Filter>2DFrameWorks</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>2DFrameWorks</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="2DFrameWorks">
+      <UniqueIdentifier>{43225809-432a-4d4e-addb-665221c5f0c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2DFrameWorks\Manager">
+      <UniqueIdentifier>{947f350b-0acf-44e4-812d-509f1a985f87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2DFrameWorks\Scene">
+      <UniqueIdentifier>{2c3cd63a-8d42-4951-ab15-090c4024f5bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2DFrameWorks\Manager\Timer">
+      <UniqueIdentifier>{4402b2eb-8853-4345-bdd9-d60a6b86d413}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{7da4857b-4fa4-41cf-92c0-81c04be24cf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\MainGame">
+      <UniqueIdentifier>{1234a13c-fa06-4367-b2e8-b3037ba5d85c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\MainGame\Enemy">
+      <UniqueIdentifier>{9a674d39-1b32-4bf2-a271-95cbe37c52ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\MainGame\Missile">
+      <UniqueIdentifier>{75af6936-e351-4d81-821f-9d18130ffd72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{3a77706f-4592-466f-a73c-8ca35c579513}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
