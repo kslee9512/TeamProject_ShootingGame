@@ -14,6 +14,9 @@ HRESULT MainGame::Init()
 	KeyManager::GetSingleton()->Init();
 	ImageManager::GetSingleton()->Init();
 
+	playerMis = new Missile();
+	playerMis->PInit(missile);
+
 	// 이미지를 미리 로드한다
 	ImageManager::GetSingleton()->AddImage("Enemy",
 		"Image/ufo.bmp", 530, 32, 10, 1,
@@ -46,11 +49,19 @@ HRESULT MainGame::Init()
 	enemyMgr = new EnemyManager();
 	enemyMgr->Init();
 
+	enemy = new Enemy();
+	enemy->Init();
+
+	boss = new Enemy();
+	boss->BossInit();
+
 	playerShip = new PlayerShip();
 	playerShip->Init();
 
 	sceneMgr = new SceneManager();
 	sceneMgr->Init();
+
+	
 
 	stageCnt = 4;	// stage 변경 변수
 	scoreCnt = 100;	// score 변수
@@ -86,7 +97,7 @@ void MainGame::Release()
 	SAFE_RELEASE(stage);
 	SAFE_RELEASE(enemyMgr);
 	SAFE_RELEASE(sceneMgr);
-
+	
 	ReleaseDC(g_hWnd, hdc);
 }
 
@@ -106,6 +117,10 @@ void MainGame::Update()
 			if (playerShip)
 			{
 				playerShip->Update();
+			}
+			if (boss)
+			{
+				boss->Update();
 			}
 		}
 	}
@@ -131,15 +146,22 @@ void MainGame::Render()
 
 		if (playerShip)
 		{
+			Rectangle(hBackDC, PlayerHitBox.left, PlayerHitBox.top, PlayerHitBox.right, PlayerHitBox.bottom);
 			playerShip->Render(hBackDC);
 		}
 
 		if (enemyMgr)
 		{
+			Rectangle(hBackDC, EnemyHitBox.left, EnemyHitBox.top, EnemyHitBox.right, EnemyHitBox.bottom);
 			enemyMgr->Render(hBackDC);
 		}
+		if (boss)
+		{
+			Rectangle(hBackDC, BossHitBox.left, BossHitBox.top, BossHitBox.right, BossHitBox.bottom);
+			boss->Render(hBackDC);
+		}
 		break;
-
+		
 	case 2:
 		sceneMgr->Render(hBackDC);
 		break;
@@ -168,13 +190,52 @@ void MainGame::Render()
 
 void MainGame::CheckCollision()
 {
+	// 보스 히트박스  
+	BossHitBox.left = boss->GetPos().x - 345;
+	BossHitBox.top = boss->GetPos().y - 125;
+	BossHitBox.right = boss->GetPos().x + 345;
+	BossHitBox.bottom = boss->GetPos().y + 140;
+
+	//에너미 히트박스
+	EnemyHitBox.left = enemy->GetPos().y - 17;
+	EnemyHitBox.top = enemy->GetPos().x - 26;
+	EnemyHitBox.right = enemy->GetPos().x + 28;
+	EnemyHitBox.bottom = enemy->GetPos().y + 15;
+	
+	// 에너미 어택박스  
+	EnemymissileatkBox.left = boss->GetPos().x - 8;
+	EnemymissileatkBox.top = boss->GetPos().y - 8;
+	EnemymissileatkBox.right = boss->GetPos().x + 8;
+	EnemymissileatkBox.bottom = boss->GetPos().y + 8;
+	
+	// 플레이어 히트박스
+	PlayerHitBox.left = playerShip->GetPos().x - 25;
+	PlayerHitBox.top = playerShip->GetPos().y - 50;
+	PlayerHitBox.right = playerShip->GetPos().x + 25;
+	PlayerHitBox.bottom = playerShip->GetPos().y + 50;
+
+	// 플레이어 어택박스
+	PlayeratkBox.left = playerMis->GetPlayerPos().x - 10;
+	PlayeratkBox.top = playerMis->GetPlayerPos().y	- 0;
+	PlayeratkBox.right = playerMis->GetPlayerPos().x + 10;
+	PlayeratkBox.bottom = playerMis->GetPlayerPos().y + 20;
+
+
+
+	
+
+
 	// 적 <-> 탱크 미사일 
-	float distance;
+	/*float distance;
 	FPOINT enemyPos;
 	FPOINT missilePos;
 	float x, y;
-	int r1, r2;
+	int r1, r2;*/
+	
 
+
+	
+	
 	//for (int i = 0; i < enemyCount; i++)
 	//{
 	//	if (enemy[i].GetIsAlive() == false)	continue;

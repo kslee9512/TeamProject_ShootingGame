@@ -12,6 +12,8 @@ private:
 	Image* fireImage;
 
 	FPOINT pos;
+
+
 	float moveSpeed;	// 초당 이동거리
 	int frame;
 	int fireFrame;
@@ -32,6 +34,6 @@ public:
 	void Fire();
 
 	inline void SetPos(FPOINT pos) { this->pos = pos; }
-	inline FPOINT GetPos() { return this->pos; }
+ 	inline FPOINT GetPos() { return this->pos; }
 };
 

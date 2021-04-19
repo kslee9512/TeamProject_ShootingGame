@@ -30,6 +30,8 @@ HRESULT PlayerShip::Init()
 	lastUsed = 0;
 	currFire = 0;
 
+
+
 	return S_OK;
 }
 
@@ -43,7 +45,7 @@ void PlayerShip::Update()
 	currElapsed += TimerManager::GetSingleton()->GetElapsedTime();	// 현재 경과된 시간 1초 단위로 초기화
 	lastUsed += TimerManager::GetSingleton()->GetElapsedTime();	// 마지막으로 사용한 키를 기준으로 경과 시간 검사 ( 하나라도 눌려있으면 0으로 계속 초기화 중)
 	currFire += TimerManager::GetSingleton()->GetElapsedTime();
-
+	
 	Move();
 	Fire();
 
@@ -53,18 +55,27 @@ void PlayerShip::Update()
 
 void PlayerShip::Render(HDC hdc)
 {
-	if (image)
+	if (image)// 플레이어 이미지 출력
 	{
 		image->FrameRender(hdc, pos.x, pos.y, frame, 0, true);
 
-		if (fire) fireImage->FrameRender(hdc, pos.x-2, pos.y-55, fireFrame, 0, true);
+	}
+	if (fire) //미사일 이미지 출력 
+	{
+		
+		fireImage->FrameRender(hdc, pos.x - 2, pos.y - 55, fireFrame, 0, true);
 	}
 
-	if (missileMgr)
+		
+	if (missileMgr)// 미사일매니저 출력 
 	{
+		
 		missileMgr->Render(hdc);
 	}
+	
 }
+
+
 
 void PlayerShip::Move()
 {
@@ -158,9 +169,11 @@ void PlayerShip::Fire()
 			fire = true;
 			currFire = 0;
 			missileMgr->playerFire();
+			
 		}
 
 		missileMgr->Update();
+		
 	}
 
 	if (fire && currFire >= 0.02f)
@@ -174,3 +187,5 @@ void PlayerShip::Fire()
 		}
 	}
 }
+
+

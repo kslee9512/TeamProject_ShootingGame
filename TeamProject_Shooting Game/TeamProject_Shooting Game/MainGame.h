@@ -6,6 +6,7 @@ class Enemy;
 class EnemyManager;
 class Image;
 class SceneManager;
+class Missile;
 class MainGame : public GameNode
 {
 private:
@@ -24,7 +25,20 @@ private:
 	SceneManager* sceneMgr;
 
 	PlayerShip* playerShip;
+	Enemy* enemy;
+	
+	PlayerShip* missile;  // 두개임 생각한번 
+	
+	Enemy* boss;
+	
+	Missile* playerMis;
 
+	RECT PlayerHitBox;
+	RECT PlayeratkBox;
+	RECT EnemyHitBox;
+	RECT EnemymissileatkBox;
+	
+	RECT BossHitBox;
 	int stageCnt;
 	int scoreCnt;
 
@@ -35,7 +49,7 @@ public:
 	void Render();
 
 	void CheckCollision();
-
+	
 	LRESULT MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
 
 	MainGame();

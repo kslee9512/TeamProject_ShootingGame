@@ -11,7 +11,7 @@ private:
 
 	vector<Missile*> vMissiles;
 	vector<Missile*>::iterator itMissiles;
-
+	RECT Playeratkbox;
 	Enemy* owner;
 	PlayerShip* Powner;
 

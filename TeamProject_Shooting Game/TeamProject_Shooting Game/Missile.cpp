@@ -38,7 +38,7 @@ HRESULT Missile::PInit(PlayerShip* owner)
 {
 	this->Powner = owner;
 
-	pos = { -100, -100 };
+	playerPos = { -100, -100 };
 	moveSpeed = 5000.0f;
 	moveTime = 10.0f;
 	size = 50;
@@ -54,6 +54,10 @@ HRESULT Missile::PInit(PlayerShip* owner)
 	frame = 0;
 	currElapsed = 0;
 
+	Playeratkbox.left = pos.x;
+	Playeratkbox.top = pos.y;
+	Playeratkbox.right = pos.x;
+	Playeratkbox.bottom = pos.y;
 	// 이미지
 	img = ImageManager::GetSingleton()->FindImage("PlayerMissile");
 	if (img == nullptr)
@@ -62,7 +66,7 @@ HRESULT Missile::PInit(PlayerShip* owner)
 			"playerMissile에 해당하는 이미지가 추가되지 않았음!", "경고", MB_OK);
 		return E_FAIL;
 	}
-
+	
 	return S_OK;
 }
 
@@ -101,21 +105,25 @@ void Missile::Update()
 
 		if (pos.x < 0 || pos.y < 0 || pos.x > WINSIZE_X || pos.y > WINSIZE_Y)
 		{
+
 			isFired = false;
 			fireStep = 0;
 			currElapsed = 0;
 			frame = 0;
 		}
-	}
+	}							  
+	PlayerAtkCheckBox();
 }
 
 void Missile::Render(HDC hdc)
 {
 	if (isFired)
 	{
-		if (!isPlayer)	img->Render(hdc, pos.x, pos.y, true);
+		if (!isPlayer)img->Render(hdc, pos.x, pos.y, true);
+		
 		else if (isPlayer)	img->FrameRender(hdc, pos.x-12, pos.y, frame, 0);
-		//Ellipse(hdc, shape.left, shape.top, shape.right, shape.bottom);
+		Rectangle(hdc, Playeratkbox.left, Playeratkbox.top, Playeratkbox.right, Playeratkbox.bottom);
+		
 	}
 }
 
@@ -158,6 +166,15 @@ void Missile::MovingFollowTarget()
 	pos.x += cosf(angle) * moveSpeed;
 	pos.y -= sinf(angle) * moveSpeed;
 }
+
+void Missile::PlayerAtkCheckBox()
+{
+	Playeratkbox.left = pos.x	- 10;
+	Playeratkbox.top = pos.y	- 0;
+	Playeratkbox.right = pos.x	+ 10;
+	Playeratkbox.bottom = pos.y + 20;
+}
+
 
 void Missile::SetIsFired(bool isFired)
 {

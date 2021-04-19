@@ -14,10 +14,12 @@ private:
 	Image* img;
 
 	FPOINT pos;
+	FPOINT playerPos;
 	float moveSpeed;
 	float moveTime;
 	int size;
 	RECT shape;
+	RECT Playeratkbox;
 	int damage;
 	float angle;
 	bool isFired;
@@ -47,6 +49,8 @@ public:
 	void MovingSkill_01();
 	void MovingFollowTarget();
 
+	void PlayerAtkCheckBox();
+
 	inline void SetPos(FPOINT pos) { this->pos = pos; }
 	inline FPOINT GetPos() { return this->pos; }
 	void SetIsFired(bool isFired);
@@ -56,6 +60,9 @@ public:
 	inline void SetType(TYPE type) { this->missileType = type; }
 	inline void SetAngle(float angle) { this->angle = angle; }
 	inline void SetFireIndex(int fireIndex) { this->fireIndex = fireIndex; }
+
+	inline FPOINT GetPlayerPos() { return this->playerPos; }
+	inline void SetPlayerPos(FPOINT playerPos) { this->playerPos = playerPos; }
 
 	inline int GetSize() { return this->size; }
 };

@@ -1,5 +1,6 @@
 #include "MissileManager.h"
 #include "Missile.h"
+#include "PlayerShip.h"
 
 HRESULT MissileManager::Init(Enemy* owner)
 {
@@ -11,6 +12,7 @@ HRESULT MissileManager::Init(Enemy* owner)
         vMissiles[i] = new Missile;
         vMissiles[i]->Init(owner);
     }
+
 
     return S_OK;
 }
@@ -28,7 +30,8 @@ HRESULT MissileManager::PInit(PlayerShip* owner)
 
 		// �̻��� �Ŵ����� ��� �ִ� �� ��ü�� ������ ����
 	}
-
+    
+    
 	return S_OK;
 }
 
@@ -62,8 +65,10 @@ void MissileManager::Render(HDC hdc)
 {
     for (int i = 0; i < vMissiles.size(); i++)
     {
+        
         vMissiles[i]->Render(hdc);
     }
+    
     //vector<Missile*>::iterator it;
     //for (it = vMissiles.begin(); it != vMissiles.end(); it++)
     //{
@@ -80,11 +85,13 @@ void MissileManager::Fire()
         {
             (*it)->SetIsFired(true);
             (*it)->SetAngle(DegToRad (-90));            
+            
             break;
         }
     }
 
 }
+
 
 
 
