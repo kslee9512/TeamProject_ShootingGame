@@ -1,10 +1,11 @@
-#pragma once
+ï»¿#pragma once
 #include "GameNode.h"
 
-// TODO : ¾÷Ä³½ºÆÃ, ´Ù¿îÄ³½ºÆÃ ¼³¸í
+// TODO : ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½, ï¿½Ù¿ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 class Image;
 class MissileManager;
 class TargetManager;
+class CollisionChecker;
 enum ENEMYSTATUS{ NONE, ENTERANCE, MOVE, FIRE, ENDSTATUS};
 enum ENEMYTYPE { NORMAL, BOSS, ENDTYPE};
 class Enemy : public GameNode
@@ -22,7 +23,7 @@ private:
 	FPOINT pos;
 	int size;
 	string name;
-	RECT shape;
+	RECT hitBox;
 	int enterType;
 	float moveSpeed;
 	float angle;
@@ -33,11 +34,12 @@ private:
 
 	float currElapsed;
 
+	CollisionChecker* collisionChecker;
 	int fireCount;
 
 public:
-	HRESULT Init(int posX = 0, int posY = 0);	
-	HRESULT BossInit(int posX = 0, int posY = 0);
+	HRESULT Init(CollisionChecker* collisionChecker, int posX = 0, int posY = 0);
+	HRESULT BossInit(CollisionChecker* collisionChecker, int posX = 0, int posY = 0);
 	void Release();		
 	void Update();		
 	void Render(HDC hdc);
@@ -61,5 +63,7 @@ public:
 	inline int GetSize() { return this->size; }
 	inline void SetIsAlive(bool isAlive) { this->isAlive = isAlive; }
 	inline bool GetIsAlive() { return this->isAlive; }
+	inline RECT GetHitBox() { return this->hitBox; }
+	inline bool GetMovePatternEnd() { return this->endMovePattern; }
 };
 

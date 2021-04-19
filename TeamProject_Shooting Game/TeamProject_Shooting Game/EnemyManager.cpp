@@ -1,17 +1,17 @@
-#include "EnemyManager.h"
+ï»¿#include "EnemyManager.h"
 #include "Enemy.h"
 #include <ctime>
-
-HRESULT EnemyManager::Init()
+#include "CollisionChecker.h"
+HRESULT EnemyManager::Init(CollisionChecker* collisionChecker)
 {
-    // 1) ¹è¿­
+    // 1) ï¿½è¿­
     //Enemy* enemys = new Enemy[10];
     //for (int i = 0; i < 10; i++)
     //{
     //    enemys[i].Init();
     //}
 
-    // TODO : emplace_back() ¼º´É Â÷ÀÌ
+    // TODO : emplace_back() ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     // 2) vector push_back()
     //for (int i = 0; i < 10; i++)
     //{
@@ -27,6 +27,9 @@ HRESULT EnemyManager::Init()
     //    vEnemys[i] = new Enemy();
     //    vEnemys[i]->Init(150 + (i % 5) * 200, 100 + (i / 5) * 500);
     //}
+    this->collisionChecker = collisionChecker;
+    vEnemys.push_back(new Enemy());
+    vEnemys[0]->BossInit(collisionChecker);
 
     vEnemys.push_back(new Enemy());
     vEnemys[0]->BossInit();     //BossInit
@@ -36,11 +39,11 @@ HRESULT EnemyManager::Init()
 
 void EnemyManager::Release()
 {
-    // ¹Ýº¹ÀÚ(iterator) : STL ÀÚ·á±¸Á¶¸¦ ±¸¼ºÇÏ´Â ¿ø¼ÒÀÇ ¸Þ¸ð¸®¸¦ ÀúÀåÇÏ´Â °´Ã¼
+    // ï¿½Ýºï¿½ï¿½ï¿½(iterator) : STL ï¿½Ú·á±¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¸ð¸®¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½Ã¼
     vector<Enemy*>::iterator it;
     for (it = vEnemys.begin(); it != vEnemys.end(); it++)
     {
-        (*it)->Release();   // (*it) -> Enemy* µ¥ÀÌÅÍÅ¸ÀÔÈ®ÀÎ
+        (*it)->Release();   // (*it) -> Enemy* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½È®ï¿½ï¿½
         delete (*it);
         (*it) = nullptr;
     }
@@ -69,6 +72,6 @@ void EnemyManager::AddEnemy(int size)
     for (int i = 0; i < size; i++)
     {
         vEnemys.push_back(new Enemy());
-        vEnemys[vEnemys.size() - 1]->Init();
+        vEnemys[vEnemys.size() - 1]->Init(collisionChecker);
     }
 }

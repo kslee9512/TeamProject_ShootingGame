@@ -1,15 +1,16 @@
-#include "Enemy.h"
+ï»¿#include "Enemy.h"
 #include "CommonFunction.h"
 #include "Image.h"
 #include "MissileManager.h"
+#include "CollisionChecker.h"
 
-HRESULT Enemy::Init(int posX, int posY)
+HRESULT Enemy::Init(CollisionChecker* collisionChecker, int posX, int posY)
 {
     image = ImageManager::GetSingleton()->FindImage("Enemy");
     if (image == nullptr)
     {
         MessageBox(g_hWnd, 
-            "Enemy¿¡ ÇØ´çÇÏ´Â ÀÌ¹ÌÁö°¡ Ãß°¡µÇÁö ¾Ê¾ÒÀ½!", "°æ°í", MB_OK);
+            "Enemyï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½ï¿½ï¿½!", "ï¿½ï¿½ï¿½", MB_OK);
         return E_FAIL;
     }
     checkTimer = 0;
@@ -21,7 +22,7 @@ HRESULT Enemy::Init(int posX, int posY)
     pos.y = posY;
     size = 80;
     name = "NormalEnemy";
-    shape = { 0, 0, 0, 0 };
+    hitBox = { 0, 0, 0, 0 };
     isAlive = true;
     endMovePattern = false;
     moveSpeed = 200.0f;
@@ -29,22 +30,21 @@ HRESULT Enemy::Init(int posX, int posY)
     angle = 0.0f;
     dir = 1;
     enemyStatus = NONE;
-    // ¹Ì»çÀÏ ¸Å´ÏÀú
+    // ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½
+    this->collisionChecker = collisionChecker;
     missileMgr = new MissileManager();
-    missileMgr->Init(this);
-
+    missileMgr->Init(collisionChecker, this);
     fireCount = 0;
-
     return S_OK;
 }
 
-HRESULT Enemy::BossInit(int posX, int posY)
+HRESULT Enemy::BossInit(CollisionChecker* collisionChecker, int posX, int posY)
 {
     image = ImageManager::GetSingleton()->FindImage("Boss");
     if (image == nullptr)
     {
         MessageBox(g_hWnd,
-            "Boss¿¡ ÇØ´çÇÏ´Â ÀÌ¹ÌÁö°¡ Ãß°¡µÇÁö ¾Ê¾ÒÀ½!", "°æ°í", MB_OK);
+            "Bossï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½ï¿½ï¿½!", "ï¿½ï¿½ï¿½", MB_OK);
         return E_FAIL;
     }
     checkTimer = 0;
@@ -56,7 +56,7 @@ HRESULT Enemy::BossInit(int posX, int posY)
     pos.y = posY;
     size = 80;
     name = "NormalEnemy";
-    shape = { 0, 0, 0, 0 };
+    hitBox = { 0, 0, 0, 0 };
     isAlive = true;
     endMovePattern = false;
     moveSpeed = 200.0f;
@@ -64,10 +64,12 @@ HRESULT Enemy::BossInit(int posX, int posY)
     angle = 0.0f;
     dir = 1;
     enemyStatus = NONE;
-    // ¹Ì»çÀÏ ¸Å´ÏÀú
+    // ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½
     missileMgr = new MissileManager();
-    missileMgr->Init(this);
-
+    this->collisionChecker = collisionChecker;
+    missileMgr->Init(collisionChecker, this);
+    fireCount = 0;
+    collisionChecker->AddActiveEnemy(this);
     fireCount = 0;
     currElapsed = 0;
 
@@ -77,6 +79,7 @@ HRESULT Enemy::BossInit(int posX, int posY)
 void Enemy::Release()
 {
     SAFE_RELEASE(missileMgr);
+
 }
 
 void Enemy::Update()
@@ -86,18 +89,19 @@ void Enemy::Update()
     {
         Enterance();
         Move();
+        hitBox = GetRectToCenter(pos.x, pos.y, 100, 200);
 
 
         if (enemyStatus == ENEMYSTATUS::MOVE)    SetStatus(ENEMYSTATUS::FIRE);
         
-        // ¹Ì»çÀÏ ¹ß»ç
+        // ë¯¸ì‚¬ì¼ ë°œì‚¬
 
         if (enemyStatus == ENEMYSTATUS::FIRE)
         {
-            // ¹Ì»çÀÏ ¹ß»ç
+            // ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ß»ï¿½
             if (missileMgr)
             {
-                // ÇÔ¼ö È£Ãâ ÁÖ±â¸¦ ¹Ù²ãº¸ÀÚ.
+                // ï¿½Ô¼ï¿½ È£ï¿½ï¿½ ï¿½Ö±â¸¦ ï¿½Ù²ãº¸ï¿½ï¿½.
                 fireCount++;
                 if (fireCount % 20 == 0)
                 {
@@ -108,7 +112,7 @@ void Enemy::Update()
             }
         }
 
-        // ¾Ö´Ï¸ÞÀÌ¼Ç ÇÁ·¹ÀÓ
+        // ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (enemyType == ENEMYTYPE::NORMAL)
         {
             updateCount++;
@@ -140,20 +144,22 @@ void Enemy::Update()
             }
         }
     }
+
 }
 
 void Enemy::Render(HDC hdc)
 {
     if (isAlive)
     {
-        RenderEllipseToCenter(hdc, pos.x, pos.y, size, size);
 
         if (image && enemyType == ENEMYTYPE::NORMAL)
         {
             image->FrameRender(hdc, pos.x, pos.y, currFrameX, 0, true);
+            RenderEllipseToCenter(hdc, pos.x, pos.y, size, size);
         }
         else if (image && enemyType == ENEMYTYPE::BOSS)
         {
+            Rectangle(hdc, hitBox.left, hitBox.top, hitBox.right, hitBox.bottom);
             //image->Render(hdc, pos.x, pos.y, true);
             image->FrameRender(hdc, pos.x, pos.y, currFrameX, 0, true);
         }
@@ -228,7 +234,7 @@ void Enemy::Enterance()
     }
 }
 
-void Enemy::SlideEnterance_01() // ÀÌµ¿µîÀå
+void Enemy::SlideEnterance_01() // ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½
 {
     pos.x += 800 * TimerManager::GetSingleton()->GetElapsedTime();
 
@@ -248,7 +254,7 @@ void Enemy::SlideEnterance_02()
     }
 }
 
-void Enemy::PointEnterance_01() //±â½ÀµîÀå
+void Enemy::PointEnterance_01() //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 {
     if (endMovePattern == false)
     {
@@ -309,12 +315,13 @@ void Enemy::BossEnterance()
         if (pos.y >= 150)
         {
             checkTimer = 0;
+            endMovePattern = false;
             SetStatus(ENEMYSTATUS::MOVE);
         }
     }
 }
 
-void Enemy::HorizonMove() // ±âº» ÀÌµ¿
+void Enemy::HorizonMove() // ï¿½âº» ï¿½Ìµï¿½
 {
     checkTimer += TimerManager::GetSingleton()->GetElapsedTime();
     if (pos.x > WINSIZE_X || pos.x < 0)

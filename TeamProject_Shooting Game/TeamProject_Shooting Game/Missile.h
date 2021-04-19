@@ -1,67 +1,68 @@
-#pragma once
+ï»¿#pragma once
 #include "GameNode.h"
 
 class Image;
 class Enemy;
 class PlayerShip;
+class CollisionChecker;
 class Missile : public GameNode
 {
 public:
 	enum TYPE { Normal, Skill_01, FollowTarget, End };
 	enum TYPE2 { ENEMY,PLAYER };
 
+	enum FIRED { PLAYER, ENEMY, ENDFIRED };
 private:
-	// ÀÌ¹ÌÁö
+	// ï¿½Ì¹ï¿½ï¿½ï¿½
 	Image* img;
 
 	FPOINT pos;
 	float moveSpeed;
 	float moveTime;
 	int size;
-	RECT shape;
+	RECT attackBox;
 	int damage;
 	float angle;
 	bool isFired;
 	TYPE missileType;
 	int fireIndex;
 	int fireStep;
-
+	FIRED checkFired;
 	//GameNode* target;
 	PlayerShip* target;
 	float destAngle;
 
 	Enemy* owner;
 	PlayerShip* Powner;
-
-	bool isPlayer;	//ÇÃ·¹ÀÌ¾î¶û ¿¡³Ê¹Ì ºÒ¸´ ÀÌ¹ÌÁö ±¸ºÐÀ» À§ÇØ¼­
+	CollisionChecker* collisionChecker;
+	bool isPlayer;	//ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ ï¿½ï¿½ï¿½Ê¹ï¿½ ï¿½Ò¸ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½
 	int frame;
 	float currElapsed;
 
 	TYPE2 whosType;
-	bool Special;		// Æ¯¼öÅº ¹ßµ¿ ¿©ºÎ
+	bool Special;		// Æ¯ï¿½ï¿½Åº ï¿½ßµï¿½ ï¿½ï¿½ï¿½ï¿½
 
 public:
-	HRESULT Init(Enemy* owner);
-	HRESULT PInit(PlayerShip* owner);
+	HRESULT Init(CollisionChecker* collisionChecker, Enemy* owner);
+	HRESULT PInit(CollisionChecker* collisionChecker, PlayerShip* owner);
 	void Release();		
 	void Update();		
 	void Render(HDC hdc);
-
 	void MovingNormal();
 	void MovingSkill_01();
 	void MovingFollowTarget();
-
-	inline void SetPos(FPOINT pos) { this->pos = pos; }
-	inline FPOINT GetPos() { return this->pos; }
 	void SetIsFired(bool isFired);
-	inline bool GetIsFired() { return this->isFired; }
 
-	inline void SetTarget(PlayerShip* target) { this->target = target; }
+	inline FPOINT GetPos() { return this->pos; }
+	inline void SetPos(FPOINT pos) { this->pos = pos; }
+	inline bool GetIsFired() { return this->isFired; }
+	inline void SetTarget(Enemy* target) { this->target = target; }
 	inline void SetType(TYPE type) { this->missileType = type; }
 	inline void SetAngle(float angle) { this->angle = angle; }
 	inline void SetFireIndex(int fireIndex) { this->fireIndex = fireIndex; }
 	inline void SetSpecial(int special) { this->Special = special; }
 
 	inline int GetSize() { return this->size; }
+	inline RECT GetAttackBox() { return this->attackBox; }
 };
 

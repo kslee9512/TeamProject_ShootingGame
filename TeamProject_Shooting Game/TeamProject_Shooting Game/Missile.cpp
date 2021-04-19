@@ -1,10 +1,11 @@
-#include "Missile.h"
+ï»¿#include "Missile.h"
 #include "Enemy.h"
 #include "PlayerShip.h"
 #include "CommonFunction.h"
 #include "Image.h"
+#include "CollisionChecker.h"
 
-HRESULT Missile::Init(Enemy* owner)
+HRESULT Missile::Init(CollisionChecker* collisionChecker, Enemy* owner)
 {
 	this->owner = owner;
 
@@ -12,7 +13,7 @@ HRESULT Missile::Init(Enemy* owner)
 	moveSpeed = 500.0f;
 	moveTime = 10.0f;
 	size = 50;
-	shape = { 0, 0, 0, 0 };
+	attackBox = { 0, 0, 0, 0 };
 	damage = 5000;
 	angle = 0.0f;
 	isFired = false;
@@ -24,19 +25,20 @@ HRESULT Missile::Init(Enemy* owner)
 	whosType = ENEMY;
 	Special = false;
 
-	// ÀÌ¹ÌÁö
+	checkFired = FIRED::ENEMY;
+	// ï¿½Ì¹ï¿½ï¿½ï¿½
 	img = ImageManager::GetSingleton()->FindImage("EnemyMissile");
 	if (img == nullptr)
 	{
 		MessageBox(g_hWnd,
-			"EnemyMissile¿¡ ÇØ´çÇÏ´Â ÀÌ¹ÌÁö°¡ Ãß°¡µÇÁö ¾Ê¾ÒÀ½!", "°æ°í", MB_OK);
+			"EnemyMissileï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½ï¿½ï¿½!", "ï¿½ï¿½ï¿½", MB_OK);
 		return E_FAIL;
 	}
-
+	this->collisionChecker = collisionChecker;
     return S_OK;
 }
 
-HRESULT Missile::PInit(PlayerShip* owner)
+HRESULT Missile::PInit(CollisionChecker* collisionChecker, PlayerShip* owner)
 {
 	this->Powner = owner;
 
@@ -44,7 +46,7 @@ HRESULT Missile::PInit(PlayerShip* owner)
 	moveSpeed = 5000.0f;
 	moveTime = 10.0f;
 	size = 50;
-	shape = { 0, 0, 0, 0 };
+	attackBox = { 0, 0, 0, 0 };
 	damage = 5000;
 	angle = 0.0f;
 	isFired = false;
@@ -57,15 +59,16 @@ HRESULT Missile::PInit(PlayerShip* owner)
 	currElapsed = 0;
 	whosType = PLAYER;
 
-	// ÀÌ¹ÌÁö
+	checkFired = FIRED::PLAYER;
+	// ï¿½Ì¹ï¿½ï¿½ï¿½
 	img = ImageManager::GetSingleton()->FindImage("PlayerMissile");
 	if (img == nullptr)
 	{
 		MessageBox(g_hWnd,
-			"playerMissile¿¡ ÇØ´çÇÏ´Â ÀÌ¹ÌÁö°¡ Ãß°¡µÇÁö ¾Ê¾ÒÀ½!", "°æ°í", MB_OK);
+			"playerMissileï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½ï¿½ï¿½!", "ï¿½ï¿½ï¿½", MB_OK);
 		return E_FAIL;
 	}
-
+	this->collisionChecker = collisionChecker;
 	return S_OK;
 }
 
@@ -76,7 +79,7 @@ void Missile::Release()
 
 void Missile::Update()
 {
-	// À§Ä¡ ÀÌµ¿
+	// ï¿½ï¿½Ä¡ ï¿½Ìµï¿½
 	if (isFired)
 	{
 
@@ -85,7 +88,7 @@ void Missile::Update()
 			if (Special)
 			{
 
-				img = ImageManager::GetSingleton()->FindImage("Æ¯¼öÅº");
+				img = ImageManager::GetSingleton()->FindImage("Æ¯ï¿½ï¿½Åº");
 
 			}
 
@@ -96,8 +99,8 @@ void Missile::Update()
 		}
 
 
-		currElapsed += TimerManager::GetSingleton()->GetElapsedTime();	// ÇöÀç °æ°úµÈ ½Ã°£ 1ÃÊ ´ÜÀ§·Î ÃÊ±âÈ­
-
+		currElapsed += TimerManager::GetSingleton()->GetElapsedTime();	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
+		attackBox = GetRectToCenter(pos.x, pos.y, 10, 10);
 		if (currElapsed >= 0.02f)
 		{
 			frame++;
@@ -125,6 +128,14 @@ void Missile::Update()
 			fireStep = 0;
 			currElapsed = 0;
 			frame = 0;
+			if (owner)
+			{
+				collisionChecker->EraseEnemyMissile(this);
+			}
+			else if (Powner)
+			{
+				collisionChecker->ErasePlayerMissile(this);
+			}
 		}
 	}
 }
@@ -134,7 +145,11 @@ void Missile::Render(HDC hdc)
 	if (isFired)
 	{
 		if (!isPlayer)	img->Render(hdc, pos.x, pos.y, true);
-		else if (isPlayer)	img->FrameRender(hdc, pos.x-12, pos.y, frame, 0);
+		else if (isPlayer)
+		{
+			img->FrameRender(hdc, pos.x - 12, pos.y, frame, 0);
+			Rectangle(hdc, attackBox.left, attackBox.top, attackBox.right, attackBox.bottom);
+		}
 		//Ellipse(hdc, shape.left, shape.top, shape.right, shape.bottom);
 	}
 }
@@ -192,7 +207,17 @@ void Missile::MovingFollowTarget()
 void Missile::SetIsFired(bool isFired)
 {
 	this->isFired = isFired;
-
+	if (isFired == true)
+	{
+		if (owner)
+		{
+			collisionChecker->AddFiredEnemyMissile(this);
+		}
+		else if (Powner)
+		{
+			collisionChecker->AddFiredPlayerMissile(this);
+		}
+	}
 	if (owner)
 	{
 		pos.x = owner->GetPos().x;

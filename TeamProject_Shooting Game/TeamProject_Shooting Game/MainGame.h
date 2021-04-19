@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "GameNode.h"
 
 class PlayerShip;
@@ -6,6 +6,8 @@ class Enemy;
 class EnemyManager;
 class Image;
 class SceneManager;
+class Missile;
+class CollisionChecker;
 class MainGame : public GameNode
 {
 private:
@@ -31,8 +33,9 @@ private:
 
 	EnemyManager* enemyMgr;
 	SceneManager* sceneMgr;
-
 	PlayerShip* playerShip;
+
+	CollisionChecker* collisionChecker;
 
 
 	int health;
@@ -40,14 +43,15 @@ private:
 
 	int stageCnt;
 	int scoreCnt;
+	Missile* missile;
+	Enemy* enemy;
+	//int scenePage;
 
 public:
-	HRESULT Init();		// ¿À¹ö¶óÀÌµù : ´ÙÇü¼º
+	HRESULT Init();		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void Release();
 	void Update();
 	void Render();
-
-	void CheckCollision();
 
 	LRESULT MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
 

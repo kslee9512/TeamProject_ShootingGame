@@ -3,13 +3,14 @@
 #include <vector>
 
 class Enemy;
+class CollisionChecker;
 class EnemyManager : public GameNode
 {
 private:
 	vector<Enemy*> vEnemys;
-
+	CollisionChecker* collisionChecker;
 public:
-	HRESULT Init();
+	HRESULT Init(CollisionChecker* collisionChecker);
 	void Release();
 	void Update();
 	void Render(HDC hdc);

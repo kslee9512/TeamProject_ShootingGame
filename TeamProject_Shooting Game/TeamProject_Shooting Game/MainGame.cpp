@@ -1,11 +1,13 @@
-#include "MainGame.h"
+Ôªø#include "MainGame.h"
 #include "Enemy.h"
 #include "EnemyManager.h"
 #include "SceneManager.h"
 #include "Missile.h"
 #include "Image.h"
 #include "PlayerShip.h"
-
+#include "Enemy.h"
+#include "MissileManager.h"
+#include "CollisionChecker.h"
 HRESULT MainGame::Init()
 {
 	hdc = GetDC(g_hWnd);
@@ -13,54 +15,55 @@ HRESULT MainGame::Init()
 	KeyManager::GetSingleton()->Init();
 	ImageManager::GetSingleton()->Init();
 
-	// ¿ÃπÃ¡ˆ∏¶ πÃ∏Æ ∑ŒµÂ«—¥Ÿ
+	// ÔøΩÃπÔøΩÔøΩÔøΩÔøΩÔøΩ ÔøΩÃ∏ÔøΩ ÔøΩŒµÔøΩÔøΩ—¥ÔøΩ
 	ImageManager::GetSingleton()->AddImage("Enemy",
 		"Image/ufo.bmp", 530, 32, 10, 1,
 		true, RGB(255, 0, 255));
 
 	ImageManager::GetSingleton()->AddImage("EnemyMissile",
-		"Image/±∏ΩΩ.bmp", 20, 20, true, RGB(255, 0, 255));
+		"Image/ÔøΩÔøΩÔøΩÔøΩ.bmp", 20, 20, true, RGB(255, 0, 255));
 
 
-	ImageManager::GetSingleton()->AddImage("∆Øºˆ≈∫",
+	ImageManager::GetSingleton()->AddImage("∆ØÔøΩÔøΩ≈∫",
 		"Image/Score_Bullet.bmp", 18, 18, true, RGB(0, 0, 0));
 	
 
 	//ImageManager::GetSingleton()->AddImage("Boss",
-	//	"Image/∫∏Ω∫.bmp", 700, 300, true, RGB(255, 0, 255));
+	//	"Image/ÔøΩÔøΩÔøΩÔøΩ.bmp", 700, 300, true, RGB(255, 0, 255));
 
 	ImageManager::GetSingleton()->AddImage("Boss",
-		"Image/∫∏Ω∫frame.bmp", 3000, 300, 4, 1, true, RGB(255, 0, 255));
+		"Image/ÔøΩÔøΩÔøΩÔøΩframe.bmp", 3000, 300, 4, 1, true, RGB(255, 0, 255));
 
-	ImageManager::GetSingleton()->AddImage("«√∑π¿ÃæÓπﬂªÁ",
+	ImageManager::GetSingleton()->AddImage("ÔøΩ√∑ÔøΩÔøΩÃæÔøΩﬂªÔøΩ",
 		"Image/Fire.bmp", 80, 35, 4, 1, true, RGB(0, 0, 0));
 
-	ImageManager::GetSingleton()->AddImage("«√∑π¿ÃæÓ¿Ãµø",
+	ImageManager::GetSingleton()->AddImage("ÔøΩ√∑ÔøΩÔøΩÃæÔøΩÔøΩÃµÔøΩ",
 		"Image/MOVE.bmp", 350, 115, 5, 1, true, RGB(255, 255, 255));
 
 	ImageManager::GetSingleton()->AddImage("PlayerMissile",
 		"Image/bullet.bmp", 120, 26, 6, 1, true, RGB(0, 0, 0));
 
-	// ∏ﬁ¿Œ∞‘¿”¿« √ ±‚»≠ «‘ºˆ
+	// ÔøΩÔøΩÔøΩŒ∞ÔøΩÔøΩÔøΩÔøΩÔøΩ ÔøΩ ±ÔøΩ»≠ ÔøΩ‘ºÔøΩ
 	//hTimer = (HANDLE)SetTimer(g_hWnd, 0, 1, NULL);
 
-	// πÈπˆ∆€ ¿ÃπÃ¡ˆ
+	// ÔøΩÔøΩÔøΩÔøΩÔøΩ ÔøΩÃπÔøΩÔøΩÔøΩ
 	backBuffer = new Image();
 	backBuffer->Init(WINSIZE_X, WINSIZE_Y);
 
 	stage = new Image();
 
-	enemyMgr = new EnemyManager();
-	enemyMgr->Init();
+	collisionChecker = new CollisionChecker();
 
+	enemyMgr = new EnemyManager();
+	enemyMgr->Init(collisionChecker);
 	playerShip = new PlayerShip();
-	playerShip->Init();
+	playerShip->Init(collisionChecker);
 
 	sceneMgr = new SceneManager();
 	sceneMgr->Init();
 
-	stageCnt = 1;	// stage ∫Ø∞Ê ∫Øºˆ
-	scoreCnt = 100;	// score ∫Øºˆ
+	stageCnt = 1;	// stage Î≥ÄÍ≤Ω Î≥ÄÏàò
+	scoreCnt = 100;	// score Î≥ÄÏàò
 
 	switch (stageCnt)
 	{
@@ -93,7 +96,7 @@ void MainGame::Release()
 	SAFE_RELEASE(stage);
 	SAFE_RELEASE(enemyMgr);
 	SAFE_RELEASE(sceneMgr);
-
+	delete collisionChecker;
 	ReleaseDC(g_hWnd, hdc);
 }
 
@@ -110,15 +113,15 @@ void MainGame::Update()
 			{
 
 				enemyMgr->Update();
+				
 			}
 			if (playerShip)
 			{
 				playerShip->Update();
 			}
+			collisionChecker->CheckCollision();
 		}
 	}
-
-	CheckCollision();
 }
 
 void MainGame::Render()
@@ -134,7 +137,7 @@ void MainGame::Render()
 	case 1:
 		if (stage)
 		{
-			stage->MapRender(hBackDC, 1000);		// º”µµ : ±‚∫ª 1000
+			stage->MapRender(hBackDC, 1000);		// ÔøΩ”µÔøΩ : ÔøΩ‚∫ª 1000
 		}
 
 		if (playerShip)
@@ -161,9 +164,9 @@ void MainGame::Render()
 	}
 
 	//SetBkMode(hBackDC, TRANSPARENT);
-	// ¿ŒªÁ
-	TextOut(hBackDC, 20, 20, "MainGame ∑ª¥ı ¡ﬂ", strlen("MainGame ∑ª¥ı ¡ﬂ"));
-	// ∏∂øÏΩ∫ ¡¬«•
+	// ÔøΩŒªÔøΩ
+	TextOut(hBackDC, 20, 20, "MainGame ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩ", strlen("MainGame ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩ"));
+	// ÔøΩÔøΩÔøΩÏΩ∫ ÔøΩÔøΩ«•
 	wsprintf(szText, "X : %d, Y : %d", ptMouse.x, ptMouse.y);
 	TextOut(hBackDC, 200, 20, szText, strlen(szText));
 	// stage UI
@@ -179,49 +182,6 @@ void MainGame::Render()
 	backBuffer->Render(hdc);
 }
 
-void MainGame::CheckCollision()
-{
-	// ¿˚ <-> ≈ ≈© πÃªÁ¿œ 
-	float distance;
-	FPOINT enemyPos;
-	FPOINT missilePos;
-	float x, y;
-	int r1, r2;
-
-	//for (int i = 0; i < enemyCount; i++)
-	//{
-	//	if (enemy[i].GetIsAlive() == false)	continue;
-
-	//	for (int j = 0; j < tank->GetMissileCount(); j++)
-	//	{
-	//		if (missileArray[j].GetIsFired() == false)	continue;
-
-	//		enemyPos = enemy[i].GetPos();
-	//		missilePos = missileArray[j].GetPos();
-
-	//		x = enemyPos.x - missilePos.x;
-	//		y = enemyPos.y - missilePos.y;
-
-	//		distance = sqrtf(x * x + y * y);
-
-	//		r1 = enemy[i].GetSize() / 2;
-	//		r2 = missileArray[j].GetSize() / 2;
-
-	//		if (distance <= r1 + r2)
-	//		{
-	//			enemy[i].SetIsAlive(false);
-	//			missileArray[j].SetIsFired(false);
-	//			break;
-	//		}
-	//	}
-	//}
-
-	// ¿˚ <-> ≈ ≈©
-
-	// ¿˚ πÃªÁ¿œ <-> ≈ ≈©
-
-	// ¿˚ πÃªÁ¿œ <-> ≈ ≈© πÃªÁ¿œ
-}
 
 LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 {
