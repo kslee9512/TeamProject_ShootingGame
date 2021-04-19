@@ -5,6 +5,7 @@ class PlayerShip;
 class Enemy;
 class EnemyManager;
 class Image;
+class SceneManager;
 class MainGame : public GameNode
 {
 private:
@@ -20,8 +21,11 @@ private:
 	Image* bin;
 
 	EnemyManager* enemyMgr;
+	SceneManager* sceneMgr;
 
 	PlayerShip* playerShip;
+
+	//int scenePage;
 
 public:
 	HRESULT Init();		// 오버라이딩 : 다형성

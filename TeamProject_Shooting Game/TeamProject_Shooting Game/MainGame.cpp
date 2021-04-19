@@ -1,9 +1,11 @@
 #include "MainGame.h"
 #include "Enemy.h"
 #include "EnemyManager.h"
+#include "SceneManager.h"
 #include "Missile.h"
 #include "Image.h"
 #include "PlayerShip.h"
+
 
 HRESULT MainGame::Init()
 {
@@ -23,12 +25,21 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->AddImage("Boss",
 		"Image/보스.bmp", 700, 300, true, RGB(255, 0, 255));
 
+	ImageManager::GetSingleton()->AddImage("플레이어발사",
+		"Image/Fire.bmp", 80, 35, 4, 1, true, RGB(0, 0, 0));
+
+	ImageManager::GetSingleton()->AddImage("플레이어이동",
+		"Image/MOVE.bmp", 350, 115, 5, 1, true, RGB(255, 255, 255));
+
+	ImageManager::GetSingleton()->AddImage("PlayerMissile",
+		"Image/bullet.bmp", 120, 26, 6, 1, true, RGB(0, 0, 0));
+
 	// 메인게임의 초기화 함수
 	//hTimer = (HANDLE)SetTimer(g_hWnd, 0, 1, NULL);
 
 	// 백버퍼 이미지
 	backBuffer = new Image();
-	backBuffer->Init(WINSIZE_X, WINSIZE_Y); 
+	backBuffer->Init(WINSIZE_X, WINSIZE_Y);
 
 	bin = new Image();
 	bin->Init("Image/Map01.bmp", WINSIZE_X, WINSIZE_Y);
@@ -38,6 +49,11 @@ HRESULT MainGame::Init()
 
 	playerShip = new PlayerShip();
 	playerShip->Init();
+
+	sceneMgr = new SceneManager();
+	sceneMgr->Init();
+
+	//scenePage = 0;
 
 	isInited = true;
 
@@ -53,23 +69,29 @@ void MainGame::Release()
 	SAFE_RELEASE(playerShip);
 	SAFE_RELEASE(bin);
 	SAFE_RELEASE(enemyMgr);
+	SAFE_RELEASE(sceneMgr);
 
 	ReleaseDC(g_hWnd, hdc);
 }
 
 void MainGame::Update()
 {
-
 	float currTime1 = TimerManager::GetSingleton()->GetCurrTime();
 
-	if (enemyMgr)
+	if (sceneMgr)
 	{
-		enemyMgr->Update();
-	}
-
-	if (playerShip)
-	{
-		playerShip->Update();
+		sceneMgr->Update();
+		if (sceneMgr->GetScenePage() == 1)
+		{
+			if (enemyMgr)
+			{
+				enemyMgr->Update();
+			}
+			if (playerShip)
+			{
+				playerShip->Update();
+			}
+		}
 	}
 
 	CheckCollision();
@@ -79,19 +101,35 @@ void MainGame::Render()
 {
 	HDC hBackDC = backBuffer->GetMemDC();
 
-	if (bin)
+	switch (sceneMgr->GetScenePage())
 	{
-		bin->MapRender(hBackDC, 1000);		// 속도 : 기본 1000
-	}
+	case 0:
+		sceneMgr->Render(hBackDC);
+		break;
 
-	if (playerShip)
-	{
-		playerShip->Render(hBackDC);
-	}
+	case 1:
+		if (bin)
+		{
+			bin->MapRender(hBackDC, 1000);		// 속도 : 기본 1000
+		}
 
-	if (enemyMgr)
-	{
-		enemyMgr->Render(hBackDC);
+		if (playerShip)
+		{
+			playerShip->Render(hBackDC);
+		}
+
+		if (enemyMgr)
+		{
+			enemyMgr->Render(hBackDC);
+		}
+		break;
+
+	case 2:
+		sceneMgr->Render(hBackDC);
+		break;
+
+	default:
+		break;
 	}
 
 	// 인사
