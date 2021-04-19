@@ -30,6 +30,14 @@ public:
 		int currFrameX;
 		int currFrameY;
 
+		float ReY;		// moveMap
+		float mapSpeed;
+		float mapTime;
+
+		float buttonT;
+		float buttonSpeed;
+		float buttonTime;
+
 		tagImageInfo()
 		{
 			resID = 0;
@@ -46,6 +54,14 @@ public:
 			frameHeight = 0;
 			currFrameX = 0;
 			currFrameY = 0;
+
+			ReY = 0;
+			mapSpeed = 0;
+			mapTime = 0;
+
+			buttonT = 0;
+			buttonSpeed = 0;
+			buttonTime = 0;
 		};
 	} IMAGE_INFO, * LPIMAGE_INFO;
 
@@ -63,7 +79,7 @@ public:
 	HRESULT Init(const char* fileName, int width, int height, bool isTransparent = FALSE, COLORREF transColor = FALSE);
 
 	// 파일로부터 이미지를 로드하는 함수
-	HRESULT Init(const char* fileName, int width, int height, 
+	HRESULT Init(const char* fileName, int width, int height,
 		int maxFrameX, int maxFrameY,
 		bool isTransparent = FALSE, COLORREF transColor = FALSE);
 
@@ -72,6 +88,8 @@ public:
 		bool isCenterRenderring = false);
 	void FrameRender(HDC hdc, int destX, int destY,
 		int currFrameX, int currFrameY, bool isCenterRenderring = false);
+
+	void MapRender(HDC hdc, int mapSpeed);
 
 	void Release();
 
