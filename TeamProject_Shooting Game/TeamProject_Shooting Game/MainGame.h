@@ -18,14 +18,15 @@ private:
 	char szText[128] = "";
 
 	Image* backBuffer;
-	Image* bin;
+	Image* stage;
 
 	EnemyManager* enemyMgr;
 	SceneManager* sceneMgr;
 
 	PlayerShip* playerShip;
 
-	//int scenePage;
+	int stageCnt;
+	int scoreCnt;
 
 public:
 	HRESULT Init();		// 오버라이딩 : 다형성

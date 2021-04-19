@@ -29,8 +29,7 @@ HRESULT MainGame::Init()
 	backBuffer = new Image();
 	backBuffer->Init(WINSIZE_X, WINSIZE_Y);
 
-	bin = new Image();
-	bin->Init("Image/Map01.bmp", WINSIZE_X, WINSIZE_Y);
+	stage = new Image();
 
 	enemyMgr = new EnemyManager();
 	enemyMgr->Init();
@@ -41,7 +40,24 @@ HRESULT MainGame::Init()
 	sceneMgr = new SceneManager();
 	sceneMgr->Init();
 
-	//scenePage = 0;
+	stageCnt = 4;	// stage 변경 변수
+	scoreCnt = 100;	// score 변수
+
+	switch (stageCnt)
+	{
+	case 1:
+		stage->Init("Image/Map01.bmp", WINSIZE_X, WINSIZE_Y);
+		break;
+	case 2:
+		stage->Init("Image/Map02.bmp", WINSIZE_X, WINSIZE_Y);
+		break;
+	case 3:
+		stage->Init("Image/Map03.bmp", WINSIZE_X, WINSIZE_Y);
+		break;
+	case 4:
+		stage->Init("Image/Map04.bmp", WINSIZE_X, WINSIZE_Y);
+		break;
+	}
 
 	isInited = true;
 
@@ -55,7 +71,7 @@ void MainGame::Release()
 
 	SAFE_RELEASE(backBuffer);
 	SAFE_RELEASE(playerShip);
-	SAFE_RELEASE(bin);
+	SAFE_RELEASE(stage);
 	SAFE_RELEASE(enemyMgr);
 	SAFE_RELEASE(sceneMgr);
 
@@ -96,9 +112,9 @@ void MainGame::Render()
 		break;
 
 	case 1:
-		if (bin)
+		if (stage)
 		{
-			bin->MapRender(hBackDC, 1000);		// 속도 : 기본 1000
+			stage->MapRender(hBackDC, 1000);		// 속도 : 기본 1000
 		}
 
 		if (playerShip)
@@ -125,6 +141,13 @@ void MainGame::Render()
 	// 마우스 좌표
 	wsprintf(szText, "X : %d, Y : %d", ptMouse.x, ptMouse.y);
 	TextOut(hBackDC, 200, 20, szText, strlen(szText));
+	// stage UI
+	wsprintf(szText, "Stage : %d", stageCnt);
+	TextOut(hBackDC, 20, 40, szText, strlen(szText));
+	// score UI
+	wsprintf(szText, "Score : %d", scoreCnt);
+	TextOut(hBackDC, 20, 60, szText, strlen(szText));
+
 	// FPS
 	TimerManager::GetSingleton()->Render(hBackDC);
 
