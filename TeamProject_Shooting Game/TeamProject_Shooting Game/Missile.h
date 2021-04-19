@@ -8,6 +8,7 @@ class Missile : public GameNode
 {
 public:
 	enum TYPE { Normal, Skill_01, FollowTarget, End };
+	enum TYPE2 { ENEMY,PLAYER };
 
 private:
 	// 이미지
@@ -35,6 +36,9 @@ private:
 	bool isPlayer;	//플레이어랑 에너미 불릿 이미지 구분을 위해서
 	int frame;
 	float currElapsed;
+
+	TYPE2 whosType;
+	bool Special;		// 특수탄 발동 여부
 
 public:
 	HRESULT Init(Enemy* owner);

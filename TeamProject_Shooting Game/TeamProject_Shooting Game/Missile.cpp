@@ -21,6 +21,7 @@ HRESULT Missile::Init(Enemy* owner)
 	target = nullptr;
 	destAngle = 0.0f;
 	isPlayer = false;
+	whosType = ENEMY;
 
 	// 이미지
 	img = ImageManager::GetSingleton()->FindImage("EnemyMissile");
@@ -53,6 +54,7 @@ HRESULT Missile::PInit(PlayerShip* owner)
 	isPlayer = true;
 	frame = 0;
 	currElapsed = 0;
+	whosType = PLAYER;
 
 	// 이미지
 	img = ImageManager::GetSingleton()->FindImage("PlayerMissile");

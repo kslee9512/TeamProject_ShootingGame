@@ -48,6 +48,11 @@ void Enemy::Update()
         //HorizonMove();
         //Move();
 
+<<<<<<< Updated upstream
+=======
+        if (enemyStatus == ENEMYSTATUS::MOVE)    SetStatus(ENEMYSTATUS::FIRE);
+        
+>>>>>>> Stashed changes
         // 미사일 발사
         if (missileMgr)
         {
@@ -58,7 +63,11 @@ void Enemy::Update()
                 fireCount = 0;
                 missileMgr->Fire();
             }
+<<<<<<< Updated upstream
             missileMgr->Update();
+=======
+                missileMgr->Update();
+>>>>>>> Stashed changes
         }
 
         // 애니메이션 프레임
@@ -74,6 +83,10 @@ void Enemy::Update()
             updateCount = 0;
         }
 
+<<<<<<< Updated upstream
+=======
+        //if (enemyStatus == ENEMYSTATUS::FIRE)    SetStatus(ENEMYSTATUS::MOVE);
+>>>>>>> Stashed changes
     }
 }
 
