@@ -15,7 +15,6 @@ HRESULT MainGame::Init()
 	KeyManager::GetSingleton()->Init();
 	ImageManager::GetSingleton()->Init();
 
-	// �̹����� �̸� �ε��Ѵ�
 	ImageManager::GetSingleton()->AddImage("Enemy",
 		"Image/ufo.bmp", 530, 32, 10, 1,
 		true, RGB(255, 0, 255));
@@ -23,16 +22,17 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->AddImage("EnemyMissile",
 		"Image/구슬.bmp", 20, 20, true, RGB(255, 0, 255));
 
-
 	ImageManager::GetSingleton()->AddImage("scoreBullet",
 		"Image/Score_Bullet.bmp", 18, 18, true, RGB(0, 0, 0));
 	
-
-	//ImageManager::GetSingleton()->AddImage("Boss",
-	//	"Image/����.bmp", 700, 300, true, RGB(255, 0, 255));
-
 	ImageManager::GetSingleton()->AddImage("Boss",
 		"Image/보스frame.bmp", 3000, 300, 4, 1, true, RGB(255, 0, 255));
+
+	ImageManager::GetSingleton()->AddImage("Damage",
+		"Image/화재.bmp", 300, 100, 4, 1, true, RGB(255, 0, 255));
+
+	ImageManager::GetSingleton()->AddImage("Destroy",
+		"Image/폭발.bmp", 900, 200, 5, 1, true, RGB(255, 0, 255));
 
 	ImageManager::GetSingleton()->AddImage("Fire",
 		"Image/Fire.bmp", 80, 35, 4, 1, true, RGB(0, 0, 0));
@@ -43,10 +43,6 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->AddImage("PlayerMissile",
 		"Image/bullet.bmp", 120, 26, 6, 1, true, RGB(0, 0, 0));
 
-	// ���ΰ����� �ʱ�ȭ �Լ�
-	//hTimer = (HANDLE)SetTimer(g_hWnd, 0, 1, NULL);
-
-	// ����� �̹���
 	backBuffer = new Image();
 	backBuffer->Init(WINSIZE_X, WINSIZE_Y);
 
@@ -138,7 +134,7 @@ void MainGame::Render()
 	case 1:
 		if (stage)
 		{
-			stage->MapRender(hBackDC, 1000);		// �ӵ� : �⺻ 1000
+			stage->MapRender(hBackDC, 1000);		// 기본 설정 1000
 		}
 
 		if (playerShip)
@@ -166,7 +162,7 @@ void MainGame::Render()
 
 	//SetBkMode(hBackDC, TRANSPARENT);
 	// �λ�
-	TextOut(hBackDC, 20, 20, "MainGame ���� ��", strlen("MainGame ���� ��"));
+	TextOut(hBackDC, 20, 20, "MainGame 랜더 중", strlen("MainGame 랜더 중"));
 	// ���콺 ��ǥ
 	wsprintf(szText, "X : %d, Y : %d", ptMouse.x, ptMouse.y);
 	TextOut(hBackDC, 200, 20, szText, strlen(szText));

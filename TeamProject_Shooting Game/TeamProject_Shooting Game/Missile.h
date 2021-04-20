@@ -63,5 +63,6 @@ public:
 	inline void SetSpecial(int special) { this->Special = special; }
 	inline int GetSize() { return this->size; }
 	inline RECT GetAttackBox() { return this->attackBox; }
+	inline void SetAttackBox(RECT attackBox) { this->attackBox = attackBox; }
 };
 

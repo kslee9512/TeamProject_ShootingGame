@@ -31,8 +31,6 @@ HRESULT MissileManager::PInit(CollisionChecker* collisionChecker, PlayerShip* ow
 	{
 		(*it) = new Missile();
 		(*it)->PInit(collisionChecker, this->Powner);
-
-		// �̻��� �Ŵ����� ��� �ִ� �� ��ü�� ������ ����
 	}
 
     currElapsed = 0;

@@ -236,6 +236,7 @@ void Missile::SetIsFired(bool isFired)
 			collisionChecker->AddFiredPlayerMissile(this);
 		}
 	}
+
 	if (owner)
 	{
 		pos.x = owner->GetPos().x;

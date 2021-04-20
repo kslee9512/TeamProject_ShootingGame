@@ -11,6 +11,7 @@ class CollisionChecker
 private:
 	// 플레이어 메모리주소
 	PlayerShip* player;
+	Enemy* enemy;
 
 	// 활성화된 적들의 메모리주소 (EnemyMgr)
 	list<Enemy*> lEnemys;
@@ -36,6 +37,5 @@ public:
 
 	void CheckCollision();
 	void CheckPlayerCollision(PlayerShip* player);
-
 };
 

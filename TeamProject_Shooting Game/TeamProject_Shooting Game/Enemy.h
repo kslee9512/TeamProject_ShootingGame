@@ -8,6 +8,7 @@ class TargetManager;
 class CollisionChecker;
 enum ENEMYSTATUS{ NONE, ENTERANCE, MOVE, FIRE, ENDSTATUS};
 enum ENEMYTYPE { NORMAL, BOSS, ENDTYPE};
+enum ENEMYDAMAGE { DESTROY, DAMAGE };
 class Enemy : public GameNode
 {
 private:
@@ -15,11 +16,14 @@ private:
 	TargetManager* target;
 
 	Image* image;
+	Image* imageDmg;
+	Image* imageDst;
 	int currFrameX;
 	int updateCount;
 	float checkTimer;
 	ENEMYSTATUS enemyStatus;
 	ENEMYTYPE enemyType;
+	ENEMYDAMAGE enemyDamage;
 	FPOINT pos;
 	int size;
 	string name;
@@ -33,9 +37,17 @@ private:
 	bool endMovePattern;
 
 	float currElapsed;
+	float randElapsed;
+	float randomX;
+	float randomY;
 
 	CollisionChecker* collisionChecker;
 	int fireCount;
+
+	int enemyCurrHP;
+	int enemyDmg;
+	bool IsEnemyDmg;
+	bool IsCheckDmg;
 
 public:
 	HRESULT Init(CollisionChecker* collisionChecker, int posX = 0, int posY = 0);
@@ -65,5 +77,14 @@ public:
 	inline bool GetIsAlive() { return this->isAlive; }
 	inline RECT GetHitBox() { return this->hitBox; }
 	inline bool GetMovePatternEnd() { return this->endMovePattern; }
+
+	inline void SetIsCheckDmg(bool IsCheckDmg) { this->IsCheckDmg = IsCheckDmg; }
+	inline bool GetIsCheckDmg() { return this->IsCheckDmg; }
+	inline void SetIsEnemyDmg(bool IsEnemyDmg) { this->IsEnemyDmg = IsEnemyDmg; }
+	inline bool GetIsEnemyDmg() { return this->IsEnemyDmg; }
+	inline void SetEnemyCurrHP(int enemyCurrHP) { this->enemyCurrHP = enemyCurrHP; }
+	inline int GetEnemyCurrHP() { return this->enemyCurrHP; }
+	inline void SetEnemyDmg(int enemyDmg) { this->enemyDmg = enemyDmg; }
+	inline int GetEnemyDmg() { return this->enemyDmg; }
 };
 

@@ -34,7 +34,7 @@ void SceneManager::Update()
 	//test ¹öÆ°
 	if (scenePage == 0 && KeyManager::GetSingleton()->IsOnceKeyDown(VK_RETURN))
 	{
-		scenePage += 1;
+		scenePage = 1;
 	}
 
 	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_NUMPAD0))

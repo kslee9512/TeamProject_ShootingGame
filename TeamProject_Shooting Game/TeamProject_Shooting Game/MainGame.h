@@ -28,9 +28,6 @@ private:
 
 	Image* stage;
 
-
-
-
 	EnemyManager* enemyMgr;
 	SceneManager* sceneMgr;
 	PlayerShip* playerShip;
@@ -43,9 +40,9 @@ private:
 
 	int stageCnt;
 	int scoreCnt;
+
 	Missile* missile;
 	Enemy* enemy;
-	//int scenePage;
 
 public:
 	HRESULT Init();		// �������̵� : ������
