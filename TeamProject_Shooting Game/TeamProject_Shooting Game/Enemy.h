@@ -49,6 +49,8 @@ private:
 	bool IsEnemyDmg;
 	bool IsCheckDmg;
 
+	bool IsBossAlive;
+
 public:
 	HRESULT BossInit(CollisionChecker* collisionChecker, int posX = 0, int posY = 0);
 	HRESULT Init(CollisionChecker* collisionChecker, int posX = 0, int posY = 0);
@@ -77,6 +79,7 @@ public:
 	inline bool GetIsAlive() { return this->isAlive; }
 	inline RECT GetHitBox() { return this->hitBox; }
 	inline bool GetMovePatternEnd() { return this->endMovePattern; }
+	inline bool GetIsBossAlive() { return this->IsBossAlive; }
 
 	inline void SetIsCheckDmg(bool IsCheckDmg) { this->IsCheckDmg = IsCheckDmg; }
 	inline bool GetIsCheckDmg() { return this->IsCheckDmg; }

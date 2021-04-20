@@ -9,6 +9,8 @@ class EnemyManager : public GameNode
 private:
 	vector<Enemy*> vEnemys;
 	CollisionChecker* collisionChecker;
+
+	bool IsBossAlive;
 public:
 	HRESULT Init(CollisionChecker* collisionChecker);
 	void Release();
@@ -16,6 +18,7 @@ public:
 	void Render(HDC hdc);
 
 	void AddEnemy(int size);
-
+	inline void SetIsBossAlive(bool IsBossAlive) { this->IsBossAlive = IsBossAlive; }
+	inline bool GetIsBossAlive() { return this->IsBossAlive; }
 };
 

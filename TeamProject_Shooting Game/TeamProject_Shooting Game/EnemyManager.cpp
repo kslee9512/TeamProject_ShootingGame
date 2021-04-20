@@ -31,6 +31,8 @@ HRESULT EnemyManager::Init(CollisionChecker* collisionChecker)
     vEnemys.push_back(new Enemy());
     vEnemys[0]->BossInit(collisionChecker); //BossInit Init
 
+    IsBossAlive = true;
+
     return S_OK;
 }
 
@@ -52,7 +54,9 @@ void EnemyManager::Update()
     for (it = vEnemys.begin(); it != vEnemys.end(); it++)
     {
         (*it)->Update();
+        if (!((*it)->GetIsBossAlive()))  SetIsBossAlive(false);
     }
+
 }
 
 void EnemyManager::Render(HDC hdc)

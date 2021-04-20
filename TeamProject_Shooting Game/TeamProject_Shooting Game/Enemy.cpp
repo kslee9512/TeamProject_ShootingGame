@@ -55,6 +55,7 @@ HRESULT Enemy::Init(CollisionChecker* collisionChecker, int posX, int posY)
     enemyCurrHP = 4;
     enemyDmg = 1;
     IsEnemyDmg = false;
+    IsBossAlive = true;
     return S_OK;
 }
 
@@ -112,6 +113,7 @@ HRESULT Enemy::BossInit(CollisionChecker* collisionChecker, int posX, int posY)
     enemyCurrHP = 5;
     enemyDmg = 1;
     IsEnemyDmg = false;
+    IsBossAlive = true;
 
     return S_OK;
 }
@@ -235,9 +237,10 @@ void Enemy::Render(HDC hdc)
                 imageDst->FrameRender(hdc, (pos.x - 150) + randomX*10, (pos.y - 50) + randomY*10, currFrameX + 1, 0, true);
 
                 pos.y += 0.1f;
-                if (pos.y >= 400)
+                if (pos.y >= 300)
                 {
-                    0;
+                    isAlive = false;        
+                    IsBossAlive = false;
                 }
             }
         }
