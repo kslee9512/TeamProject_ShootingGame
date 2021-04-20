@@ -62,8 +62,8 @@ void PlayerShip::Release()
 
 void PlayerShip::Update()
 {
-	currElapsed += TimerManager::GetSingleton()->GetElapsedTime();	// ���� ����� �ð� 1�� ������ �ʱ�ȭ
-	lastUsed += TimerManager::GetSingleton()->GetElapsedTime();	// ���������� ����� Ű�� �������� ��� �ð� �˻� ( �ϳ��� ���������� 0���� ��� �ʱ�ȭ ��)
+	currElapsed += TimerManager::GetSingleton()->GetElapsedTime();	// ���� �����?�ð� 1�� ������ �ʱ�ȭ
+	lastUsed += TimerManager::GetSingleton()->GetElapsedTime();	// ���������� �����?Ű�� �������� ���?�ð� �˻� ( �ϳ��� ���������� 0���� ���?�ʱ�ȭ ��)
 	currFire += TimerManager::GetSingleton()->GetElapsedTime();
 
 	if (!IsPlayerDestroy)
@@ -88,8 +88,11 @@ void PlayerShip::Render(HDC hdc)
 {
 	if (IsPlayerDmg)
 	{
-		playerCurrHP -= playerDmg;
-		IsPlayerDmg = false;
+		if ((missileMgr->GetSpecial()) == false)
+		{
+			playerCurrHP -= playerDmg;
+			IsPlayerDmg = false;
+		}		
 	}
 
 	if (image)
@@ -126,7 +129,7 @@ void PlayerShip::Render(HDC hdc)
 
 void PlayerShip::Move()
 {
-	if (lastUsed >= 1.0f)		// Ű�� ����� �̷��� 1�ʸ� �������� �ٽ� �����·� ����
+	if (lastUsed >= 1.0f)		// Ű�� �����?�̷��� 1�ʸ� �������� �ٽ� �����·� ����
 	{
 		if (frame > 2 && currElapsed >= 1.0f)
 		{

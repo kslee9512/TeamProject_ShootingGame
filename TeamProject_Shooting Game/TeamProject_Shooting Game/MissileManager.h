@@ -33,5 +33,8 @@ public:
 	void Fire();
 	void playerFire();
 	inline void SetGun(int gunlevel) { this->gunLevel = gunlevel; }
+	
+	void SetSpecial(bool Special) { this->Special = Special; }
+	bool GetSpecial() { return this->Special; }
 };
 
