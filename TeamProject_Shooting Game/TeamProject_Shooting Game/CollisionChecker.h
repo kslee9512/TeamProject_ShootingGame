@@ -6,23 +6,27 @@ using namespace std;
 class Missile;
 class PlayerShip;
 class Enemy;
+class Item;
 class CollisionChecker
 {
 private:
-	// ÇÃ·¹ÀÌ¾î ¸Þ¸ð¸®ÁÖ¼Ò
+	// ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Þ¸ï¿½ï¿½Ö¼ï¿½
 	PlayerShip* player;
 	Enemy* enemy;
 
-	// È°¼ºÈ­µÈ ÀûµéÀÇ ¸Þ¸ð¸®ÁÖ¼Ò (EnemyMgr)
+	// È°ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¸ï¿½ï¿½Ö¼ï¿½ (EnemyMgr)
 	list<Enemy*> lEnemys;
 	list<Enemy*>::iterator itlEnemys;
 
-	// ÇÃ·¹ÀÌ¾î°¡ ¹ß»çÇÑ ¹Ì»çÀÏµé
+	// ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ß»ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½Ïµï¿½
 	list<Missile*> lPlayerMissiles;
 	list<Missile*>::iterator itlPlayerMissiles;
-	// ÀûµéÀÌ ¹ß»çÇÑ ¹Ì»çÀÏµé
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½Ïµï¿½
 	list<Missile*> lEnemyMissiles;
 	list<Missile*>::iterator itlEnemyMissiles;
+
+	list<Item*> lItem;
+	list<Item*>::iterator itlItem;
 
 public:
 
@@ -37,5 +41,9 @@ public:
 
 	void CheckCollision();
 	void CheckPlayerCollision(PlayerShip* player);
+
+	void AddItem(Item* item) { lItem.push_back(item); }
+	void EraseItem(Item* item) { lItem.remove(item); }
+
 };
 

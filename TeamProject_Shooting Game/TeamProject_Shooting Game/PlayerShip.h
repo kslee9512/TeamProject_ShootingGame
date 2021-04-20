@@ -13,10 +13,11 @@ private:
 	Image* fireImage;
 	Image* imageDst;
 
+	Image* team;
 
 	FPOINT pos;
 	RECT hitBox;
-	float moveSpeed;	// ÃÊ´ç ÀÌµ¿°Å¸®
+	float moveSpeed;	// ï¿½Ê´ï¿½ ï¿½Ìµï¿½ï¿½Å¸ï¿½
 	int frame;
 	int currFrameX;
 	int fireFrame;
@@ -24,8 +25,10 @@ private:
 	bool fire;
 
 	float currElapsed;
-	float lastUsed;		// Å°°¡ ´­¸®Áö ¾ÊÀº ½Ã°£
-	float currFire;		// ¹ß»ç ÈÄ ÆÄÀÌ¾î ÀÌ¹ÌÁö
+	float lastUsed;		// Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+	float currFire;		// ï¿½ß»ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½
+
+	int gunLevel;
 	
 	int playerCurrHP;
 	int playerDmg;
@@ -50,5 +53,9 @@ public:
 	inline bool GetIsPlayerDmg() { return this->IsPlayerDmg; }
 
 	inline bool GetIsPlayerAlive() { return this->IsPlayerAlive; }
+
+	inline void SetGun(int gunlevel) { this->gunLevel = gunlevel; }
+	inline int GetGun() { return this->gunLevel; }
+
 };
 

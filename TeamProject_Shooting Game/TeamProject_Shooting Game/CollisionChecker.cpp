@@ -1,6 +1,7 @@
 #include "CollisionChecker.h"
 #include "Missile.h"
 #include "Enemy.h"
+#include "Item.h"
 #include "PlayerShip.h"
 
 void CollisionChecker::CheckCollision()
@@ -17,7 +18,6 @@ void CollisionChecker::CheckCollision()
 				{
 					(*itlEnemys)->SetIsEnemyDmg(true);
 					(*itlPlayerMissiles)->SetIsFired(false);
-
 					itlPlayerMissiles = lPlayerMissiles.erase(itlPlayerMissiles);
 				}
 				else
@@ -42,9 +42,27 @@ void CollisionChecker::CheckPlayerCollision(PlayerShip* player)
 
 			itlEnemyMissiles = lEnemyMissiles.erase(itlEnemyMissiles);
 		}
+
 		else
 		{
 			itlEnemyMissiles++;
+		}
+	}
+
+	for (itlItem = lItem.begin(); itlItem != lItem.end();)
+	{
+		if ((*player).GetPlayerHitBox().top <= (*itlItem)->GetAttackBox().bottom &&
+			(*player).GetPlayerHitBox().left <= (*itlItem)->GetAttackBox().right &&
+			(*player).GetPlayerHitBox().right >= (*itlItem)->GetAttackBox().left)
+		{
+			(*itlItem)->SetIsCreated(false);
+			if ((*player).GetGun() < 2)	(*player).SetGun((*player).GetGun() + 1);
+			itlItem = lItem.erase(itlItem);
+		}
+
+		else
+		{
+			itlItem++;
 		}
 	}
 }

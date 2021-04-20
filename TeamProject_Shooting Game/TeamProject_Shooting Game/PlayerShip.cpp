@@ -8,18 +8,20 @@ HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 	image = ImageManager::GetSingleton()->FindImage("Move");
 	if (image == nullptr)
 	{
-		MessageBox(g_hWnd, "ÇÃ·¹ÀÌ¾î ¿ìÁÖ¼± ÀÌ¹ÌÁö ·Îµå ½ÇÆÐ", "ÃÊ±âÈ­ ½ÇÆÐ", MB_OK);
+		MessageBox(g_hWnd, "ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½Ö¼ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½", "ï¿½Ê±ï¿½È­ ï¿½ï¿½ï¿½ï¿½", MB_OK);
 		return E_FAIL;
 	}
 	imageDst = ImageManager::GetSingleton()->FindImage("Destroy");
 	if (imageDst == nullptr)
 	{
 		MessageBox(g_hWnd,
-			"Boss°¡ ¾ÈµÊ!", "½ÇÆÐ!", MB_OK);
+			"Bossï¿½ï¿½ ï¿½Èµï¿½!", "ï¿½ï¿½ï¿½ï¿½!", MB_OK);
 		return E_FAIL;
 	}
 
-	// ¹Ì»çÀÏ ¸Å´ÏÀú
+	team = ImageManager::GetSingleton()->FindImage("Team");
+
+	// ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½
 
 	TargetManager::GetSingleton()->SetTarget(this);
 
@@ -41,11 +43,14 @@ HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 	missileMgr = new MissileManager();
 	missileMgr->PInit(collisionChecker, this);
 
+
 	playerCurrHP = 3;
 	playerDmg = 1;
 
 	IsPlayerAlive = true;
 	IsPlayerDestroy = false;
+
+	gunLevel = 0;
 
 	return S_OK;
 }
@@ -57,8 +62,8 @@ void PlayerShip::Release()
 
 void PlayerShip::Update()
 {
-	currElapsed += TimerManager::GetSingleton()->GetElapsedTime();	// ÇöÀç °æ°úµÈ ½Ã°£ 1ÃÊ ´ÜÀ§·Î ÃÊ±âÈ­
-	lastUsed += TimerManager::GetSingleton()->GetElapsedTime();	// ¸¶Áö¸·À¸·Î »ç¿ëÇÑ Å°¸¦ ±âÁØÀ¸·Î °æ°ú ½Ã°£ °Ë»ç ( ÇÏ³ª¶óµµ ´­·ÁÀÖÀ¸¸é 0À¸·Î °è¼Ó ÃÊ±âÈ­ Áß)
+	currElapsed += TimerManager::GetSingleton()->GetElapsedTime();	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
+	lastUsed += TimerManager::GetSingleton()->GetElapsedTime();	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½Ë»ï¿½ ( ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½)
 	currFire += TimerManager::GetSingleton()->GetElapsedTime();
 
 	if (!IsPlayerDestroy)
@@ -104,6 +109,13 @@ void PlayerShip::Render(HDC hdc)
 				IsPlayerAlive = false;
 			}
 		}
+
+		if (gunLevel >= 1)
+		{
+			team->Render(hdc, pos.x - 50, pos.y + 40, true);
+		}
+
+		if (gunLevel == 2)	team->Render(hdc, pos.x + 50, pos.y + 40, true);
 	}
 
 	if (missileMgr)
@@ -114,7 +126,7 @@ void PlayerShip::Render(HDC hdc)
 
 void PlayerShip::Move()
 {
-	if (lastUsed >= 1.0f)		// Å°¸¦ »ç¿ëÇÑ ÀÌ·ÂÀÌ 1ÃÊ¸¦ Áö³ª°¡¸é ´Ù½Ã ¿ø»óÅÂ·Î º¹±Í
+	if (lastUsed >= 1.0f)		// Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½ 1ï¿½Ê¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ï¿½ï¿½
 	{
 		if (frame > 2 && currElapsed >= 1.0f)
 		{
@@ -198,9 +210,10 @@ void PlayerShip::Fire()
 {
 	if (missileMgr)
 	{
-		// ÇÔ¼ö È£Ãâ ÁÖ±â¸¦ ¹Ù²ãº¸ÀÚ.
+		// ï¿½Ô¼ï¿½ È£ï¿½ï¿½ ï¿½Ö±â¸¦ ï¿½Ù²ãº¸ï¿½ï¿½.
 		if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_SPACE))
 		{
+			missileMgr->SetGun(gunLevel);
 			fire = true;
 			currFire = 0;
 			missileMgr->playerFire();

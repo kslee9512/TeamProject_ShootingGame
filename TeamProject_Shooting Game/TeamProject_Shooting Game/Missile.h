@@ -14,9 +14,9 @@ private:
 	// �̹���
 	Image* img;
 
-	FPOINT pos;
 	float moveSpeed;
 	float moveTime;
+	FPOINT pos;
 	int size;
 	RECT attackBox;
 	int damage;
