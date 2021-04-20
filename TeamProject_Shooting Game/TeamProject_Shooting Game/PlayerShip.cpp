@@ -11,6 +11,13 @@ HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 		MessageBox(g_hWnd, "플레이어 우주선 이미지 로드 실패", "초기화 실패", MB_OK);
 		return E_FAIL;
 	}
+	imageDst = ImageManager::GetSingleton()->FindImage("Destroy");
+	if (imageDst == nullptr)
+	{
+		MessageBox(g_hWnd,
+			"Boss가 안됨!", "실패!", MB_OK);
+		return E_FAIL;
+	}
 
 	// 미사일 매니저
 
@@ -23,6 +30,7 @@ HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 
 	fireFrame = 0;
 	frame = 2;
+	currFrameX = 0;
 
 	ready = true;
 	fire = false;
@@ -32,6 +40,12 @@ HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 	this->collisionChecker = collisionChecker;
 	missileMgr = new MissileManager();
 	missileMgr->PInit(collisionChecker, this);
+
+	playerCurrHP = 3;
+	playerDmg = 1;
+
+	IsPlayerAlive = true;
+	IsPlayerDestroy = false;
 
 	return S_OK;
 }
@@ -47,21 +61,49 @@ void PlayerShip::Update()
 	lastUsed += TimerManager::GetSingleton()->GetElapsedTime();	// 마지막으로 사용한 키를 기준으로 경과 시간 검사 ( 하나라도 눌려있으면 0으로 계속 초기화 중)
 	currFire += TimerManager::GetSingleton()->GetElapsedTime();
 
-	Move();
-	Fire();
-	hitBox = GetRectToCenter(pos.x, pos.y, 35, 65);
+	if (!IsPlayerDestroy)
+	{
+		Move();
+		Fire();
+		hitBox = GetRectToCenter(pos.x, pos.y, 35, 65);
+	}	
 
-	if (currElapsed >= 1.0f)	currElapsed = 0;
-
+	if (currElapsed >= 1.0f)	
+	{
+		currFrameX++;
+		if (currFrameX >= 4)
+		{
+			currFrameX = 0;
+		}
+		currElapsed = 0;
+	}
 }
 
 void PlayerShip::Render(HDC hdc)
 {
+	if (IsPlayerDmg)
+	{
+		playerCurrHP -= playerDmg;
+		IsPlayerDmg = false;
+	}
+
 	if (image)
 	{
 		Rectangle(hdc, hitBox.left, hitBox.top, hitBox.right, hitBox.bottom);
 		image->FrameRender(hdc, pos.x, pos.y, frame, 0, true);
 		if (fire) fireImage->FrameRender(hdc, pos.x-2, pos.y-55, fireFrame, 0, true);
+
+		if (playerCurrHP <= 0)
+		{
+			IsPlayerDestroy = true;
+			imageDst->FrameRender(hdc, pos.x, pos.y, currFrameX + 1, 0, true);
+			pos.y -= 0.1f;
+
+			if (pos.y <= 300)
+			{
+				IsPlayerAlive = false;
+			}
+		}
 	}
 
 	if (missileMgr)

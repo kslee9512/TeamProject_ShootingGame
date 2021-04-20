@@ -45,11 +45,11 @@ void SceneManager::Update()
 	{
 		scenePage = 1;
 	}
-	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_NUMPAD2) || battlePhaseEnd)
+	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_NUMPAD2) || battlePhaseEnd_Win)
 	{
 		scenePage = 2;
 	}
-	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_NUMPAD3))
+	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_NUMPAD3) || battlePhaseEnd_Lose)
 	{
 		scenePage = 3;
 	}

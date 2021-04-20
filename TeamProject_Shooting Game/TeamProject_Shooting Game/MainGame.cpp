@@ -118,7 +118,12 @@ void MainGame::Update()
 
 			if (enemyMgr->GetIsBossAlive() == false)
 			{
-				sceneMgr->SetBattlePhaseEnd(true);
+				sceneMgr->SetBattlePhaseEnd_Win(true);
+			}
+
+			if (playerShip->GetIsPlayerAlive() == false)
+			{
+				sceneMgr->SetBattlePhaseEnd_Lose(true);
 			}
 		}
 	}

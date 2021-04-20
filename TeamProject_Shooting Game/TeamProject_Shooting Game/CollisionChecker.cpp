@@ -31,13 +31,20 @@ void CollisionChecker::CheckCollision()
 
 void CollisionChecker::CheckPlayerCollision(PlayerShip* player)
 {
-	for (itlEnemyMissiles = lEnemyMissiles.begin(); itlEnemyMissiles != lEnemyMissiles.end(); itlEnemyMissiles++)
+	for (itlEnemyMissiles = lEnemyMissiles.begin(); itlEnemyMissiles != lEnemyMissiles.end();)
 	{
 		if ((*player).GetPlayerHitBox().top <= (*itlEnemyMissiles)->GetAttackBox().bottom &&
 			(*player).GetPlayerHitBox().left <= (*itlEnemyMissiles)->GetAttackBox().right &&
 			(*player).GetPlayerHitBox().right >= (*itlEnemyMissiles)->GetAttackBox().left)
 		{
+			(*player).SetIsPlayerDmg(true);
 			(*itlEnemyMissiles)->SetIsFired(false);
+
+			itlEnemyMissiles = lEnemyMissiles.erase(itlEnemyMissiles);
+		}
+		else
+		{
+			itlEnemyMissiles++;
 		}
 	}
 }
