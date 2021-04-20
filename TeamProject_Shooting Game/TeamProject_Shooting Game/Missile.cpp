@@ -119,6 +119,9 @@ void Missile::Update()
 		case TYPE::Skill_02:
 			MovingSkill_02();
 			break;
+		case TYPE::Skill_03:
+			MovingSkill_03();
+			break;
 		}
 
 		if (pos.x < 0 || pos.y < 0 || pos.x > WINSIZE_X || pos.y > WINSIZE_Y)
@@ -209,6 +212,14 @@ void Missile::MovingSkill_02()
 	pos.x += cosf(angle) * moveSpeed * elapsedTime / 2;
 	pos.y -= sinf(angle) * moveSpeed * elapsedTime / 2;
 
+}
+
+void Missile::MovingSkill_03()
+{
+	float elapsedTime = TimerManager::GetSingleton()->GetElapsedTime();
+
+	pos.x += cosf(angle) * moveSpeed * elapsedTime / 2;
+	pos.y -= sinf(angle) * moveSpeed * elapsedTime / 2;
 }
 
 void Missile::SetIsFired(bool isFired)

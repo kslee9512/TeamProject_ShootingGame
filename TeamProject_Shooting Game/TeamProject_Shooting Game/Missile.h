@@ -8,7 +8,7 @@ class CollisionChecker;
 class Missile : public GameNode
 {
 public:
-	enum TYPE { Normal, Skill_01, FollowTarget, Skill_02, End };
+	enum TYPE { Normal, Skill_01, FollowTarget, Skill_02, Skill_03, End };
 	enum FIRED { PLAYER, ENEMY, ENDFIRED };
 private:
 	// �̹���
@@ -49,6 +49,7 @@ public:
 	void MovingSkill_01();
 	void MovingFollowTarget();
 	void MovingSkill_02();
+	void MovingSkill_03();
 	void SetIsFired(bool isFired);
 
 	inline FPOINT GetPos() { return this->pos; }

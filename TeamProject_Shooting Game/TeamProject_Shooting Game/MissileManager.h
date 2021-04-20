@@ -20,7 +20,7 @@ private:
 	bool Special;
 	int cnt;
 	float currElapsed;
-
+	int angleValue;
 	CollisionChecker* collisionChecker;
 public:
 	HRESULT Init(CollisionChecker* collisionChecker, Enemy* owner);

@@ -7,8 +7,8 @@ HRESULT MissileManager::Init(CollisionChecker* collisionChecker, Enemy* owner)
 {
     this->owner = owner;
     this->collisionChecker = collisionChecker;
-    vMissiles.resize(300);
-    for (int i = 0; i < 300; i++)
+    vMissiles.resize(500);
+    for (int i = 0; i < 500; i++)
     {
         vMissiles[i] = new Missile;
         vMissiles[i]->Init(collisionChecker, owner);
@@ -17,7 +17,7 @@ HRESULT MissileManager::Init(CollisionChecker* collisionChecker, Enemy* owner)
     Special = false;
     cnt = 0;
     currElapsed = 0;
-
+    angleValue = 0;
     return S_OK;
 }
 
@@ -36,7 +36,7 @@ HRESULT MissileManager::PInit(CollisionChecker* collisionChecker, PlayerShip* ow
 	}
 
     currElapsed = 0;
-
+    angleValue = 0;
 	return S_OK;
 }
 
@@ -67,7 +67,8 @@ void MissileManager::Update()
         if (owner)
         {
             if (Special) vMissiles[i]->SetType(vMissiles[i]->FollowTarget);
-            else if (!Special)   vMissiles[i]->SetType(vMissiles[i]->Skill_02);
+            else if (!Special)   vMissiles[i]->SetType(vMissiles[i]->Skill_02); //해당부분 수정 필요- 수정하지 않을 경우 미사일이 해당 타입으로 고정됨
+
             vMissiles[i]->SetSpecial(Special);
         }
 
@@ -150,6 +151,25 @@ void MissileManager::Fire()
             break;
         }
     }
+    
+
+    //패턴3
+    //for (itMissiles = vMissiles.begin(); itMissiles != vMissiles.end(); itMissiles++)
+    //{
+    //    if ((*itMissiles)->GetIsFired() == false && !Special)
+    //    {
+    //        (*itMissiles)->SetType(Missile::TYPE::Skill_03);
+    //        (*itMissiles)->SetIsFired(true);
+    //        (*itMissiles)->SetAngle(-(DegToRad(angleValue)));
+    //        (*itMissiles)->SetTarget(TargetManager::GetSingleton()->GetTarget());
+    //        angleValue += 5;
+    //        if (angleValue >= 179)
+    //        {
+    //            angleValue = 0;
+    //        }
+    //        break;
+    //    }
+    //}
 }
 
 void MissileManager::playerFire()
