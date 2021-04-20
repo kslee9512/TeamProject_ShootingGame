@@ -47,8 +47,23 @@ HRESULT Enemy::BossInit(CollisionChecker* collisionChecker, int posX, int posY)
             "Boss가 안됨!", "실패!", MB_OK);
         return E_FAIL;
     }
+    imageDmg = ImageManager::GetSingleton()->FindImage("Damage");
+    if (imageDmg == nullptr)
+    {
+        MessageBox(g_hWnd,
+            "Boss가 안됨!", "실패!", MB_OK);
+        return E_FAIL;
+    }
+    imageDst = ImageManager::GetSingleton()->FindImage("Destroy");
+    if (imageDst == nullptr)
+    {
+        MessageBox(g_hWnd,
+            "Boss가 안됨!", "실패!", MB_OK);
+        return E_FAIL;
+    }
     checkTimer = 0;
     enemyType = ENEMYTYPE::BOSS;
+    enemyDamage = ENEMYDAMAGE::DAMAGE; //DESTROY DAMAGE
     currFrameX = 0;
     updateCount = 0;
     enterType = 0;
@@ -72,6 +87,7 @@ HRESULT Enemy::BossInit(CollisionChecker* collisionChecker, int posX, int posY)
     collisionChecker->AddActiveEnemy(this);
     fireCount = 0;
     currElapsed = 0;
+    randElapsed = 0;
 
     return S_OK;
 }
@@ -79,12 +95,24 @@ HRESULT Enemy::BossInit(CollisionChecker* collisionChecker, int posX, int posY)
 void Enemy::Release()
 {
     SAFE_RELEASE(missileMgr);
-
+    SAFE_DELETE(image);
+    SAFE_DELETE(imageDmg);
+    SAFE_DELETE(imageDst);
 }
 
 void Enemy::Update()
 {
     currElapsed += TimerManager::GetSingleton()->GetElapsedTime();
+    randElapsed += TimerManager::GetSingleton()->GetElapsedTime();
+
+    if (randElapsed >= 0.5f)
+    {
+        randomX = rand() % 40;
+        randomY = rand() % 5;
+        randElapsed = 0;
+    }
+
+
     if (isAlive)
     {
         Enterance();
@@ -127,10 +155,6 @@ void Enemy::Update()
             }
         }
 
-
-
-        //if (enemyStatus == ENEMYSTATUS::FIRE)    SetStatus(ENEMYSTATUS::MOVE);
-
         if (enemyType == ENEMYTYPE::BOSS)
         {
             if (currElapsed >= 0.2f)
@@ -162,6 +186,15 @@ void Enemy::Render(HDC hdc)
             Rectangle(hdc, hitBox.left, hitBox.top, hitBox.right, hitBox.bottom);
             //image->Render(hdc, pos.x, pos.y, true);
             image->FrameRender(hdc, pos.x, pos.y, currFrameX, 0, true);
+
+            if (image && enemyDamage == ENEMYDAMAGE::DAMAGE)  // 화재
+            {
+                imageDmg->FrameRender(hdc, pos.x - 100, pos.y - 80, currFrameX, 0, true);
+            }
+            if (image && enemyDamage == ENEMYDAMAGE::DESTROY)  // 폭발
+            {
+                imageDst->FrameRender(hdc, (pos.x - 150) + randomX*10, (pos.y - 50) + randomY*10, currFrameX + 1, 0, true);
+            }
         }
 
         if (missileMgr)

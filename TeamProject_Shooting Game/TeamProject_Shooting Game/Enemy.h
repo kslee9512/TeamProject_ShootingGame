@@ -8,6 +8,7 @@ class TargetManager;
 class CollisionChecker;
 enum ENEMYSTATUS{ NONE, ENTERANCE, MOVE, FIRE, ENDSTATUS};
 enum ENEMYTYPE { NORMAL, BOSS, ENDTYPE};
+enum ENEMYDAMAGE { DESTROY, DAMAGE };
 class Enemy : public GameNode
 {
 private:
@@ -15,11 +16,14 @@ private:
 	TargetManager* target;
 
 	Image* image;
+	Image* imageDmg;
+	Image* imageDst;
 	int currFrameX;
 	int updateCount;
 	float checkTimer;
 	ENEMYSTATUS enemyStatus;
 	ENEMYTYPE enemyType;
+	ENEMYDAMAGE enemyDamage;
 	FPOINT pos;
 	int size;
 	string name;
@@ -33,6 +37,9 @@ private:
 	bool endMovePattern;
 
 	float currElapsed;
+	float randElapsed;
+	float randomX;
+	float randomY;
 
 	CollisionChecker* collisionChecker;
 	int fireCount;
