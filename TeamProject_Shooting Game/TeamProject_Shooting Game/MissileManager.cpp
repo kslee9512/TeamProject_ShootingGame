@@ -1,7 +1,8 @@
 #include "MissileManager.h"
 #include "TimerManager.h"
 #include "Missile.h"
-
+#include <random>
+#include <iostream>
 HRESULT MissileManager::Init(CollisionChecker* collisionChecker, Enemy* owner)
 {
     this->owner = owner;
@@ -66,7 +67,7 @@ void MissileManager::Update()
         if (owner)
         {
             if (Special) vMissiles[i]->SetType(vMissiles[i]->FollowTarget);
-            else if (!Special)   vMissiles[i]->SetType(vMissiles[i]->Skill_01);
+            else if (!Special)   vMissiles[i]->SetType(vMissiles[i]->Skill_02);
             vMissiles[i]->SetSpecial(Special);
         }
 
@@ -117,33 +118,48 @@ bool MissileManager::CheckIsFired()
 
 void MissileManager::Fire()
 {
-    vector<Missile*>::iterator it;
-    for (it = vMissiles.begin(); it != vMissiles.end(); it++)
+    //for (itMissiles = vMissiles.begin(); itMissiles != vMissiles.end(); itMissiles++)
+    //{
+    //    if ((*itMissiles)->GetIsFired() == false && !Special)
+    //    {
+    //        (*itMissiles)->SetType(Missile::TYPE::Skill_01);
+    //        (*itMissiles)->SetIsFired(true);
+    //        (*itMissiles)->SetFireIndex(cnt);
+    //        (*itMissiles)->SetAngle(DegToRad (-90));
+    //        (*itMissiles)->SetTarget(TargetManager::GetSingleton()->GetTarget());
+    //        cnt++;
+    //        break;
+    //    }
+    //}
+    //패턴2
+
+    for (itMissiles = vMissiles.begin(); itMissiles != vMissiles.end(); itMissiles++)
     {
-        if ((*it)->GetIsFired() == false && !Special)
+        if ((*itMissiles)->GetIsFired() == false && !Special)
         {
-            (*it)->SetIsFired(true);
-            (*it)->SetFireIndex(cnt);
-            (*it)->SetAngle(DegToRad (-90));    
-            (*it)->SetTarget(TargetManager::GetSingleton()->GetTarget());
+            std::random_device rd;
+            std::mt19937 gen(rd());
+            std::uniform_int_distribution<>dis(60, 120);
+            
+            (*itMissiles)->SetType(Missile::TYPE::Skill_02);
+            (*itMissiles)->SetIsFired(true);
+            (*itMissiles)->SetFireIndex(cnt);
+            (*itMissiles)->SetAngle(-(DegToRad(dis(gen))));
+            (*itMissiles)->SetTarget(TargetManager::GetSingleton()->GetTarget());
             cnt++;
             break;
         }
     }
-
 }
-
-
 
 void MissileManager::playerFire()
 {
-	vector<Missile*>::iterator it;
-	for (it = vMissiles.begin(); it != vMissiles.end(); it++)
+	for (itMissiles = vMissiles.begin(); itMissiles != vMissiles.end(); itMissiles++)
 	{
-		if ((*it)->GetIsFired() == false)
+		if ((*itMissiles)->GetIsFired() == false)
 		{
-			(*it)->SetIsFired(true);
-			(*it)->SetAngle(DegToRad(90));
+			(*itMissiles)->SetIsFired(true);
+			(*itMissiles)->SetAngle(DegToRad(90));
 			break;
 		}
 	}

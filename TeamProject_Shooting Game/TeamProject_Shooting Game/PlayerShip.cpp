@@ -48,7 +48,7 @@ void PlayerShip::Update()
 
 	Move();
 	Fire();
-	hitBox = GetRectToCenter(pos.x, pos.y, 35, 65);
+	hitBox = GetRectToCenter(pos.x, pos.y, 25, 65);
 
 	if (currElapsed >= 1.0f)	currElapsed = 0;
 
@@ -141,12 +141,16 @@ void PlayerShip::Move()
 	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_UP))
 	{
 		pos.y -= moveSpeed * TimerManager::GetSingleton()->GetElapsedTime();
+
+		if (pos.y <= 20) pos.y = 20;
 		lastUsed = 0;
 
 	}
 	else if (KeyManager::GetSingleton()->IsStayKeyDown(VK_DOWN))
 	{
 		pos.y += moveSpeed * TimerManager::GetSingleton()->GetElapsedTime();
+
+		if (pos.y >= WINSIZE_Y - 50) pos.y = WINSIZE_Y - 50;
 		lastUsed = 0;
 	}
 }

@@ -90,7 +90,7 @@ void Enemy::Update()
         Enterance();
         Move();
         hitBox = GetRectToCenter(pos.x, pos.y, 100, 200);
-
+        missileMgr->Update();
 
         if (enemyStatus == ENEMYSTATUS::MOVE)    SetStatus(ENEMYSTATUS::FIRE);
         
@@ -108,10 +108,9 @@ void Enemy::Update()
                     fireCount = 0;
                     missileMgr->Fire();
                 }
-                    missileMgr->Update();
             }
         }
-
+        
         // �ִϸ��̼� ������
         if (enemyType == ENEMYTYPE::NORMAL)
         {
@@ -126,8 +125,6 @@ void Enemy::Update()
                 updateCount = 0;
             }
         }
-
-
 
         //if (enemyStatus == ENEMYSTATUS::FIRE)    SetStatus(ENEMYSTATUS::MOVE);
 
@@ -159,7 +156,6 @@ void Enemy::Render(HDC hdc)
         }
         else if (image && enemyType == ENEMYTYPE::BOSS)
         {
-            Rectangle(hdc, hitBox.left, hitBox.top, hitBox.right, hitBox.bottom);
             //image->Render(hdc, pos.x, pos.y, true);
             image->FrameRender(hdc, pos.x, pos.y, currFrameX, 0, true);
         }

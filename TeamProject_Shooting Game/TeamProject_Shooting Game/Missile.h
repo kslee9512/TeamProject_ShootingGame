@@ -8,7 +8,7 @@ class CollisionChecker;
 class Missile : public GameNode
 {
 public:
-	enum TYPE { Normal, Skill_01, FollowTarget, End };
+	enum TYPE { Normal, Skill_01, FollowTarget, Skill_02, End };
 	enum FIRED { PLAYER, ENEMY, ENDFIRED };
 private:
 	// �̹���
@@ -17,6 +17,7 @@ private:
 	FPOINT pos;
 	float moveSpeed;
 	float moveTime;
+	float patternTime;
 	int size;
 	RECT attackBox;
 	int damage;
@@ -47,6 +48,7 @@ public:
 	void MovingNormal();
 	void MovingSkill_01();
 	void MovingFollowTarget();
+	void MovingSkill_02();
 	void SetIsFired(bool isFired);
 
 	inline FPOINT GetPos() { return this->pos; }
@@ -54,6 +56,7 @@ public:
 	inline bool GetIsFired() { return this->isFired; }
 	inline void SetTarget(PlayerShip* target) { this->target = target; }
 	inline void SetType(TYPE type) { this->missileType = type; }
+	inline TYPE GetType() { return this->missileType; }
 	inline void SetAngle(float angle) { this->angle = angle; }
 	inline void SetFireIndex(int fireIndex) { this->fireIndex = fireIndex; }
 	inline void SetSpecial(int special) { this->Special = special; }

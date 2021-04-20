@@ -17,15 +17,15 @@ HRESULT Missile::Init(CollisionChecker* collisionChecker, Enemy* owner)
 	damage = 5000;
 	angle = 0.0f;
 	isFired = false;
-	missileType = TYPE::Skill_01;
+	missileType = TYPE::Skill_02;
 	fireStep = 0;
 	target = nullptr;
 	destAngle = 0.0f;
 	isPlayer = false;
 	Special = false;
-
+	patternTime = 0.0f;
 	checkFired = FIRED::ENEMY;
-	// �̹���
+
 	img = ImageManager::GetSingleton()->FindImage("EnemyMissile");
 	if (img == nullptr)
 	{
@@ -56,7 +56,7 @@ HRESULT Missile::PInit(CollisionChecker* collisionChecker, PlayerShip* owner)
 	isPlayer = true;
 	frame = 0;
 	currElapsed = 0;
-
+	patternTime = 0.0f;
 	checkFired = FIRED::PLAYER;
 	// �̹���
 	img = ImageManager::GetSingleton()->FindImage("PlayerMissile");
@@ -77,7 +77,6 @@ void Missile::Release()
 
 void Missile::Update()
 {
-	// ��ġ �̵�
 	if (isFired)
 	{
 
@@ -117,6 +116,8 @@ void Missile::Update()
 			break;
 		case TYPE::FollowTarget:
 			MovingFollowTarget();
+		case TYPE::Skill_02:
+			MovingSkill_02();
 			break;
 		}
 
@@ -146,7 +147,6 @@ void Missile::Render(HDC hdc)
 		else if (isPlayer)
 		{
 			img->FrameRender(hdc, pos.x - 12, pos.y, frame, 0);
-			Rectangle(hdc, attackBox.left, attackBox.top, attackBox.right, attackBox.bottom);
 		}
 		//Ellipse(hdc, shape.left, shape.top, shape.right, shape.bottom);
 	}
@@ -200,6 +200,15 @@ void Missile::MovingFollowTarget()
 		isFired = false;
 		fireStep = 0;
 	}
+}
+
+void Missile::MovingSkill_02()
+{
+	float elapsedTime = TimerManager::GetSingleton()->GetElapsedTime();
+
+	pos.x += cosf(angle) * moveSpeed * elapsedTime / 2;
+	pos.y -= sinf(angle) * moveSpeed * elapsedTime / 2;
+
 }
 
 void Missile::SetIsFired(bool isFired)
