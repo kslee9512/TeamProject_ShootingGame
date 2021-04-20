@@ -33,7 +33,6 @@ void CollisionChecker::CheckPlayerCollision(PlayerShip* player)
 			(*player).GetPlayerHitBox().bottom >= (*itlEnemyMissiles)->GetAttackBox().top)
 		{
 			(*itlEnemyMissiles)->SetIsFired(false);
-			lEnemyMissiles.remove((*itlEnemyMissiles));
 		}
 	}
 }
