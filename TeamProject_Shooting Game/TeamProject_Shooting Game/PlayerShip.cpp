@@ -49,7 +49,7 @@ void PlayerShip::Update()
 
 	Move();
 	Fire();
-	hitBox = GetRectToCenter(pos.x, pos.y, 25, 65);
+	hitBox = GetRectToCenter(pos.x, pos.y, 25, 45);
 
 	if (currElapsed >= 1.0f)	currElapsed = 0;
 

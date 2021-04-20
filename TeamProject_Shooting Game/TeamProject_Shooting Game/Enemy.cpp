@@ -51,7 +51,7 @@ HRESULT Enemy::Init(CollisionChecker* collisionChecker, int posX, int posY)
     missileMgr = new MissileManager();
     missileMgr->Init(collisionChecker, this);
     fireCount = 0;
-
+    changeStatusTimer = 0.0f;
     enemyCurrHP = 4;
     enemyDmg = 1;
     IsEnemyDmg = false;
@@ -109,10 +109,10 @@ HRESULT Enemy::BossInit(CollisionChecker* collisionChecker, int posX, int posY)
     currElapsed = 0;
     randElapsed = 0;
 
-    enemyCurrHP = 5;
+    enemyCurrHP = 50;
     enemyDmg = 1;
     IsEnemyDmg = false;
-
+    changeStatusTimer = 0.0f;
     return S_OK;
 }
 
@@ -136,18 +136,25 @@ void Enemy::Update()
 
     if (isAlive)
     {
+        if (enemyType == ENEMYTYPE::BOSS && enemyStatus == ENEMYSTATUS::MOVE)
+        {
+            changeStatusTimer += TimerManager::GetSingleton()->GetElapsedTime();
+        }
         Enterance();
         Move();
         hitBox = GetRectToCenter(pos.x, pos.y, 100, 200);
         missileMgr->Update();
 
-        if (enemyStatus == ENEMYSTATUS::MOVE)    SetStatus(ENEMYSTATUS::FIRE);
-        
+        if (enemyStatus == ENEMYSTATUS::MOVE && changeStatusTimer >= 3.0f)
+        {
+            SetStatus(ENEMYSTATUS::FIRE);
+            changeStatusTimer = 0.0f;
+        }
         // 미사일 발사
 
-        if (enemyStatus == ENEMYSTATUS::FIRE)
+        if (enemyStatus == ENEMYSTATUS::FIRE && enemyDamage != ENEMYDAMAGE::DESTROY && enemyType == ENEMYTYPE::BOSS)
         {
-            // �̻��� �߻�
+            changeStatusTimer += TimerManager::GetSingleton()->GetElapsedTime();
             if (missileMgr)
             {
                 // �Լ� ȣ�� �ֱ⸦ �ٲ㺸��.
@@ -157,6 +164,11 @@ void Enemy::Update()
                     fireCount = 0;
                     missileMgr->Fire();
                 }
+            }
+            if (changeStatusTimer >= 3.0f)
+            {
+                SetStatus(ENEMYSTATUS::MOVE);
+                changeStatusTimer = 0.0f;
             }
         }
         

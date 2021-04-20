@@ -35,7 +35,7 @@ private:
 	bool isAlive;
 	bool enterStage;
 	bool endMovePattern;
-
+	float changeStatusTimer;
 	float currElapsed;
 	float randElapsed;
 	float randomX;

@@ -132,42 +132,42 @@ void MissileManager::Fire()
     //}
     //패턴2
 
-    for (itMissiles = vMissiles.begin(); itMissiles != vMissiles.end(); itMissiles++)
-    {
-        if ((*itMissiles)->GetIsFired() == false && !Special)
-        {
-            std::random_device rd;
-            std::mt19937 gen(rd());
-            std::uniform_int_distribution<>dis(60, 120);
-            
-            (*itMissiles)->SetType(Missile::TYPE::Skill_02);
-            (*itMissiles)->SetIsFired(true);
-            (*itMissiles)->SetFireIndex(cnt);
-            (*itMissiles)->SetAngle(-(DegToRad(dis(gen))));
-            (*itMissiles)->SetTarget(TargetManager::GetSingleton()->GetTarget());
-            cnt++;
-            break;
-        }
-    }
-    
-
-    //패턴3
     //for (itMissiles = vMissiles.begin(); itMissiles != vMissiles.end(); itMissiles++)
     //{
     //    if ((*itMissiles)->GetIsFired() == false && !Special)
     //    {
-    //        (*itMissiles)->SetType(Missile::TYPE::Skill_03);
+    //        std::random_device rd;
+    //        std::mt19937 gen(rd());
+    //        std::uniform_int_distribution<>dis(60, 120);
+    //        
+    //        (*itMissiles)->SetType(Missile::TYPE::Skill_02);
     //        (*itMissiles)->SetIsFired(true);
-    //        (*itMissiles)->SetAngle(-(DegToRad(angleValue)));
+    //        (*itMissiles)->SetFireIndex(cnt);
+    //        (*itMissiles)->SetAngle(-(DegToRad(dis(gen))));
     //        (*itMissiles)->SetTarget(TargetManager::GetSingleton()->GetTarget());
-    //        angleValue += 5;
-    //        if (angleValue >= 179)
-    //        {
-    //            angleValue = 0;
-    //        }
+    //        cnt++;
     //        break;
     //    }
     //}
+    
+
+    //패턴3
+    for (itMissiles = vMissiles.begin(); itMissiles != vMissiles.end(); itMissiles++)
+    {
+        if ((*itMissiles)->GetIsFired() == false && !Special)
+        {
+            (*itMissiles)->SetType(Missile::TYPE::Skill_03);
+            (*itMissiles)->SetIsFired(true);
+            (*itMissiles)->SetAngle(-(DegToRad(angleValue)));
+            (*itMissiles)->SetTarget(TargetManager::GetSingleton()->GetTarget());
+            angleValue += 5;
+            if (angleValue >= 179)
+            {
+                angleValue = 0;
+            }
+            break;
+        }
+    }
 }
 
 void MissileManager::playerFire()
