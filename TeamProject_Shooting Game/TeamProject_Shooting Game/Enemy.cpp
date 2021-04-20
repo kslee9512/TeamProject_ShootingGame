@@ -13,6 +13,22 @@ HRESULT Enemy::Init(CollisionChecker* collisionChecker, int posX, int posY)
             "Enemy가 로드안됨!", "실패!", MB_OK);
         return E_FAIL;
     }
+
+    imageDmg = ImageManager::GetSingleton()->FindImage("Damage");
+    if (imageDmg == nullptr)
+    {
+        MessageBox(g_hWnd,
+            "Boss가 안됨!", "실패!", MB_OK);
+        return E_FAIL;
+    }
+    imageDst = ImageManager::GetSingleton()->FindImage("Destroy");
+    if (imageDst == nullptr)
+    {
+        MessageBox(g_hWnd,
+            "Boss가 안됨!", "실패!", MB_OK);
+        return E_FAIL;
+    }
+
     checkTimer = 0;
     enemyType = ENEMYTYPE::BOSS;
     currFrameX = 0;
@@ -95,9 +111,6 @@ HRESULT Enemy::BossInit(CollisionChecker* collisionChecker, int posX, int posY)
 void Enemy::Release()
 {
     SAFE_RELEASE(missileMgr);
-    SAFE_DELETE(image);
-    SAFE_DELETE(imageDmg);
-    SAFE_DELETE(imageDst);
 }
 
 void Enemy::Update()
