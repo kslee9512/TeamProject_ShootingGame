@@ -5,21 +5,28 @@
 
 void CollisionChecker::CheckCollision()
 {
-		for (itlEnemys = lEnemys.begin(); itlEnemys != lEnemys.end(); itlEnemys++)
+	for (itlEnemys = lEnemys.begin(); itlEnemys != lEnemys.end(); itlEnemys++)
+	{
+		if ((*itlEnemys)->GetMovePatternEnd() != true)
 		{
-			if ((*itlEnemys)->GetMovePatternEnd() != true)
+			for (itlPlayerMissiles = lPlayerMissiles.begin(); itlPlayerMissiles != lPlayerMissiles.end(); )
 			{
-				for (itlPlayerMissiles = lPlayerMissiles.begin(); itlPlayerMissiles != lPlayerMissiles.end(); itlPlayerMissiles++)
+				if ((*itlPlayerMissiles)->GetAttackBox().top <= (*itlEnemys)->GetHitBox().bottom
+					&& (*itlPlayerMissiles)->GetAttackBox().left <= (*itlEnemys)->GetHitBox().right
+					&& (*itlPlayerMissiles)->GetAttackBox().right >= (*itlEnemys)->GetHitBox().left)
 				{
-					if ((*itlPlayerMissiles)->GetAttackBox().top <= (*itlEnemys)->GetHitBox().bottom
-						&& (*itlPlayerMissiles)->GetAttackBox().left <= (*itlEnemys)->GetHitBox().right
-						&& (*itlPlayerMissiles)->GetAttackBox().right >= (*itlEnemys)->GetHitBox().left)
-					{
-						(*itlPlayerMissiles)->SetIsFired(false);
-					}
+					(*itlEnemys)->SetIsEnemyDmg(true);
+					(*itlPlayerMissiles)->SetIsFired(false);
+
+					itlPlayerMissiles = lPlayerMissiles.erase(itlPlayerMissiles);
+				}
+				else
+				{
+					itlPlayerMissiles++;
 				}
 			}
 		}
+	}
 }
 
 void CollisionChecker::CheckPlayerCollision(PlayerShip* player)

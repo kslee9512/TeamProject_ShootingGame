@@ -29,7 +29,7 @@ HRESULT EnemyManager::Init(CollisionChecker* collisionChecker)
     //}
     this->collisionChecker = collisionChecker;
     vEnemys.push_back(new Enemy());
-    vEnemys[0]->BossInit(collisionChecker);
+    vEnemys[0]->BossInit(collisionChecker); //BossInit Init
 
     return S_OK;
 }

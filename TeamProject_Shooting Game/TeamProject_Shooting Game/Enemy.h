@@ -44,6 +44,11 @@ private:
 	CollisionChecker* collisionChecker;
 	int fireCount;
 
+	int enemyCurrHP;
+	int enemyDmg;
+	bool IsEnemyDmg;
+	bool IsCheckDmg;
+
 public:
 	HRESULT Init(CollisionChecker* collisionChecker, int posX = 0, int posY = 0);
 	HRESULT BossInit(CollisionChecker* collisionChecker, int posX = 0, int posY = 0);
@@ -72,5 +77,14 @@ public:
 	inline bool GetIsAlive() { return this->isAlive; }
 	inline RECT GetHitBox() { return this->hitBox; }
 	inline bool GetMovePatternEnd() { return this->endMovePattern; }
+
+	inline void SetIsCheckDmg(bool IsCheckDmg) { this->IsCheckDmg = IsCheckDmg; }
+	inline bool GetIsCheckDmg() { return this->IsCheckDmg; }
+	inline void SetIsEnemyDmg(bool IsEnemyDmg) { this->IsEnemyDmg = IsEnemyDmg; }
+	inline bool GetIsEnemyDmg() { return this->IsEnemyDmg; }
+	inline void SetEnemyCurrHP(int enemyCurrHP) { this->enemyCurrHP = enemyCurrHP; }
+	inline int GetEnemyCurrHP() { return this->enemyCurrHP; }
+	inline void SetEnemyDmg(int enemyDmg) { this->enemyDmg = enemyDmg; }
+	inline int GetEnemyDmg() { return this->enemyDmg; }
 };
 
