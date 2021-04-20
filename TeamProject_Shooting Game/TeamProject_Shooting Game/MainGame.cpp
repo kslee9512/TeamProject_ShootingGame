@@ -119,7 +119,8 @@ void MainGame::Update()
 			{
 				playerShip->Update();
 			}
-			//collisionChecker->CheckCollision();
+			collisionChecker->CheckCollision();
+			collisionChecker->CheckPlayerCollision(playerShip);
 		}
 	}
 }

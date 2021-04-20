@@ -20,11 +20,15 @@ void CollisionChecker::CheckCollision()
 				}
 			}
 		}
+}
+
+void CollisionChecker::CheckPlayerCollision(PlayerShip* player)
+{
 	for (itlEnemyMissiles = lEnemyMissiles.begin(); itlEnemyMissiles != lEnemyMissiles.end(); itlEnemyMissiles++)
 	{
-		if((*itlEnemyMissiles)->GetAttackBox().bottom >= (*player).GetPlayerRect().top &&
-			(*itlEnemyMissiles)->GetAttackBox().left <= (*player).GetPlayerRect().right &&
-			(*itlEnemyMissiles)->GetAttackBox().right >= (*player).GetPlayerRect().left)
+		if ((*player).GetPlayerHitBox().top <= (*itlEnemyMissiles)->GetAttackBox().bottom &&
+			(*player).GetPlayerHitBox().left <= (*itlEnemyMissiles)->GetAttackBox().right &&
+			(*player).GetPlayerHitBox().right >= (*itlEnemyMissiles)->GetAttackBox().left)
 		{
 			(*itlEnemyMissiles)->SetIsFired(false);
 		}

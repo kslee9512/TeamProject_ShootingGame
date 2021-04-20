@@ -35,7 +35,7 @@ public:
 	void ErasePlayerMissile(Missile* missile) { lPlayerMissiles.remove(missile); }
 
 	void CheckCollision();
-
+	void CheckPlayerCollision(PlayerShip* player);
 
 };
 

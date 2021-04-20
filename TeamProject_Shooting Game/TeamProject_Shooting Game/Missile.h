@@ -41,8 +41,8 @@ private:
 public:
 	HRESULT Init(CollisionChecker* collisionChecker, Enemy* owner);
 	HRESULT PInit(CollisionChecker* collisionChecker, PlayerShip* owner);
-	void Release();		
-	void Update();		
+	void Release();
+	void Update();
 	void Render(HDC hdc);
 	void MovingNormal();
 	void MovingSkill_01();
@@ -57,7 +57,6 @@ public:
 	inline void SetAngle(float angle) { this->angle = angle; }
 	inline void SetFireIndex(int fireIndex) { this->fireIndex = fireIndex; }
 	inline void SetSpecial(int special) { this->Special = special; }
-
 	inline int GetSize() { return this->size; }
 	inline RECT GetAttackBox() { return this->attackBox; }
 };

@@ -6,7 +6,6 @@ HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 {
 	fireImage = ImageManager::GetSingleton()->FindImage("Fire");
 	image = ImageManager::GetSingleton()->FindImage("Move");
-	this->collisionChecker = collisionChecker;
 	if (image == nullptr)
 	{
 		MessageBox(g_hWnd, "플레이어 우주선 이미지 로드 실패", "초기화 실패", MB_OK);
@@ -14,8 +13,6 @@ HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 	}
 
 	// 미사일 매니저
-	missileMgr = new MissileManager();
-	missileMgr->PInit(collisionChecker, this);
 
 	TargetManager::GetSingleton()->SetTarget(this);
 
@@ -32,6 +29,9 @@ HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 	lastUsed = 0;
 	currFire = 0;
 	hitBox = { 0, 0, 0, 0 };
+	this->collisionChecker = collisionChecker;
+	missileMgr = new MissileManager();
+	missileMgr->PInit(collisionChecker, this);
 	return S_OK;
 }
 
