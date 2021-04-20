@@ -28,14 +28,21 @@ void ItemManager::Release()
 
 void ItemManager::Update()
 {
-    if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_NUMPAD8))
+    currElapsed += TimerManager::GetSingleton()->GetElapsedTime();
+
+    if (currElapsed>=10.0f)
     {
+        currElapsed = 0;
         Create();
     }
 
    for (int i = 0; i < vItems.size(); i++)
    {
-       vItems[i]->Update();
+
+       if (vItems[i]->GetIsCreated())
+       {
+           vItems[i]->Update();
+       }
    }
 }
 
@@ -43,7 +50,10 @@ void ItemManager::Render(HDC hdc)
 {
     for (int i = 0; i < vItems.size(); i++)
     {
-        vItems[i]->Render(hdc);
+        if (vItems[i]->GetIsCreated())
+        {
+            vItems[i]->Render(hdc);
+        }
     }
 }
 
@@ -54,12 +64,13 @@ void ItemManager::Create()
 
     for (itItems = vItems.begin(); itItems != vItems.end(); itItems++)
     {
-        float random = ((rand() % (WINSIZE_X - 200)));
+        float random = ((rand() % (WINSIZE_X - 100)));
 
         if ((*itItems)->GetIsCreated() == false)
         {
             (*itItems)->SetIsCreated(true);
             (*itItems)->SetPos({random,0.0f });
+            break;
         }
     }
 }

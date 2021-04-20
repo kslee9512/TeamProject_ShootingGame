@@ -11,6 +11,7 @@ private:
 	CollisionChecker* collisionChecker;
 	Image* image;
 	Image* fireImage;
+	Image* team;
 
 	FPOINT pos;
 	RECT hitBox;
@@ -23,6 +24,8 @@ private:
 	float currElapsed;
 	float lastUsed;		// 키가 눌리지 않은 시간
 	float currFire;		// 발사 후 파이어 이미지
+
+	int gunLevel;
 	
 public:
 	HRESULT Init(CollisionChecker* collisionChecker);
@@ -36,5 +39,7 @@ public:
 	inline FPOINT GetPos() { return this->pos; }
 	inline RECT GetPlayerHitBox() { return this->hitBox; }
 	inline MissileManager* GetPlayerMgr() { return this->missileMgr; }
+	inline void SetGun(int gunlevel) { this->gunLevel = gunlevel; }
+	inline int GetGun() { return this->gunLevel; }
 };
 

@@ -12,6 +12,8 @@ HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 		return E_FAIL;
 	}
 
+	team = ImageManager::GetSingleton()->FindImage("Team");
+
 	// 미사일 매니저
 
 	TargetManager::GetSingleton()->SetTarget(this);
@@ -32,6 +34,8 @@ HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 	this->collisionChecker = collisionChecker;
 	missileMgr = new MissileManager();
 	missileMgr->PInit(collisionChecker, this);
+
+	gunLevel = 0;
 
 	return S_OK;
 }
@@ -62,6 +66,13 @@ void PlayerShip::Render(HDC hdc)
 		Rectangle(hdc, hitBox.left, hitBox.top, hitBox.right, hitBox.bottom);
 		image->FrameRender(hdc, pos.x, pos.y, frame, 0, true);
 		if (fire) fireImage->FrameRender(hdc, pos.x-2, pos.y-55, fireFrame, 0, true);
+
+		if (gunLevel >= 1)
+		{
+			team->Render(hdc, pos.x - 50, pos.y + 40, true);
+		}
+
+		if (gunLevel == 2)	team->Render(hdc, pos.x + 50, pos.y + 40, true);
 	}
 
 	if (missileMgr)
@@ -159,6 +170,7 @@ void PlayerShip::Fire()
 		// 함수 호출 주기를 바꿔보자.
 		if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_SPACE))
 		{
+			missileMgr->SetGun(gunLevel);
 			fire = true;
 			currFire = 0;
 			missileMgr->playerFire();

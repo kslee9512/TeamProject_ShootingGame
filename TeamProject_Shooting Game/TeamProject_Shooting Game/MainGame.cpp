@@ -23,6 +23,9 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->AddImage("EnemyMissile",
 		"Image/구슬.bmp", 20, 20, true, RGB(255, 0, 255));
 
+	ImageManager::GetSingleton()->AddImage("Team",
+		"Image/rocket.bmp", 35, 42, true, RGB(255, 0, 255));
+
 	ImageManager::GetSingleton()->AddImage("scoreBullet",
 		"Image/Score_Bullet.bmp", 18, 18, true, RGB(0, 0, 0));
 	

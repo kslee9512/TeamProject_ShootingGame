@@ -62,7 +62,7 @@ void Item::Render(HDC hdc)
     if (IsCreate)
     {
         itemImg->FrameRender(hdc, pos.x, pos.y, frame, 0);
-        Rectangle(hdc, attackBox.left, attackBox.top, attackBox.right, attackBox.bottom);
+        //Rectangle(hdc, attackBox.left, attackBox.top, attackBox.right, attackBox.bottom);
     }
 }
 

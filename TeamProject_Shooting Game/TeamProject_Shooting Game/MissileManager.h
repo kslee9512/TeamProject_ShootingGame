@@ -20,6 +20,7 @@ private:
 	bool Special;
 	int cnt;
 	float currElapsed;
+	int gunLevel;
 
 public:
 	HRESULT Init(CollisionChecker* collisionChecker, Enemy* owner);
@@ -31,5 +32,6 @@ public:
 
 	void Fire();
 	void playerFire();
+	inline void SetGun(int gunlevel) { this->gunLevel = gunlevel; }
 };
 

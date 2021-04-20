@@ -13,6 +13,8 @@ private:
 
 	Image* M_item;
 
+	float currElapsed;
+
 public:
 	HRESULT Init(CollisionChecker* collisionChecker);
 	void Release();
