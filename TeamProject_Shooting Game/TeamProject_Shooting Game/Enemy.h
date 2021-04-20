@@ -45,8 +45,8 @@ private:
 	int fireCount;
 
 public:
-	HRESULT Init(CollisionChecker* collisionChecker, int posX = 0, int posY = 0);
 	HRESULT BossInit(CollisionChecker* collisionChecker, int posX = 0, int posY = 0);
+	HRESULT Init(CollisionChecker* collisionChecker, int posX = 0, int posY = 0);
 	void Release();		
 	void Update();		
 	void Render(HDC hdc);

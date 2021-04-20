@@ -6,6 +6,7 @@ using namespace std;
 class Missile;
 class PlayerShip;
 class Enemy;
+class Item;
 class CollisionChecker
 {
 private:
@@ -23,6 +24,9 @@ private:
 	list<Missile*> lEnemyMissiles;
 	list<Missile*>::iterator itlEnemyMissiles;
 
+	list<Item*> lItem;
+	list<Item*>::iterator itlItem;
+
 public:
 
 	void AddActiveEnemy(Enemy* enemy) { lEnemys.push_back(enemy); }
@@ -36,6 +40,9 @@ public:
 
 	void CheckCollision();
 	void CheckPlayerCollision(PlayerShip* player);
+
+	void AddItem(Item* item) { lItem.push_back(item); }
+	void EraseItem(Item* item) { lItem.remove(item); }
 
 };
 

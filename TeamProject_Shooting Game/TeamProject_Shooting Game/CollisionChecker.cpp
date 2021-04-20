@@ -1,6 +1,7 @@
 #include "CollisionChecker.h"
 #include "Missile.h"
 #include "Enemy.h"
+#include "Item.h"
 #include "PlayerShip.h"
 
 void CollisionChecker::CheckCollision()
@@ -31,6 +32,16 @@ void CollisionChecker::CheckPlayerCollision(PlayerShip* player)
 			(*player).GetPlayerHitBox().right >= (*itlEnemyMissiles)->GetAttackBox().left)
 		{
 			(*itlEnemyMissiles)->SetIsFired(false);
+		}
+	}
+
+	for (itlItem = lItem.begin(); itlItem != lItem.end(); itlItem++)
+	{
+		if ((*player).GetPlayerHitBox().top <= (*itlItem)->GetAttackBox().bottom &&
+			(*player).GetPlayerHitBox().left <= (*itlItem)->GetAttackBox().right &&
+			(*player).GetPlayerHitBox().right >= (*itlItem)->GetAttackBox().left)
+		{
+			(*itlItem)->SetIsCreated(false);
 		}
 	}
 }

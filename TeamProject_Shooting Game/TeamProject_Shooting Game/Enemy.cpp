@@ -95,9 +95,6 @@ HRESULT Enemy::BossInit(CollisionChecker* collisionChecker, int posX, int posY)
 void Enemy::Release()
 {
     SAFE_RELEASE(missileMgr);
-    SAFE_DELETE(image);
-    SAFE_DELETE(imageDmg);
-    SAFE_DELETE(imageDst);
 }
 
 void Enemy::Update()
