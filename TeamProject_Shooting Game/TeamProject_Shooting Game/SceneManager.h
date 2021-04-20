@@ -13,6 +13,8 @@ private:
 	EndScene_Lose* endScene_Lose;
 
 	int scenePage;
+	
+	bool battlePhaseEnd;
 
 public:
 	HRESULT Init();
@@ -22,6 +24,8 @@ public:
 
 	inline void SetScenePage(int scenePage) { this->scenePage = scenePage; }
 	inline int GetScenePage() { return this->scenePage; }
+	inline void SetBattlePhaseEnd(int battlePhaseEnd) { this->battlePhaseEnd = battlePhaseEnd; }
+	inline int GetBattlePhaseEnd() { return this->battlePhaseEnd; }
 };
 
 

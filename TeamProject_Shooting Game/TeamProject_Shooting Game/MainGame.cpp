@@ -107,9 +107,7 @@ void MainGame::Update()
 		{
 			if (enemyMgr)
 			{
-
-				enemyMgr->Update();
-				
+				enemyMgr->Update();			
 			}
 			if (playerShip)
 			{
@@ -117,6 +115,11 @@ void MainGame::Update()
 			}
 			collisionChecker->CheckCollision();
 			collisionChecker->CheckPlayerCollision(playerShip);
+
+			if (enemyMgr->GetIsBossAlive() == false)
+			{
+				sceneMgr->SetBattlePhaseEnd(true);
+			}
 		}
 	}
 }

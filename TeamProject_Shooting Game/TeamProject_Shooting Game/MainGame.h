@@ -34,7 +34,6 @@ private:
 
 	CollisionChecker* collisionChecker;
 
-
 	int health;
 	int losshealth;
 
