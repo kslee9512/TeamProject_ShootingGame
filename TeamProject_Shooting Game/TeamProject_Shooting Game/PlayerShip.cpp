@@ -32,6 +32,7 @@ HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 	this->collisionChecker = collisionChecker;
 	missileMgr = new MissileManager();
 	missileMgr->PInit(collisionChecker, this);
+
 	return S_OK;
 }
 

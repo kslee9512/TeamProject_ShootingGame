@@ -13,6 +13,22 @@ HRESULT Enemy::Init(CollisionChecker* collisionChecker, int posX, int posY)
             "Enemy가 로드안됨!", "실패!", MB_OK);
         return E_FAIL;
     }
+
+    imageDmg = ImageManager::GetSingleton()->FindImage("Damage");
+    if (imageDmg == nullptr)
+    {
+        MessageBox(g_hWnd,
+            "Boss가 안됨!", "실패!", MB_OK);
+        return E_FAIL;
+    }
+    imageDst = ImageManager::GetSingleton()->FindImage("Destroy");
+    if (imageDst == nullptr)
+    {
+        MessageBox(g_hWnd,
+            "Boss가 안됨!", "실패!", MB_OK);
+        return E_FAIL;
+    }
+
     checkTimer = 0;
     enemyType = ENEMYTYPE::BOSS;
     currFrameX = 0;
@@ -35,6 +51,10 @@ HRESULT Enemy::Init(CollisionChecker* collisionChecker, int posX, int posY)
     missileMgr = new MissileManager();
     missileMgr->Init(collisionChecker, this);
     fireCount = 0;
+
+    enemyCurrHP = 4;
+    enemyDmg = 1;
+    IsEnemyDmg = false;
     return S_OK;
 }
 
@@ -88,6 +108,10 @@ HRESULT Enemy::BossInit(CollisionChecker* collisionChecker, int posX, int posY)
     fireCount = 0;
     currElapsed = 0;
     randElapsed = 0;
+
+    enemyCurrHP = 5;
+    enemyDmg = 1;
+    IsEnemyDmg = false;
 
     return S_OK;
 }
@@ -171,12 +195,25 @@ void Enemy::Update()
 void Enemy::Render(HDC hdc)
 {
     if (isAlive)
-    {
+    {   
+        if (IsEnemyDmg)
+        {
+            enemyCurrHP -= enemyDmg;
+            IsEnemyDmg = false;
+        }
 
         if (image && enemyType == ENEMYTYPE::NORMAL)
         {
             image->FrameRender(hdc, pos.x, pos.y, currFrameX, 0, true);
             RenderEllipseToCenter(hdc, pos.x, pos.y, size, size);
+            if (enemyCurrHP == 0)
+            {
+                enemyDamage = ENEMYDAMAGE::DESTROY;
+            }
+            if (image && enemyDamage == ENEMYDAMAGE::DESTROY && enemyCurrHP == 0)  // 폭발
+            {
+                imageDst->FrameRender(hdc, pos.x, pos.y, currFrameX + 1, 0, true);
+            }
         }
         else if (image && enemyType == ENEMYTYPE::BOSS)
         {
@@ -184,13 +221,24 @@ void Enemy::Render(HDC hdc)
             //image->Render(hdc, pos.x, pos.y, true);
             image->FrameRender(hdc, pos.x, pos.y, currFrameX, 0, true);
 
-            if (image && enemyDamage == ENEMYDAMAGE::DAMAGE)  // 화재
+            if (image && enemyDamage == ENEMYDAMAGE::DAMAGE && enemyCurrHP <= 3)  // 화재
             {
                 imageDmg->FrameRender(hdc, pos.x - 100, pos.y - 80, currFrameX, 0, true);
+
+                if (enemyCurrHP == 0)
+                {
+                    enemyDamage = ENEMYDAMAGE::DESTROY;
+                }
             }
-            if (image && enemyDamage == ENEMYDAMAGE::DESTROY)  // 폭발
+            if (image && enemyDamage == ENEMYDAMAGE::DESTROY && enemyCurrHP <= 0)  // 폭발
             {
                 imageDst->FrameRender(hdc, (pos.x - 150) + randomX*10, (pos.y - 50) + randomY*10, currFrameX + 1, 0, true);
+
+                pos.y += 0.1f;
+                if (pos.y >= 400)
+                {
+                    0;
+                }
             }
         }
 
@@ -351,7 +399,7 @@ void Enemy::BossEnterance()
     }
 }
 
-void Enemy::HorizonMove() // �⺻ �̵�
+void Enemy::HorizonMove() 
 {
     checkTimer += TimerManager::GetSingleton()->GetElapsedTime();
     if (pos.x > WINSIZE_X || pos.x < 0)
