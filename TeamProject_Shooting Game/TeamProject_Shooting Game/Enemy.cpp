@@ -110,7 +110,7 @@ HRESULT Enemy::BossInit(CollisionChecker* collisionChecker, int posX, int posY)
     currElapsed = 0;
     randElapsed = 0;
 
-    enemyCurrHP = 50;
+    enemyCurrHP = 30;
     enemyDmg = 1;
     IsEnemyDmg = false;
     changeStatusTimer = 0.0f;
@@ -238,13 +238,23 @@ void Enemy::Render(HDC hdc)
             //image->Render(hdc, pos.x, pos.y, true);
             image->FrameRender(hdc, pos.x, pos.y, currFrameX, 0, true);
 
-            if (image && enemyDamage == ENEMYDAMAGE::DAMAGE && enemyCurrHP <= 3)  // 화재
+            if (image && enemyDamage == ENEMYDAMAGE::DAMAGE && enemyCurrHP <= 30)  // 화재1
             {
-                imageDmg->FrameRender(hdc, pos.x - 100, pos.y - 80, currFrameX, 0, true);
+                imageDmg->FrameRender(hdc, pos.x - 250, pos.y - 100, currFrameX, 0, true);
 
-                if (enemyCurrHP == 0)
+                if (image && enemyDamage == ENEMYDAMAGE::DAMAGE && enemyCurrHP <= 20)  // 화재2
                 {
-                    enemyDamage = ENEMYDAMAGE::DESTROY;
+                    imageDmg->FrameRender(hdc, pos.x + 100, pos.y - 80, currFrameX, 0, true);
+
+                    if (image && enemyDamage == ENEMYDAMAGE::DAMAGE && enemyCurrHP <= 10)  // 화재3
+                    {
+                        imageDmg->FrameRender(hdc, pos.x - 100, pos.y - 60, currFrameX, 0, true);
+
+                        if (enemyCurrHP <= 0)
+                        {
+                            enemyDamage = ENEMYDAMAGE::DESTROY;
+                        }
+                    }
                 }
             }
             if (image && enemyDamage == ENEMYDAMAGE::DESTROY && enemyCurrHP <= 0)  // 폭발

@@ -66,17 +66,13 @@ void PlayerShip::Update()
 	lastUsed += TimerManager::GetSingleton()->GetElapsedTime();	// ���������� �����?Ű�� �������� ���?�ð� �˻� ( �ϳ��� ���������� 0���� ���?�ʱ�ȭ ��)
 	currFire += TimerManager::GetSingleton()->GetElapsedTime();
 
-	Move();
-	Fire();
-	hitBox = GetRectToCenter(pos.x, pos.y, 25, 45);
-
 	if (currElapsed >= 1.0f)	currElapsed = 0;
 
 	if (!IsPlayerDestroy)
 	{
 		Move();
 		Fire();
-		hitBox = GetRectToCenter(pos.x, pos.y, 35, 65);
+		hitBox = GetRectToCenter(pos.x, pos.y, 25, 45);
 	}	
 
 
@@ -104,7 +100,7 @@ void PlayerShip::Render(HDC hdc)
 
 	if (image)
 	{
-		Rectangle(hdc, hitBox.left, hitBox.top, hitBox.right, hitBox.bottom);
+		//Rectangle(hdc, hitBox.left, hitBox.top, hitBox.right, hitBox.bottom);
 		image->FrameRender(hdc, pos.x, pos.y, frame, 0, true);
 		if (fire) fireImage->FrameRender(hdc, pos.x-2, pos.y-55, fireFrame, 0, true);
 
