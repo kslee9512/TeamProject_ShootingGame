@@ -40,16 +40,14 @@ void CollisionChecker::CheckPlayerCollision(PlayerShip* player)
 		{
 			(*player).SetIsPlayerDmg(true);
 			(*itlEnemyMissiles)->SetIsFired(false);
-
+			
 			itlEnemyMissiles = lEnemyMissiles.erase(itlEnemyMissiles);
 		}
-
 		else
 		{
 			itlEnemyMissiles++;
 		}
 	}
-
 	for (itlItem = lItem.begin(); itlItem != lItem.end();)
 	{
 		if ((*player).GetPlayerHitBox().top <= (*itlItem)->GetAttackBox().bottom &&

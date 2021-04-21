@@ -29,7 +29,6 @@ private:
 	list<Item*>::iterator itlItem;
 
 public:
-
 	void AddActiveEnemy(Enemy* enemy) { lEnemys.push_back(enemy); }
 	void EraseDeadEnemy(Enemy* enemy) { lEnemys.remove(enemy); }
 
