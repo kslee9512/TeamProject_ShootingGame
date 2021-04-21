@@ -176,8 +176,10 @@ void MissileManager::Fire(int randMissile)
             }
         }
     }
+    //패턴4
     else if (randMissile == 3)
     {
+        int checkMissile = 0;
         for (int i = 0; i < vMissiles.size(); i++)
         {
             if (vMissiles[i]->GetIsFired() == false && !Special)
@@ -187,6 +189,11 @@ void MissileManager::Fire(int randMissile)
                 vMissiles[i]->SetAngle(-(DegToRad(angleValue)));
                 vMissiles[i]->SetTarget(TargetManager::GetSingleton()->GetTarget());
                 angleValue += 5;
+                checkMissile++;
+                if (checkMissile >= 72)
+                {
+                    break;
+                }
             }
         }
     }

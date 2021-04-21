@@ -174,8 +174,8 @@ void Missile::MovingSkill_01()
 		fireStep++;
 	}
 
-	pos.x += cosf(angle) * moveSpeed * elapsedTime / moveTime;
-	pos.y -= sinf(angle) * moveSpeed * elapsedTime / moveTime;
+	pos.x += cosf(angle) * 5000 * elapsedTime / moveTime;
+	pos.y -= sinf(angle) * 5000 * elapsedTime / moveTime;
 }
 
 void Missile::MovingFollowTarget()

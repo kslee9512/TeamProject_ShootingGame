@@ -28,7 +28,7 @@ HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 	pos.x = WINSIZE_X / 2;
 	pos.y = WINSIZE_Y / 2;
 
-	moveSpeed = 150.0f;
+	moveSpeed = 300.0f;
 
 	fireFrame = 0;
 	frame = 2;
@@ -65,18 +65,14 @@ void PlayerShip::Update()
 	currElapsed += TimerManager::GetSingleton()->GetElapsedTime();	// ���� �����?�ð� 1�� ������ �ʱ�ȭ
 	lastUsed += TimerManager::GetSingleton()->GetElapsedTime();	// ���������� �����?Ű�� �������� ���?�ð� �˻� ( �ϳ��� ���������� 0���� ���?�ʱ�ȭ ��)
 	currFire += TimerManager::GetSingleton()->GetElapsedTime();
-
-	Move();
-	Fire();
-	hitBox = GetRectToCenter(pos.x, pos.y, 25, 45);
-
+	
 	if (currElapsed >= 1.0f)	currElapsed = 0;
 
 	if (!IsPlayerDestroy)
 	{
 		Move();
 		Fire();
-		hitBox = GetRectToCenter(pos.x, pos.y, 35, 65);
+		hitBox = GetRectToCenter(pos.x, pos.y, 25, 45);
 	}	
 
 

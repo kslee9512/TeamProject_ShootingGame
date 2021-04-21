@@ -6,6 +6,7 @@
 
 void CollisionChecker::CheckCollision()
 {
+	RECT tempRect;
 	for (itlEnemys = lEnemys.begin(); itlEnemys != lEnemys.end(); itlEnemys++)
 	{
 		if ((*itlEnemys)->GetMovePatternEnd() != true)
