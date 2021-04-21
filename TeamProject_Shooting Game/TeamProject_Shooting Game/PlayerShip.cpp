@@ -8,14 +8,14 @@ HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 	image = ImageManager::GetSingleton()->FindImage("Move");
 	if (image == nullptr)
 	{
-		MessageBox(g_hWnd, "ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½Ö¼ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½", "ï¿½Ê±ï¿½È­ ï¿½ï¿½ï¿½ï¿½", MB_OK);
+		MessageBox(g_hWnd, "MoveÀÌ¹ÌÁö ºÒ·¯¿À±â ½ÇÆÐ", "ÀÌ¹ÌÁö ºÒ·¯¿À±â ¿À·ù", MB_OK);
 		return E_FAIL;
 	}
 	imageDst = ImageManager::GetSingleton()->FindImage("Destroy");
 	if (imageDst == nullptr)
 	{
 		MessageBox(g_hWnd,
-			"Bossï¿½ï¿½ ï¿½Èµï¿½!", "ï¿½ï¿½ï¿½ï¿½!", MB_OK);
+			"Boss ÆÄ±« ÀÌ¹ÌÁö ºÒ·¯¿À±â ¿À·ù!", "ÀÌ¹ÌÁö ºÒ·¯¿À±â ¿À·ù!", MB_OK);
 		return E_FAIL;
 	}
 

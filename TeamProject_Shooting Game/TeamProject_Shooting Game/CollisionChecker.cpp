@@ -38,10 +38,17 @@ void CollisionChecker::CheckPlayerCollision(PlayerShip* player)
 			(*player).GetPlayerHitBox().right >= (*itlEnemyMissiles)->GetAttackBox().left &&
 			(*player).GetPlayerHitBox().bottom >= (*itlEnemyMissiles)->GetAttackBox().top)
 		{
-			(*player).SetIsPlayerDmg(true);
-			(*itlEnemyMissiles)->SetIsFired(false);
-
-			itlEnemyMissiles = lEnemyMissiles.erase(itlEnemyMissiles);
+			if ((*itlEnemyMissiles)->GetType() != Missile::TYPE::FollowTarget)
+			{
+				(*player).SetIsPlayerDmg(true);
+				(*itlEnemyMissiles)->SetIsFired(false);
+				itlEnemyMissiles = lEnemyMissiles.erase(itlEnemyMissiles);
+			}
+			else if ((*itlEnemyMissiles)->GetType() == Missile::TYPE::FollowTarget)
+			{
+				(*itlEnemyMissiles)->SetIsFired(false);
+				itlEnemyMissiles = lEnemyMissiles.erase(itlEnemyMissiles);
+			}
 		}
 
 		else

@@ -120,6 +120,9 @@ void Missile::Update()
 		case TYPE::Skill_03:
 			MovingSkill_03();
 			break;
+		case TYPE::Skill_04:
+			MovingSkill_04();
+			break;
 		}
 
 		if (pos.x < 0 || pos.y < 0 || pos.x > WINSIZE_X || pos.y > WINSIZE_Y)
@@ -128,6 +131,7 @@ void Missile::Update()
 			fireStep = 0;
 			currElapsed = 0;
 			frame = 0;
+			patternTime = 0;
 			if (owner)
 			{
 				collisionChecker->EraseEnemyMissile(this);
@@ -219,6 +223,22 @@ void Missile::MovingSkill_03()
 
 	pos.x += cosf(angle) * moveSpeed * elapsedTime / 2;
 	pos.y -= sinf(angle) * moveSpeed * elapsedTime / 2;
+}
+
+void Missile::MovingSkill_04()
+{
+	float elapsedTime = TimerManager::GetSingleton()->GetElapsedTime();
+	patternTime += elapsedTime;
+
+	if (patternTime <= 0.5f)
+	{
+		pos.x += cosf(angle) * moveSpeed * elapsedTime / 2;
+		pos.y -= sinf(angle) * moveSpeed * elapsedTime / 2;
+	}
+	else if (patternTime > 1.0f)
+	{
+		pos.y += 700 * elapsedTime / 2;
+	}
 }
 
 void Missile::SetIsFired(bool isFired)

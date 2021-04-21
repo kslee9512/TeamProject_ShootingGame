@@ -152,7 +152,7 @@ void Enemy::Update()
         {
             srand(time(NULL));
             SetStatus(ENEMYSTATUS::FIRE);
-            randMissile = rand() % 3;
+            randMissile = rand() % 4;
             changeStatusTimer = 0.0f;
         }
         // 미사일 발사
