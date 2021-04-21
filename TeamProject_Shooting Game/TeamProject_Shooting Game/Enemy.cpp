@@ -3,7 +3,6 @@
 #include "Image.h"
 #include "MissileManager.h"
 #include "CollisionChecker.h"
-
 HRESULT Enemy::Init(CollisionChecker* collisionChecker, int posX, int posY)
 {
     image = ImageManager::GetSingleton()->FindImage("Enemy");
@@ -55,6 +54,7 @@ HRESULT Enemy::Init(CollisionChecker* collisionChecker, int posX, int posY)
     enemyCurrHP = 4;
     enemyDmg = 1;
     IsEnemyDmg = false;
+    randMissile = 0;
     return S_OK;
 }
 
@@ -113,6 +113,7 @@ HRESULT Enemy::BossInit(CollisionChecker* collisionChecker, int posX, int posY)
     enemyDmg = 1;
     IsEnemyDmg = false;
     changeStatusTimer = 0.0f;
+    randMissile = 0;
     return S_OK;
 }
 
@@ -147,7 +148,9 @@ void Enemy::Update()
 
         if (enemyStatus == ENEMYSTATUS::MOVE && changeStatusTimer >= 3.0f)
         {
+            srand(time(NULL));
             SetStatus(ENEMYSTATUS::FIRE);
+            randMissile = rand() % 3;
             changeStatusTimer = 0.0f;
         }
         // 미사일 발사
@@ -162,7 +165,7 @@ void Enemy::Update()
                 if (fireCount % 20 == 0)
                 {
                     fireCount = 0;
-                    missileMgr->Fire();
+                    missileMgr->Fire(randMissile);
                 }
             }
             if (changeStatusTimer >= 3.0f)

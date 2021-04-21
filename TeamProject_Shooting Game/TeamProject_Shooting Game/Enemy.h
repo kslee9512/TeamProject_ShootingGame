@@ -40,7 +40,7 @@ private:
 	float randElapsed;
 	float randomX;
 	float randomY;
-
+	int randMissile;
 	CollisionChecker* collisionChecker;
 	int fireCount;
 

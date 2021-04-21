@@ -30,7 +30,7 @@ public:
 	void Render(HDC hdc);
 	bool CheckIsFired();
 
-	void Fire();
+	void Fire(int randMissile);
 	void playerFire();
 };
 
