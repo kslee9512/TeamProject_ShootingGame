@@ -21,8 +21,6 @@ private:
 	int cnt;
 	float currElapsed;
 	int angleValue;
-	CollisionChecker* collisionChecker;
-
 	int gunLevel;
 
 public:
