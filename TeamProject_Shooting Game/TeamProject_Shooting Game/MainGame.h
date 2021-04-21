@@ -8,6 +8,7 @@ class Image;
 class SceneManager;
 class Missile;
 class CollisionChecker;
+class ItemManager;
 class MainGame : public GameNode
 {
 private:
@@ -31,9 +32,9 @@ private:
 	EnemyManager* enemyMgr;
 	SceneManager* sceneMgr;
 	PlayerShip* playerShip;
+	ItemManager* itemMgr;
 
 	CollisionChecker* collisionChecker;
-
 
 	int health;
 	int losshealth;

@@ -45,11 +45,11 @@ void SceneManager::Update()
 	{
 		scenePage = 1;
 	}
-	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_NUMPAD2))
+	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_NUMPAD2) || battlePhaseEnd_Win)
 	{
 		scenePage = 2;
 	}
-	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_NUMPAD3))
+	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_NUMPAD3) || battlePhaseEnd_Lose)
 	{
 		scenePage = 3;
 	}
@@ -63,11 +63,11 @@ void SceneManager::Render(HDC hdc)
 		startScene->Render(hdc);
 	}
 
-	if (startScene && scenePage == 2)
+	if (scenePage == 2)
 	{
 		endScene_Win->Render(hdc);
 	}
-	if (startScene && scenePage == 3)
+	if (scenePage == 3)
 	{
 		endScene_Lose->Render(hdc);
 	}

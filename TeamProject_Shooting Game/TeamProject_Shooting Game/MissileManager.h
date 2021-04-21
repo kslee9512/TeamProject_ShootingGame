@@ -1,7 +1,6 @@
 #pragma once
 #include "GameNode.h"
-#include <vector>
-#include <algorithm>
+
 class Enemy;
 class PlayerShip;
 class Missile;
@@ -13,6 +12,7 @@ private:
 
 	vector<Missile*> vMissiles;
 	vector<Missile*>::iterator itMissiles;
+	CollisionChecker* collisionChecker;
 
 	Enemy* owner;
 	PlayerShip* Powner;
@@ -22,6 +22,9 @@ private:
 	float currElapsed;
 	int angleValue;
 	CollisionChecker* collisionChecker;
+
+	int gunLevel;
+
 public:
 	HRESULT Init(CollisionChecker* collisionChecker, Enemy* owner);
 	HRESULT PInit(CollisionChecker* collisionChecker, PlayerShip* owner);
@@ -32,5 +35,9 @@ public:
 
 	void Fire(int randMissile);
 	void playerFire();
+	inline void SetGun(int gunlevel) { this->gunLevel = gunlevel; }
+	
+	void SetSpecial(bool Special) { this->Special = Special; }
+	bool GetSpecial() { return this->Special; }
 };
 

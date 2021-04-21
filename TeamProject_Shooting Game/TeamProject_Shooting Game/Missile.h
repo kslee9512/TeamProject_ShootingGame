@@ -11,13 +11,12 @@ public:
 	enum TYPE { Normal, Skill_01, FollowTarget, Skill_02, Skill_03, End };
 	enum FIRED { PLAYER, ENEMY, ENDFIRED };
 private:
-	// �̹���
 	Image* img;
 
-	FPOINT pos;
 	float moveSpeed;
 	float moveTime;
 	float patternTime;
+	FPOINT pos;
 	int size;
 	RECT attackBox;
 	int damage;
@@ -60,7 +59,8 @@ public:
 	inline TYPE GetType() { return this->missileType; }
 	inline void SetAngle(float angle) { this->angle = angle; }
 	inline void SetFireIndex(int fireIndex) { this->fireIndex = fireIndex; }
-	inline void SetSpecial(int special) { this->Special = special; }
+	inline void SetSpecial(bool special) { this->Special = special; }
+	inline bool GetSpecial() { return this->Special; }
 	inline int GetSize() { return this->size; }
 	inline RECT GetAttackBox() { return this->attackBox; }
 	inline void SetAttackBox(RECT attackBox) { this->attackBox = attackBox; }

@@ -84,9 +84,7 @@ void Missile::Update()
 		{
 			if (Special)
 			{
-
 				img = ImageManager::GetSingleton()->FindImage("scoreBullet");
-
 			}
 
 			else if (!Special)
@@ -202,6 +200,7 @@ void Missile::MovingFollowTarget()
 	{
 		isFired = false;
 		fireStep = 0;
+		collisionChecker->ErasePlayerMissile(this);
 	}
 }
 

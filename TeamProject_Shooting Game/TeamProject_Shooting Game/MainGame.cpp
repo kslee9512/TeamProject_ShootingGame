@@ -8,6 +8,7 @@
 #include "Enemy.h"
 #include "MissileManager.h"
 #include "CollisionChecker.h"
+#include "ItemManager.h"
 HRESULT MainGame::Init()
 {
 	hdc = GetDC(g_hWnd);
@@ -21,6 +22,9 @@ HRESULT MainGame::Init()
 
 	ImageManager::GetSingleton()->AddImage("EnemyMissile",
 		"Image/구슬.bmp", 20, 20, true, RGB(255, 0, 255));
+
+	ImageManager::GetSingleton()->AddImage("Team",
+		"Image/rocket.bmp", 35, 42, true, RGB(255, 0, 255));
 
 	ImageManager::GetSingleton()->AddImage("scoreBullet",
 		"Image/Score_Bullet.bmp", 18, 18, true, RGB(0, 0, 0));
@@ -43,6 +47,9 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->AddImage("PlayerMissile",
 		"Image/bullet.bmp", 120, 26, 6, 1, true, RGB(0, 0, 0));
 
+	ImageManager::GetSingleton()->AddImage("MissileItem",
+		"Image/MS_Item.bmp", 210, 46, 5, 1, true, RGB(255, 0, 255));
+
 	backBuffer = new Image();
 	backBuffer->Init(WINSIZE_X, WINSIZE_Y);
 
@@ -54,6 +61,8 @@ HRESULT MainGame::Init()
 	enemyMgr->Init(collisionChecker);
 	playerShip = new PlayerShip();
 	playerShip->Init(collisionChecker);
+	itemMgr = new ItemManager();
+	itemMgr->Init(collisionChecker);
 
 	sceneMgr = new SceneManager();
 	sceneMgr->Init();
@@ -92,6 +101,7 @@ void MainGame::Release()
 	SAFE_RELEASE(stage);
 	SAFE_RELEASE(enemyMgr);
 	SAFE_RELEASE(sceneMgr);
+	SAFE_RELEASE(itemMgr);
 	delete collisionChecker;
 	ReleaseDC(g_hWnd, hdc);
 }
@@ -107,16 +117,29 @@ void MainGame::Update()
 		{
 			if (enemyMgr)
 			{
-
-				enemyMgr->Update();
-				
+				enemyMgr->Update();			
 			}
 			if (playerShip)
 			{
 				playerShip->Update();
 			}
+
+			if (itemMgr)
+			{
+				itemMgr->Update();
+			}
 			collisionChecker->CheckCollision();
 			collisionChecker->CheckPlayerCollision(playerShip);
+
+			if (enemyMgr->GetIsBossAlive() == false)
+			{
+				sceneMgr->SetBattlePhaseEnd_Win(true);
+			}
+
+			if (playerShip->GetIsPlayerAlive() == false)
+			{
+				sceneMgr->SetBattlePhaseEnd_Lose(true);
+			}
 		}
 	}
 }
@@ -145,6 +168,10 @@ void MainGame::Render()
 		if (enemyMgr)
 		{
 			enemyMgr->Render(hBackDC);
+		}
+		if (itemMgr)
+		{
+			itemMgr->Render(hBackDC);
 		}
 		break;
 

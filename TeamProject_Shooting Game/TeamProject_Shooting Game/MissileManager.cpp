@@ -17,7 +17,11 @@ HRESULT MissileManager::Init(CollisionChecker* collisionChecker, Enemy* owner)
     Special = false;
     cnt = 0;
     currElapsed = 0;
+
     angleValue = 0;
+
+    gunLevel = 0;
+
     return S_OK;
 }
 
@@ -25,7 +29,7 @@ HRESULT MissileManager::PInit(CollisionChecker* collisionChecker, PlayerShip* ow
 {
 	this->Powner = owner;
     this->collisionChecker = collisionChecker;
-	vMissiles.resize(50);
+	vMissiles.resize(100);
 	vector<Missile*>::iterator it;
 	for (it = vMissiles.begin(); it != vMissiles.end(); it++)
 	{
@@ -188,4 +192,20 @@ void MissileManager::playerFire()
 			break;
 		}
 	}
+	vector<Missile*>::iterator it;
+
+    for (int i = 0; i <= gunLevel; i++)
+    {
+        for (it = vMissiles.begin(); it != vMissiles.end(); it++)
+        {
+            if ((*it)->GetIsFired() == false)
+            {
+                (*it)->SetIsFired(true);
+                (*it)->SetAngle(DegToRad(90));
+                if (i == 1)    (*it)->SetPos({ (*it)->GetPos().x - 50,(*it)->GetPos().y+50 });
+                if (i == 2)    (*it)->SetPos({ (*it)->GetPos().x + 50,(*it)->GetPos().y + 50 });
+                break;
+            }
+        }
+    }
 }
