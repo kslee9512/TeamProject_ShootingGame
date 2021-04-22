@@ -9,6 +9,7 @@ HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 	if (image == nullptr)
 	{
 		MessageBox(g_hWnd, "Player Image Fail!", "ERROR!", MB_OK);
+
 		return E_FAIL;
 	}
 	imageDst = ImageManager::GetSingleton()->FindImage("Destroy");
@@ -16,6 +17,7 @@ HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 	{
 		MessageBox(g_hWnd,
 			"Player Destroy Image Fail!", "ERROR!", MB_OK);
+
 		return E_FAIL;
 	}
 
@@ -28,7 +30,7 @@ HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 	pos.x = WINSIZE_X / 2;
 	pos.y = WINSIZE_Y / 2;
 
-	moveSpeed = 150.0f;
+	moveSpeed = 300.0f;
 
 	fireFrame = 0;
 	frame = 2;
@@ -44,7 +46,7 @@ HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 	missileMgr->PInit(collisionChecker, this);
 
 
-	playerCurrHP = 3;
+	playerCurrHP = 5;
 	playerDmg = 1;
 
 	IsPlayerAlive = true;
@@ -62,11 +64,11 @@ void PlayerShip::Release()
 
 void PlayerShip::Update()
 {
-	currElapsed += TimerManager::GetSingleton()->GetElapsedTime();	// ���� �����?�ð� 1�� ������ �ʱ�ȭ
-	lastUsed += TimerManager::GetSingleton()->GetElapsedTime();	// ���������� �����?Ű�� �������� ���?�ð� �˻� ( �ϳ��� ���������� 0���� ���?�ʱ�ȭ ��)
+	currElapsed += TimerManager::GetSingleton()->GetElapsedTime();	// ���� �����?�ð� 1�� ������ �ʱ�ȭ
+	lastUsed += TimerManager::GetSingleton()->GetElapsedTime();	// ���������� �����?Ű�� �������� ���?�ð� �˻� ( �ϳ��� ���������� 0���� ���?�ʱ�ȭ ��)
 	currFire += TimerManager::GetSingleton()->GetElapsedTime();
 
-	if (currElapsed >= 1.0f)	currElapsed = 0;
+	//if (currElapsed >= 1.0f)	currElapsed = 0;
 
 	if (!IsPlayerDestroy)
 	{
@@ -95,7 +97,7 @@ void PlayerShip::Render(HDC hdc)
 		{
 			//playerCurrHP -= playerDmg;
 			IsPlayerDmg = false;
-		}		
+		}
 	}
 
 	if (image)
@@ -132,7 +134,7 @@ void PlayerShip::Render(HDC hdc)
 
 void PlayerShip::Move()
 {
-	if (lastUsed >= 1.0f)		// Ű�� �����?�̷��� 1�ʸ� �������� �ٽ� �����·� ����
+	if (lastUsed >= 1.0f)
 	{
 		if (frame > 2 && currElapsed >= 1.0f)
 		{

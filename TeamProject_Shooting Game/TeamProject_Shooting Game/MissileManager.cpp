@@ -69,7 +69,6 @@ void MissileManager::Update()
         if (owner)
         {
             if (Special) vMissiles[i]->SetType(vMissiles[i]->FollowTarget);
-            else if (!Special)   vMissiles[i]->SetType(vMissiles[i]->Skill_02); //?´ë‹¹ë¶€ë¶??˜ì • ?„ìš”- ?˜ì •?˜ì? ?Šì„ ê²½ìš° ë¯¸ì‚¬?¼ì´ ?´ë‹¹ ?€?…ìœ¼ë¡?ê³ ì •??
 
             vMissiles[i]->SetSpecial(Special);
         }
@@ -121,7 +120,7 @@ bool MissileManager::CheckIsFired()
 
 void MissileManager::Fire(int randMissile)
 {
-    //?¨í„´1
+    //?ï¿½í„´1
     if (randMissile == 0)
     {
         for (itMissiles = vMissiles.begin(); itMissiles != vMissiles.end(); itMissiles++)
@@ -138,7 +137,7 @@ void MissileManager::Fire(int randMissile)
             }
         }
     }
-    //?¨í„´2
+    //?ï¿½í„´2
     else if (randMissile == 1)
     {
         for (itMissiles = vMissiles.begin(); itMissiles != vMissiles.end(); itMissiles++)
@@ -151,15 +150,13 @@ void MissileManager::Fire(int randMissile)
 
                 (*itMissiles)->SetType(Missile::TYPE::Skill_02);
                 (*itMissiles)->SetIsFired(true);
-                (*itMissiles)->SetFireIndex(cnt);
                 (*itMissiles)->SetAngle(-(DegToRad(dis(gen))));
                 (*itMissiles)->SetTarget(TargetManager::GetSingleton()->GetTarget());
-                cnt++;
                 break;
             }
         }
     }
-    //?¨í„´3
+    //?ï¿½í„´3
     else if (randMissile == 2)
     {
         for (itMissiles = vMissiles.begin(); itMissiles != vMissiles.end(); itMissiles++)
@@ -176,6 +173,27 @@ void MissileManager::Fire(int randMissile)
                     angleValue = 0;
                 }
                 break;
+            }
+        }
+    }
+    //íŒ¨í„´4
+    else if (randMissile == 3)
+    {
+        int checkMissile = 0;
+        for (int i = 0; i < vMissiles.size(); i++)
+        {
+            if (vMissiles[i]->GetIsFired() == false && !Special)
+            {
+                vMissiles[i]->SetType(Missile::TYPE::Skill_04);
+                vMissiles[i]->SetIsFired(true);
+                vMissiles[i]->SetAngle(-(DegToRad(angleValue)));
+                vMissiles[i]->SetTarget(TargetManager::GetSingleton()->GetTarget());
+                angleValue += 5;
+                checkMissile++;
+                if (checkMissile >= 72)
+                {
+                    break;
+                }
             }
         }
     }

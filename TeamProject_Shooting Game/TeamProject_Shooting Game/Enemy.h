@@ -32,6 +32,7 @@ private:
 	float moveSpeed;
 	float angle;
 	int dir;
+	int verticalDir;
 	bool isAlive;
 	bool enterStage;
 	bool endMovePattern;
@@ -66,6 +67,7 @@ public:
 	void PointEnterance_02();
 	void BossEnterance();
 	void HorizonMove();
+	void VerticalMove();
 
 	// get, set
 	inline void SetStatus(ENEMYSTATUS enemyStatus) { this->enemyStatus = enemyStatus; }

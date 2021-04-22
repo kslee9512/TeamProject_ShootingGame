@@ -74,7 +74,6 @@ HRESULT MainGame::Init()
 	sceneMgr->Init();
 
 	stageCnt = 1;	// stage 변경 변수
-	scoreCnt = 100;	// score 변수
 
 	switch (stageCnt)
 	{
@@ -114,7 +113,6 @@ void MainGame::Release()
 
 void MainGame::Update()
 {
-	float currTime1 = TimerManager::GetSingleton()->GetCurrTime();
 
 	if (sceneMgr)
 	{
@@ -134,8 +132,10 @@ void MainGame::Update()
 			{
 				itemMgr->Update();
 			}
-			collisionChecker->CheckCollision();
+
 			collisionChecker->CheckPlayerCollision(playerShip);
+			collisionChecker->CheckCollision();		
+			collisionChecker->CheckPlayerNoHit();
 
 			if (enemyMgr->GetIsBossAlive() == false)
 			{
@@ -202,9 +202,6 @@ void MainGame::Render()
 	// stage UI
 	wsprintf(szText, "Stage : %d", stageCnt);
 	TextOut(hBackDC, 20, 40, szText, strlen(szText));
-	// score UI
-	wsprintf(szText, "Score : %d", scoreCnt);
-	TextOut(hBackDC, 20, 60, szText, strlen(szText));
 
 	// FPS
 	TimerManager::GetSingleton()->Render(hBackDC);

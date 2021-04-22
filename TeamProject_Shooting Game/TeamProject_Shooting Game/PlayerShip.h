@@ -46,8 +46,10 @@ public:
 
 	inline void SetPos(FPOINT pos) { this->pos = pos; }
 	inline FPOINT GetPos() { return this->pos; }
-	inline RECT GetPlayerHitBox() { return this->hitBox; }
 	inline MissileManager* GetPlayerMgr() { return this->missileMgr; }
+
+	inline void SetPlayerHitBox(RECT hitBox) { this->hitBox = hitBox; }
+	inline RECT GetPlayerHitBox() { return this->hitBox; }
 
 	inline void SetIsPlayerDmg(bool IsPlayerDmg) { this->IsPlayerDmg = IsPlayerDmg; }
 	inline bool GetIsPlayerDmg() { return this->IsPlayerDmg; }
