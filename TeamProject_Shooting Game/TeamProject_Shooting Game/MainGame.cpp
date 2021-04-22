@@ -203,17 +203,11 @@ void MainGame::Render()
 		{
 			itemMgr->Render(hBackDC);
 		}
-
-		if (uiMgr)
-		{
-
-			uiMgr->Render(hBackDC);
-		}
-
 		break;
 
 	case 2:
 		sceneMgr->Render(hBackDC);
+
 		break;
 
 	case 3:
@@ -228,6 +222,12 @@ void MainGame::Render()
 	// stage UI
 	wsprintf(szText, "Stage : %d", stageCnt);
 	TextOut(hBackDC, 20, 40, szText, strlen(szText));
+
+	if (uiMgr)
+	{
+
+		uiMgr->Render(hBackDC);
+	}
 
 	// FPS
 	TimerManager::GetSingleton()->Render(hBackDC);
