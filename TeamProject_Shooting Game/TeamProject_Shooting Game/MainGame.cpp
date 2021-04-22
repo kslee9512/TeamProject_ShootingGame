@@ -55,7 +55,7 @@ HRESULT MainGame::Init()
 		"Image/Score.bmp", 181, 81, 6, 1, true, RGB(255, 0, 255));
 
 	ImageManager::GetSingleton()->AddImage("Number",
-		"Image/Number.bmp", 270, 61, 10, 1, true, RGB(255, 0, 255));
+		"Image/Number1.bmp", 270, 61, 10, 1, true, RGB(255, 0, 255));
 
 	backBuffer = new Image();
 	backBuffer->Init(WINSIZE_X, WINSIZE_Y);
