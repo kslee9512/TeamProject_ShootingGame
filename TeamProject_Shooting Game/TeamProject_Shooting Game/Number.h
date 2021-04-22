@@ -1,16 +1,28 @@
 #pragma once
+
 #include "GameNode.h"
 
 class Image;
 class Number : public GameNode
 {
 private:
-	Image* number;
-	const char* number_dir = "Image/Number.bmp";
-	POINT number_size = { 1200, 342 };
+	Image* number_10000;
+	const char* number_10000_dir = "Image/Number.bmp";
+	Image* number_1000;
+	const char* number_1000_dir = "Image/Number.bmp";
+	Image* number_100;
+	const char* number_100_dir = "Image/Number.bmp";
+	Image* number_10;
+	const char* number_10_dir = "Image/Number.bmp";
+	Image* number_1;
+	const char* number_1_dir = "Image/Number.bmp";
 
-	int currFrameX;
-	float currElapsed;
+	int scoreAdd;		// ������ �߰����ִ� ����
+	int score_1;
+	int score_10;
+	int score_100;
+	int score_1000;
+	int score_10000;
 public:
 	HRESULT Init();
 	void Release();
