@@ -64,6 +64,11 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->AddImage("Number",
 		"Image/Number1.bmp", 270, 61, 10, 1, true, RGB(255, 0, 255));
 
+	ImageManager::GetSingleton()->AddImage("Life",
+		"Image/life.bmp", 70, 55, 10, 1, true, RGB(255, 0, 255));
+	ImageManager::GetSingleton()->AddImage("Unlife",
+		"Image/unlife.bmp", 70, 55, 10, 1, true, RGB(255, 0, 255));
+
 
 	backBuffer = new Image();
 	backBuffer->Init(WINSIZE_X, WINSIZE_Y);
@@ -127,6 +132,7 @@ void MainGame::Release()
 
 void MainGame::Update()
 {
+
 	if (sceneMgr)
 	{
 		sceneMgr->Update();

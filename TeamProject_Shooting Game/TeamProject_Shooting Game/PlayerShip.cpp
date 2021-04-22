@@ -2,6 +2,8 @@
 #include "Image.h"
 #include "MissileManager.h"
 #include "CommonFunction.h"
+#include "UiManager.h"
+
 HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 {
 	fireImage = ImageManager::GetSingleton()->FindImage("Fire");
@@ -46,7 +48,7 @@ HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 	missileMgr->PInit(collisionChecker, this);
 
 
-	playerCurrHP = 5;
+	playerCurrHP = 3;
 	playerDmg = 1;
 
 	IsPlayerAlive = true;
@@ -64,8 +66,8 @@ void PlayerShip::Release()
 
 void PlayerShip::Update()
 {
-	currElapsed += TimerManager::GetSingleton()->GetElapsedTime();	// ���� �����?�ð� 1�� ������ �ʱ�ȭ
-	lastUsed += TimerManager::GetSingleton()->GetElapsedTime();	// ���������� �����?Ű�� �������� ���?�ð� �˻� ( �ϳ��� ���������� 0���� ���?�ʱ�ȭ ��)
+	currElapsed += TimerManager::GetSingleton()->GetElapsedTime();	// ���� �����?�ð� 1�� ������ �ʱ�ȭ
+	lastUsed += TimerManager::GetSingleton()->GetElapsedTime();	// ���������� �����?Ű�� �������� ���?�ð� �˻� ( �ϳ��� ���������� 0���� ���?�ʱ�ȭ ��)
 	currFire += TimerManager::GetSingleton()->GetElapsedTime();
 
 	//if (currElapsed >= 1.0f)	currElapsed = 0;
@@ -77,7 +79,6 @@ void PlayerShip::Update()
 		hitBox = GetRectToCenter(pos.x, pos.y, 10, 10);
 
 	}	
-
 
 	if (currElapsed >= 1.0f)	
 	{
@@ -96,7 +97,9 @@ void PlayerShip::Render(HDC hdc)
 	{
 		if ((missileMgr->GetSpecial()) == false)
 		{
-			//playerCurrHP -= playerDmg;
+
+			playerCurrHP -= playerDmg;
+			UiManager::GetSingleton()->SetPlayerCurrHP(playerCurrHP);
 			IsPlayerDmg = false;
 		}
 	}

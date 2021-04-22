@@ -60,6 +60,5 @@ public:
 
 	inline void SetGun(int gunlevel) { this->gunLevel = gunlevel; }
 	inline int GetGun() { return this->gunLevel; }
-
 };
 
