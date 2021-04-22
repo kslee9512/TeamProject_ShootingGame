@@ -62,7 +62,8 @@ void CollisionChecker::CheckPlayerCollision(PlayerShip* player)
 	{
 		if ((*player).GetPlayerHitBox().top <= (*itlItem)->GetAttackBox().bottom &&
 			(*player).GetPlayerHitBox().left <= (*itlItem)->GetAttackBox().right &&
-			(*player).GetPlayerHitBox().right >= (*itlItem)->GetAttackBox().left)
+			(*player).GetPlayerHitBox().right >= (*itlItem)->GetAttackBox().left && 
+			(*player).GetPlayerHitBox().bottom >= (*itlEnemyMissiles)->GetAttackBox().top)
 		{
 			(*itlItem)->SetIsCreated(false);
 			if ((*player).GetGun() < 2)	(*player).SetGun((*player).GetGun() + 1);

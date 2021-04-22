@@ -44,7 +44,7 @@ HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 	missileMgr->PInit(collisionChecker, this);
 
 
-	playerCurrHP = 3;
+	playerCurrHP = 5;
 	playerDmg = 1;
 
 	IsPlayerAlive = true;
@@ -132,7 +132,7 @@ void PlayerShip::Render(HDC hdc)
 
 void PlayerShip::Move()
 {
-	if (lastUsed >= 1.0f)		// Ű�� �����?�̷��� 1�ʸ� �������� �ٽ� �����·� ����
+	if (lastUsed >= 1.0f)
 	{
 		if (frame > 2 && currElapsed >= 1.0f)
 		{
