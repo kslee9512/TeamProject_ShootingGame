@@ -176,7 +176,7 @@ void MissileManager::Fire(int randMissile)
             }
         }
     }
-    //패턴4
+    //?�턴4
     else if (randMissile == 3)
     {
         int checkMissile = 0;

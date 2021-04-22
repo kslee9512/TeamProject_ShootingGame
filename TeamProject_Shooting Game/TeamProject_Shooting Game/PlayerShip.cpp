@@ -64,8 +64,8 @@ void PlayerShip::Release()
 
 void PlayerShip::Update()
 {
-	currElapsed += TimerManager::GetSingleton()->GetElapsedTime();	// ���� �����?�ð� 1�� ������ �ʱ�ȭ
-	lastUsed += TimerManager::GetSingleton()->GetElapsedTime();	// ���������� �����?Ű�� �������� ���?�ð� �˻� ( �ϳ��� ���������� 0���� ���?�ʱ�ȭ ��)
+	currElapsed += TimerManager::GetSingleton()->GetElapsedTime();	// ���� �����?�ð� 1�� ������ �ʱ�ȭ
+	lastUsed += TimerManager::GetSingleton()->GetElapsedTime();	// ���������� �����?Ű�� �������� ���?�ð� �˻� ( �ϳ��� ���������� 0���� ���?�ʱ�ȭ ��)
 	currFire += TimerManager::GetSingleton()->GetElapsedTime();
 
 	//if (currElapsed >= 1.0f)	currElapsed = 0;
@@ -74,7 +74,7 @@ void PlayerShip::Update()
 	{
 		Move();
 		Fire();
-		hitBox = GetRectToCenter(pos.x, pos.y, 25, 45);
+		hitBox = GetRectToCenter(pos.x, pos.y, 10, 10);
 	}	
 
 
@@ -102,7 +102,6 @@ void PlayerShip::Render(HDC hdc)
 
 	if (image)
 	{
-		//Rectangle(hdc, hitBox.left, hitBox.top, hitBox.right, hitBox.bottom);
 		image->FrameRender(hdc, pos.x, pos.y, frame, 0, true);
 		if (fire) fireImage->FrameRender(hdc, pos.x-2, pos.y-55, fireFrame, 0, true);
 
@@ -117,6 +116,7 @@ void PlayerShip::Render(HDC hdc)
 				IsPlayerAlive = false;
 			}
 		}
+		Rectangle(hdc, hitBox.left, hitBox.top, hitBox.right, hitBox.bottom);
 
 		if (gunLevel >= 1)
 		{
