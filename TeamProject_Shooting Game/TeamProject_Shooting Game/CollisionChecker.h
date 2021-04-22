@@ -28,6 +28,9 @@ private:
 	list<Item*> lItem;
 	list<Item*>::iterator itlItem;
 
+	bool CheckPlayerHit = false;
+	float damageTime = 0.0f;
+
 public:
 	void AddActiveEnemy(Enemy* enemy) { lEnemys.push_back(enemy); }
 	void EraseDeadEnemy(Enemy* enemy) { lEnemys.remove(enemy); }
@@ -40,6 +43,10 @@ public:
 
 	void CheckCollision();
 	void CheckPlayerCollision(PlayerShip* player);
+	void CheckPlayerNoHit();
+	
+	inline void SetCheckPlayerHit(bool CheckPlayerHit) { this->CheckPlayerHit = CheckPlayerHit; }
+	inline bool GetCheckPlayerHit() { return this->CheckPlayerHit; }
 
 	void AddItem(Item* item) { lItem.push_back(item); }
 	void EraseItem(Item* item) { lItem.remove(item); }

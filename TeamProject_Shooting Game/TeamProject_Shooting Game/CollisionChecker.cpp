@@ -31,8 +31,11 @@ void CollisionChecker::CheckCollision()
 
 void CollisionChecker::CheckPlayerCollision(PlayerShip* player)
 {
+
+
 	for (itlEnemyMissiles = lEnemyMissiles.begin(); itlEnemyMissiles != lEnemyMissiles.end();)
 	{
+<<<<<<< Updated upstream
 		if ((*player).GetPlayerHitBox().top <= (*itlEnemyMissiles)->GetAttackBox().bottom &&
 			(*player).GetPlayerHitBox().left <= (*itlEnemyMissiles)->GetAttackBox().right &&
 			(*player).GetPlayerHitBox().right >= (*itlEnemyMissiles)->GetAttackBox().left &&
@@ -48,6 +51,28 @@ void CollisionChecker::CheckPlayerCollision(PlayerShip* player)
 			itlEnemyMissiles++;
 		}
 	}
+=======
+			if ((*player).GetPlayerHitBox().top <= (*itlEnemyMissiles)->GetAttackBox().bottom &&
+				(*player).GetPlayerHitBox().left <= (*itlEnemyMissiles)->GetAttackBox().right &&
+				(*player).GetPlayerHitBox().right >= (*itlEnemyMissiles)->GetAttackBox().left &&
+				(*player).GetPlayerHitBox().bottom >= (*itlEnemyMissiles)->GetAttackBox().top &&
+				!CheckPlayerHit)
+			{
+				(*player).SetIsPlayerDmg(true);
+				(*itlEnemyMissiles)->SetIsFired(false);
+				CheckPlayerHit = true;
+				
+				itlEnemyMissiles = lEnemyMissiles.erase(itlEnemyMissiles);
+			}
+
+			else
+			{
+				itlEnemyMissiles++;
+			}
+		
+	}
+		
+>>>>>>> Stashed changes
 	for (itlItem = lItem.begin(); itlItem != lItem.end();)
 	{
 		if ((*player).GetPlayerHitBox().top <= (*itlItem)->GetAttackBox().bottom &&
@@ -62,6 +87,20 @@ void CollisionChecker::CheckPlayerCollision(PlayerShip* player)
 		else
 		{
 			itlItem++;
+		}
+	}
+}
+
+void CollisionChecker::CheckPlayerNoHit()
+{
+	if (CheckPlayerHit == true)
+	{
+		damageTime += TimerManager::GetSingleton()->GetElapsedTime();
+
+		if (damageTime >= 2)
+		{
+			CheckPlayerHit = false;
+			damageTime = 0;
 		}
 	}
 }
