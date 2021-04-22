@@ -5,8 +5,8 @@ HRESULT ItemManager::Init(CollisionChecker* collisionChecker)
 {
 	this->collisionChecker = collisionChecker;
 
-    vItems.resize(3);
-    for (int i = 0; i < 3; i++)
+    vItems.resize(2);
+    for (int i = 0; i < 2; i++)
     {
         vItems[i] = new Item;
         vItems[i]->Init(collisionChecker);
@@ -30,7 +30,7 @@ void ItemManager::Update()
 {
     currElapsed += TimerManager::GetSingleton()->GetElapsedTime();
 
-    if (currElapsed>=10.0f)
+    if (currElapsed>=15.0f)
     {
         currElapsed = 0;
         Create();
@@ -61,15 +61,14 @@ void ItemManager::Create()
 {
     srand(time(NULL));
 
-
     for (itItems = vItems.begin(); itItems != vItems.end(); itItems++)
     {
-        float random = ((rand() % (WINSIZE_X - 100)));
+        float random = ((rand() % 8) + 1);
 
         if ((*itItems)->GetIsCreated() == false)
         {
             (*itItems)->SetIsCreated(true);
-            (*itItems)->SetPos({random,0.0f });
+            (*itItems)->SetPos({random * 100 ,0.0f });
             break;
         }
     }

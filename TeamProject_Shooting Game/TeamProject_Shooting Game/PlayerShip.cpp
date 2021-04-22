@@ -8,14 +8,14 @@ HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 	image = ImageManager::GetSingleton()->FindImage("Move");
 	if (image == nullptr)
 	{
-		MessageBox(g_hWnd, "�÷��̾� ���ּ� �̹��� �ε� ����", "�ʱ�ȭ ����", MB_OK);
+		MessageBox(g_hWnd, "Player Image Fail!", "ERROR!", MB_OK);
 		return E_FAIL;
 	}
 	imageDst = ImageManager::GetSingleton()->FindImage("Destroy");
 	if (imageDst == nullptr)
 	{
 		MessageBox(g_hWnd,
-			"Boss�� �ȵ�!", "����!", MB_OK);
+			"Player Destroy Image Fail!", "ERROR!", MB_OK);
 		return E_FAIL;
 	}
 
@@ -93,7 +93,7 @@ void PlayerShip::Render(HDC hdc)
 	{
 		if ((missileMgr->GetSpecial()) == false)
 		{
-			playerCurrHP -= playerDmg;
+			//playerCurrHP -= playerDmg;
 			IsPlayerDmg = false;
 		}		
 	}

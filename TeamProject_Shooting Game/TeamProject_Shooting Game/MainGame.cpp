@@ -50,6 +50,12 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->AddImage("MissileItem",
 		"Image/MS_Item.bmp", 210, 46, 5, 1, true, RGB(255, 0, 255));
 
+	ImageManager::GetSingleton()->AddImage("Special",
+		"Image/Special.bmp", 168, 46, 4, 1, true, RGB(255, 0, 255));
+
+	ImageManager::GetSingleton()->AddImage("SpecialItem",
+		"Image/Special_Item.bmp", 210, 46, 5, 1, true, RGB(255, 0, 255));
+
 	backBuffer = new Image();
 	backBuffer->Init(WINSIZE_X, WINSIZE_Y);
 

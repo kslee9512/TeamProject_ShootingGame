@@ -54,10 +54,13 @@ void CollisionChecker::CheckPlayerCollision(PlayerShip* player)
 	{
 		if ((*player).GetPlayerHitBox().top <= (*itlItem)->GetAttackBox().bottom &&
 			(*player).GetPlayerHitBox().left <= (*itlItem)->GetAttackBox().right &&
-			(*player).GetPlayerHitBox().right >= (*itlItem)->GetAttackBox().left)
+			(*player).GetPlayerHitBox().right >= (*itlItem)->GetAttackBox().left &&
+			(*player).GetPlayerHitBox().bottom >= (*itlItem)->GetAttackBox().top)
 		{
 			(*itlItem)->SetIsCreated(false);
-			if ((*player).GetGun() < 2)	(*player).SetGun((*player).GetGun() + 1);
+			if ((*itlItem)->GetItem() == 1 && (*player).GetGun() < 2)	(*player).SetGun((*player).GetGun() + 1);
+			(*itlItem)->SetItem(0);
+			(*itlItem)->SetIsCreated(false);
 			itlItem = lItem.erase(itlItem);
 		}
 
