@@ -112,7 +112,7 @@ HRESULT Enemy::BossInit(CollisionChecker* collisionChecker, int posX, int posY)
     currElapsed = 0;
     randElapsed = 0;
 
-    enemyCurrHP = 50;
+    enemyCurrHP = 100;
     enemyDmg = 1;
     IsEnemyDmg = false;
     changeStatusTimer = 0.0f;
