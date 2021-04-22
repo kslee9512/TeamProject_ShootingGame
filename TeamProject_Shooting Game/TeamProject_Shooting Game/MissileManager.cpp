@@ -1,5 +1,6 @@
 #include "MissileManager.h"
 #include "TimerManager.h"
+#include "UiManager.h"
 #include "Missile.h"
 #include <random>
 #include <iostream>
@@ -22,6 +23,9 @@ HRESULT MissileManager::Init(CollisionChecker* collisionChecker, Enemy* owner)
 
     gunLevel = 0;
 
+    specialCnt = 3;
+    keyDown = false;
+
     return S_OK;
 }
 
@@ -39,6 +43,12 @@ HRESULT MissileManager::PInit(CollisionChecker* collisionChecker, PlayerShip* ow
 
     currElapsed = 0;
     angleValue = 0;
+
+    Special = false;
+    specialCnt = 3;
+
+    keyDown = false;
+
 	return S_OK;
 }
 
@@ -58,11 +68,25 @@ void MissileManager::Update()
 {
     currElapsed+= TimerManager::GetSingleton()->GetElapsedTime();
 
-    if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_NUMPAD5))
+    specialCnt = UiManager::GetSingleton()->GetSpecialCnt();
+
+    if (!keyDown && owner)
     {
-        currElapsed = 0;
-        Special = true;
+        if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_NUMPAD5))
+        {
+
+            if (specialCnt > 0)
+            {
+                currElapsed = 0;
+                Special = true;
+                specialCnt--;
+                UiManager::GetSingleton()->SetSpecialCnt(specialCnt);
+                keyDown = true;
+            }
+
+        }
     }
+
 
     for (int i = 0; i < vMissiles.size(); i++)
     {
@@ -79,6 +103,7 @@ void MissileManager::Update()
     if (currElapsed >= 4.0f && Special)
     {
         Special = false;
+        keyDown = false;
     }
 
 
@@ -176,7 +201,7 @@ void MissileManager::Fire(int randMissile)
             }
         }
     }
-    //패턴4
+    //?�턴4
     else if (randMissile == 3)
     {
         int checkMissile = 0;

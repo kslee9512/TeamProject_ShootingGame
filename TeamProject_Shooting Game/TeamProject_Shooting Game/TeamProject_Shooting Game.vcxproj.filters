@@ -24,6 +24,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="UiManager.cpp" />
     <ClCompile Include="Score.cpp" />
+    <ClCompile Include="ItemUI.cpp" />
     <ClCompile Include="Number.cpp" />
     <ClCompile Include="PlayerHP.cpp" />
   </ItemGroup>
@@ -53,6 +54,7 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="UiManager.h" />
     <ClInclude Include="Score.h" />
+    <ClInclude Include="ItemUI.h" />
     <ClInclude Include="Number.h" />
     <ClInclude Include="PlayerHP.h" />
   </ItemGroup>

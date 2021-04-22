@@ -36,6 +36,8 @@ private:
 	bool IsPlayerDestroy;
 	bool IsPlayerAlive;
 
+	int SpecialCnt;
+
 public:
 	HRESULT Init(CollisionChecker* collisionChecker);
 	void Release();

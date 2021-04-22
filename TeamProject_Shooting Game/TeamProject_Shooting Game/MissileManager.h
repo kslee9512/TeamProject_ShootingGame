@@ -18,10 +18,13 @@ private:
 	PlayerShip* Powner;
 
 	bool Special;
+	int specialCnt;
+
 	int cnt;
 	float currElapsed;
 	int angleValue;
 	int gunLevel;
+	bool keyDown;
 
 public:
 	HRESULT Init(CollisionChecker* collisionChecker, Enemy* owner);
@@ -37,5 +40,6 @@ public:
 	
 	void SetSpecial(bool Special) { this->Special = Special; }
 	bool GetSpecial() { return this->Special; }
+	float GetTime() { return this->currElapsed; }
 };
 

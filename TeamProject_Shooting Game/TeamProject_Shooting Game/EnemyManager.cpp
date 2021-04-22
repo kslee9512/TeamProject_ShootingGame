@@ -53,6 +53,7 @@ void EnemyManager::Update()
     vector<Enemy*>::iterator it;
     for (it = vEnemys.begin(); it != vEnemys.end(); it++)
     {
+        SetSpecial((*it)->GetSpecial());
         (*it)->Update();
         if (!((*it)->GetIsBossAlive()))  SetIsBossAlive(false);
     }

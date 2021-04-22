@@ -1,3 +1,5 @@
+#pragma once
+
 #include "GameNode.h"
 
 class Image;
@@ -15,7 +17,7 @@ private:
 	Image* number_1;
 	const char* number_1_dir = "Image/Number.bmp";
 
-	int scoreAdd;		// Á¡¼ö¸¦ Ãß°¡ÇØÁÖ´Â º¯¼ö
+	int scoreAdd;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½
 	int score_1;
 	int score_10;
 	int score_100;

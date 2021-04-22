@@ -52,13 +52,14 @@ HRESULT MainGame::Init()
 		"Image/MS_Item.bmp", 210, 46, 5, 1, true, RGB(255, 0, 255));
 
 	ImageManager::GetSingleton()->AddImage("Special",
-		"Image/Special.bmp", 168, 46, 4, 1, true, RGB(255, 0, 255));
+		"Image/Special.bmp", 252, 69, 4, 1, true, RGB(255, 0, 255));
 
 	ImageManager::GetSingleton()->AddImage("SpecialItem",
 		"Image/Special_Item.bmp", 210, 46, 5, 1, true, RGB(255, 0, 255));
 
 	ImageManager::GetSingleton()->AddImage("Score",
 		"Image/Score.bmp", 181, 81, 6, 1, true, RGB(255, 0, 255));
+
 
 	ImageManager::GetSingleton()->AddImage("Number",
 		"Image/Number1.bmp", 270, 61, 10, 1, true, RGB(255, 0, 255));
@@ -150,14 +151,15 @@ void MainGame::Update()
 				itemMgr->Update();
 			}
 
-			if (uiMgr)
-			{
-				uiMgr->Update();
-			}
-
 			collisionChecker->CheckPlayerCollision(playerShip);
 			collisionChecker->CheckCollision();		
 			collisionChecker->CheckPlayerNoHit();
+
+			if (uiMgr)
+			{
+				uiMgr->SetSpecial(enemyMgr->GetSpecial());
+				uiMgr->Update();
+			}
 
 			if (enemyMgr->GetIsBossAlive() == false)
 			{
@@ -202,6 +204,12 @@ void MainGame::Render()
 			itemMgr->Render(hBackDC);
 		}
 
+		if (uiMgr)
+		{
+
+			uiMgr->Render(hBackDC);
+		}
+
 		break;
 
 	case 2:
@@ -225,13 +233,6 @@ void MainGame::Render()
 	// stage UI
 	wsprintf(szText, "Stage : %d", stageCnt);
 	TextOut(hBackDC, 20, 40, szText, strlen(szText));
-	//// Score UI
-	//wsprintf(szText, "Score : %d", scoreCnt);
-	//TextOut(hBackDC, 20, 70, szText, strlen(szText));
-	if (uiMgr)
-	{
-		uiMgr->Render(hBackDC);
-	}
 
 	// FPS
 	TimerManager::GetSingleton()->Render(hBackDC);

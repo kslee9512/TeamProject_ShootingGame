@@ -76,7 +76,8 @@ void PlayerShip::Update()
 	{
 		Move();
 		Fire();
-		hitBox = GetRectToCenter(pos.x, pos.y, 25, 45);
+		hitBox = GetRectToCenter(pos.x, pos.y, 10, 10);
+
 	}	
 
 	if (currElapsed >= 1.0f)	
@@ -105,7 +106,6 @@ void PlayerShip::Render(HDC hdc)
 
 	if (image)
 	{
-		//Rectangle(hdc, hitBox.left, hitBox.top, hitBox.right, hitBox.bottom);
 		image->FrameRender(hdc, pos.x, pos.y, frame, 0, true);
 		if (fire) fireImage->FrameRender(hdc, pos.x-2, pos.y-55, fireFrame, 0, true);
 
@@ -120,6 +120,7 @@ void PlayerShip::Render(HDC hdc)
 				IsPlayerAlive = false;
 			}
 		}
+		Rectangle(hdc, hitBox.left, hitBox.top, hitBox.right, hitBox.bottom);
 
 		if (gunLevel >= 1)
 		{

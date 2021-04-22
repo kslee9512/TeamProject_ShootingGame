@@ -50,6 +50,8 @@ private:
 	bool IsEnemyDmg;
 	bool IsCheckDmg;
 
+	bool Special;
+
 	bool IsBossAlive;
 
 public:
@@ -91,5 +93,9 @@ public:
 	inline int GetEnemyCurrHP() { return this->enemyCurrHP; }
 	inline void SetEnemyDmg(int enemyDmg) { this->enemyDmg = enemyDmg; }
 	inline int GetEnemyDmg() { return this->enemyDmg; }
+
+	inline void SetSpecial(bool Special) { this->Special = Special; }
+	inline bool GetSpecial() { return this->Special; }
+
 };
 

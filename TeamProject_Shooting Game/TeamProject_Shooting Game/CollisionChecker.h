@@ -30,6 +30,7 @@ private:
 
 	bool CheckPlayerHit = false;
 	float damageTime = 0.0f;
+	int SpecialCnt;
 
 public:
 	void AddActiveEnemy(Enemy* enemy) { lEnemys.push_back(enemy); }
