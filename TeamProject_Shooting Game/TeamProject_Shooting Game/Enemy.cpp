@@ -214,7 +214,8 @@ void Enemy::Update()
 void Enemy::Render(HDC hdc)
 {
     if (isAlive)
-    {   
+    {
+        SetSpecial(missileMgr->GetSpecial());
         if (IsEnemyDmg)
         {
             enemyCurrHP -= enemyDmg;
@@ -432,7 +433,7 @@ void Enemy::BossEnterance()
 void Enemy::HorizonMove() 
 {
     checkTimer += TimerManager::GetSingleton()->GetElapsedTime();
-    if (pos.x > WINSIZE_X || pos.x < 0)
+    if (pos.x > WINSIZE_X-200 || pos.x < 200)
     {
         dir *= -1;
         if (checkTimer >= 3)

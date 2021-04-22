@@ -36,6 +36,8 @@ private:
 	bool IsPlayerDestroy;
 	bool IsPlayerAlive;
 
+	int SpecialCnt;
+
 public:
 	HRESULT Init(CollisionChecker* collisionChecker);
 	void Release();
@@ -58,6 +60,5 @@ public:
 
 	inline void SetGun(int gunlevel) { this->gunLevel = gunlevel; }
 	inline int GetGun() { return this->gunLevel; }
-
 };
 

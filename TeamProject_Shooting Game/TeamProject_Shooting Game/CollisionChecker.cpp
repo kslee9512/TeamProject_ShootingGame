@@ -3,6 +3,7 @@
 #include "Enemy.h"
 #include "Item.h"
 #include "PlayerShip.h"
+#include "UiManager.h"
 
 void CollisionChecker::CheckCollision()
 {
@@ -62,10 +63,20 @@ void CollisionChecker::CheckPlayerCollision(PlayerShip* player)
 	{
 		if ((*player).GetPlayerHitBox().top <= (*itlItem)->GetAttackBox().bottom &&
 			(*player).GetPlayerHitBox().left <= (*itlItem)->GetAttackBox().right &&
-			(*player).GetPlayerHitBox().right >= (*itlItem)->GetAttackBox().left)
+			(*player).GetPlayerHitBox().right >= (*itlItem)->GetAttackBox().left &&
+			(*player).GetPlayerHitBox().bottom >= (*itlItem)->GetAttackBox().top)
 		{
 			(*itlItem)->SetIsCreated(false);
-			if ((*player).GetGun() < 2)	(*player).SetGun((*player).GetGun() + 1);
+			if ((*itlItem)->GetItem() == 1 && (*player).GetGun() < 2)	(*player).SetGun((*player).GetGun() + 1);
+
+			if ((*itlItem)->GetItem() == 2 && UiManager::GetSingleton()->GetSpecialCnt() < 3)
+			{
+				UiManager::GetSingleton()->SetSpecialCnt(UiManager::GetSingleton()->GetSpecialCnt()+1);
+			}
+
+
+			(*itlItem)->SetItem(0);
+			(*itlItem)->SetIsCreated(false);
 			itlItem = lItem.erase(itlItem);
 		}
 

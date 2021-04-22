@@ -14,6 +14,7 @@ private:
 	int size;
 	int frame;
 	bool IsCreate;
+	int itemType;
 
 	float currElapsed;
 	float moveElapsed;
@@ -28,5 +29,7 @@ public:
 	inline bool GetIsCreated() { return this->IsCreate; }
 	inline void SetPos(FPOINT pos) { this->pos = pos; }
 	inline RECT GetAttackBox() { return this->attackBox; }
+	inline int GetItem() { return this->itemType; }
+	inline void SetItem(int itemType) { this->itemType = itemType; }
 };
 

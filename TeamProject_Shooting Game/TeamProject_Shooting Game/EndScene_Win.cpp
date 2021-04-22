@@ -1,5 +1,5 @@
 #include "EndScene_Win.h"
-#include "Image.h":
+#include "Image.h"
 
 HRESULT EndScene_Win::Init()
 {

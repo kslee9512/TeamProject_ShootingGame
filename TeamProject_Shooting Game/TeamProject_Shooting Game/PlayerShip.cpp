@@ -2,20 +2,24 @@
 #include "Image.h"
 #include "MissileManager.h"
 #include "CommonFunction.h"
+#include "UiManager.h"
+
 HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 {
 	fireImage = ImageManager::GetSingleton()->FindImage("Fire");
 	image = ImageManager::GetSingleton()->FindImage("Move");
 	if (image == nullptr)
 	{
-		MessageBox(g_hWnd, "MoveÀÌ¹ÌÁö ºÒ·¯¿À±â ½ÇÆÐ", "ÀÌ¹ÌÁö ºÒ·¯¿À±â ¿À·ù", MB_OK);
+		MessageBox(g_hWnd, "Player Image Fail!", "ERROR!", MB_OK);
+
 		return E_FAIL;
 	}
 	imageDst = ImageManager::GetSingleton()->FindImage("Destroy");
 	if (imageDst == nullptr)
 	{
 		MessageBox(g_hWnd,
-			"Boss ÆÄ±« ÀÌ¹ÌÁö ºÒ·¯¿À±â ¿À·ù!", "ÀÌ¹ÌÁö ºÒ·¯¿À±â ¿À·ù!", MB_OK);
+			"Player Destroy Image Fail!", "ERROR!", MB_OK);
+
 		return E_FAIL;
 	}
 
@@ -44,7 +48,7 @@ HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 	missileMgr->PInit(collisionChecker, this);
 
 
-	playerCurrHP = 5;
+	playerCurrHP = 3;
 	playerDmg = 1;
 
 	IsPlayerAlive = true;
@@ -62,8 +66,8 @@ void PlayerShip::Release()
 
 void PlayerShip::Update()
 {
-	currElapsed += TimerManager::GetSingleton()->GetElapsedTime();	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿?ï¿½Ã°ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
-	lastUsed += TimerManager::GetSingleton()->GetElapsedTime();	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿?Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿?ï¿½Ã°ï¿½ ï¿½Ë»ï¿½ ( ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿?ï¿½Ê±ï¿½È­ ï¿½ï¿½)
+	currElapsed += TimerManager::GetSingleton()->GetElapsedTime();	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½?ï¿½Ã°ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
+	lastUsed += TimerManager::GetSingleton()->GetElapsedTime();	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½?Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½?ï¿½Ã°ï¿½ ï¿½Ë»ï¿½ ( ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½?ï¿½Ê±ï¿½È­ ï¿½ï¿½)
 	currFire += TimerManager::GetSingleton()->GetElapsedTime();
 
 	//if (currElapsed >= 1.0f)	currElapsed = 0;
@@ -72,9 +76,9 @@ void PlayerShip::Update()
 	{
 		Move();
 		Fire();
-		hitBox = GetRectToCenter(pos.x, pos.y, 25, 45);
-	}	
+		hitBox = GetRectToCenter(pos.x, pos.y, 10, 10);
 
+	}	
 
 	if (currElapsed >= 1.0f)	
 	{
@@ -93,14 +97,15 @@ void PlayerShip::Render(HDC hdc)
 	{
 		if ((missileMgr->GetSpecial()) == false)
 		{
+
 			playerCurrHP -= playerDmg;
+			UiManager::GetSingleton()->SetPlayerCurrHP(playerCurrHP);
 			IsPlayerDmg = false;
 		}
 	}
 
 	if (image)
 	{
-		//Rectangle(hdc, hitBox.left, hitBox.top, hitBox.right, hitBox.bottom);
 		image->FrameRender(hdc, pos.x, pos.y, frame, 0, true);
 		if (fire) fireImage->FrameRender(hdc, pos.x-2, pos.y-55, fireFrame, 0, true);
 
@@ -115,6 +120,7 @@ void PlayerShip::Render(HDC hdc)
 				IsPlayerAlive = false;
 			}
 		}
+		Rectangle(hdc, hitBox.left, hitBox.top, hitBox.right, hitBox.bottom);
 
 		if (gunLevel >= 1)
 		{
