@@ -22,6 +22,8 @@
     <ClCompile Include="TimerManager.cpp" />
     <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="UiManager.cpp" />
+    <ClCompile Include="Score.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionChecker.h" />
@@ -47,5 +49,7 @@
     <ClInclude Include="TimerManager.h" />
     <ClInclude Include="ItemManager.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="UiManager.h" />
+    <ClInclude Include="Score.h" />
   </ItemGroup>
 </Project>

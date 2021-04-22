@@ -157,11 +157,13 @@
     <ClInclude Include="MissileManager.h" />
     <ClInclude Include="PlayerShip.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Score.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="StartScene.h" />
     <ClInclude Include="TargetManager.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />
+    <ClInclude Include="UiManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionChecker.cpp" />
@@ -181,10 +183,12 @@
     <ClCompile Include="MissileManager.cpp" />
     <ClCompile Include="PlayerShip.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Score.cpp" />
     <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="TargetManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerManager.cpp" />
+    <ClCompile Include="UiManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

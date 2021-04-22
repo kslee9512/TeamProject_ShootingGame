@@ -1,5 +1,6 @@
 #include "ImageManager.h"
 #include "Image.h"
+#include "UiManager.h"
 
 HRESULT ImageManager::Init()
 {

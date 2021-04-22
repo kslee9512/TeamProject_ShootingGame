@@ -9,6 +9,7 @@ class SceneManager;
 class Missile;
 class CollisionChecker;
 class ItemManager;
+class UiManager;
 class MainGame : public GameNode
 {
 private:
@@ -33,6 +34,7 @@ private:
 	SceneManager* sceneMgr;
 	PlayerShip* playerShip;
 	ItemManager* itemMgr;
+	UiManager* uiMgr;
 
 	CollisionChecker* collisionChecker;
 
@@ -40,6 +42,7 @@ private:
 	int losshealth;
 
 	int stageCnt;
+	int scoreCnt;
 
 	Missile* missile;
 	Enemy* enemy;
