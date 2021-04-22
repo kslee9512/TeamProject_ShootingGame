@@ -1,5 +1,6 @@
 #include "UiManager.h"
 #include "Score.h"
+#include "Number.h"
 
 HRESULT UiManager::Init()
 {
