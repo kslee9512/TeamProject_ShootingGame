@@ -69,11 +69,8 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->AddImage("Unlife",
 		"Image/unlife.bmp", 70, 55, 10, 1, true, RGB(255, 0, 255));
 
-<<<<<<< Updated upstream
-=======
 	ImageManager::GetSingleton()->AddImage("Bomb",
 		"Image/Bomb.bmp", 264, 27, 11, 1, true, RGB(0, 0, 0));
->>>>>>> Stashed changes
 
 	backBuffer = new Image();
 	backBuffer->Init(WINSIZE_X, WINSIZE_Y);
