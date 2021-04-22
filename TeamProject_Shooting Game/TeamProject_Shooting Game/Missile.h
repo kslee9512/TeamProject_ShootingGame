@@ -12,6 +12,7 @@ public:
 	enum FIRED { PLAYER, ENEMY, ENDFIRED };
 private:
 	Image* img;
+	Image* bombImg;
 
 	float moveSpeed;
 	float moveTime;
@@ -36,7 +37,11 @@ private:
 	bool isPlayer;	//�÷��̾�� ���ʹ� �Ҹ� �̹��� ������ ���ؼ�
 	int frame;
 	float currElapsed;
+	float BcurrElapsed;
 	bool Special;		// Ư��ź �ߵ� ����
+	bool Bomb;
+	FPOINT bomBpos;
+	int Bframe;
 
 public:
 	HRESULT Init(CollisionChecker* collisionChecker, Enemy* owner);
@@ -65,5 +70,7 @@ public:
 	inline int GetSize() { return this->size; }
 	inline RECT GetAttackBox() { return this->attackBox; }
 	inline void SetAttackBox(RECT attackBox) { this->attackBox = attackBox; }
+	inline void SetBomb(bool Bomb) { this->Bomb = Bomb; }
+	inline void SetBombPos(FPOINT bomBpos) { this->bomBpos = bomBpos; }
 };
 

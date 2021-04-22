@@ -66,8 +66,8 @@ void PlayerShip::Release()
 
 void PlayerShip::Update()
 {
-	currElapsed += TimerManager::GetSingleton()->GetElapsedTime();	// ���� �����?�ð� 1�� ������ �ʱ�ȭ
-	lastUsed += TimerManager::GetSingleton()->GetElapsedTime();	// ���������� �����?Ű�� �������� ���?�ð� �˻� ( �ϳ��� ���������� 0���� ���?�ʱ�ȭ ��)
+	currElapsed += TimerManager::GetSingleton()->GetElapsedTime();	// ���� �����?�ð� 1�� ������ �ʱ�ȭ
+	lastUsed += TimerManager::GetSingleton()->GetElapsedTime();	// ���������� �����?Ű�� �������� ���?�ð� �˻� ( �ϳ��� ���������� 0���� ���?�ʱ�ȭ ��)
 	currFire += TimerManager::GetSingleton()->GetElapsedTime();
 
 	//if (currElapsed >= 1.0f)	currElapsed = 0;
@@ -89,6 +89,7 @@ void PlayerShip::Update()
 		}
 		currElapsed = 0;
 	}
+
 }
 
 void PlayerShip::Render(HDC hdc)
