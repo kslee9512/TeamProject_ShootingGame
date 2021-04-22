@@ -148,6 +148,7 @@ void MissileManager::Fire(int randMissile)
                 std::random_device rd;
                 std::mt19937 gen(rd());
                 std::uniform_int_distribution<>dis(60, 120);
+
                 (*itMissiles)->SetType(Missile::TYPE::Skill_02);
                 (*itMissiles)->SetIsFired(true);
                 (*itMissiles)->SetAngle(-(DegToRad(dis(gen))));

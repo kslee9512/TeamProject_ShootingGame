@@ -40,7 +40,6 @@ private:
 	int losshealth;
 
 	int stageCnt;
-	int scoreCnt;
 
 	Missile* missile;
 	Enemy* enemy;

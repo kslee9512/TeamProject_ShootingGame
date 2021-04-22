@@ -95,7 +95,7 @@ void PlayerShip::Render(HDC hdc)
 		{
 			playerCurrHP -= playerDmg;
 			IsPlayerDmg = false;
-		}		
+		}
 	}
 
 	if (image)
