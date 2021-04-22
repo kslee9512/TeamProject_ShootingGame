@@ -67,6 +67,8 @@ void CollisionChecker::CheckPlayerCollision(PlayerShip* player)
 		{
 			(*itlItem)->SetIsCreated(false);
 			if ((*itlItem)->GetItem() == 1 && (*player).GetGun() < 2)	(*player).SetGun((*player).GetGun() + 1);
+
+			if ((*itlItem)->GetItem() == 2 && ((*player).GetSpecialCnt()) < 3)	(*player).SetSpecialCnt((*player).GetSpecialCnt() + 1 );
 			(*itlItem)->SetItem(0);
 			(*itlItem)->SetIsCreated(false);
 			itlItem = lItem.erase(itlItem);

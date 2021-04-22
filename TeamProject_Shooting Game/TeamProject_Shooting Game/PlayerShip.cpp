@@ -75,6 +75,7 @@ void PlayerShip::Update()
 		Move();
 		Fire();
 		hitBox = GetRectToCenter(pos.x, pos.y, 10, 10);
+		SetSpecialCnt(missileMgr->GetSpecialCnt());
 	}	
 
 

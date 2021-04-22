@@ -24,6 +24,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="UiManager.cpp" />
     <ClCompile Include="Score.cpp" />
+    <ClCompile Include="ItemUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionChecker.h" />
@@ -51,5 +52,6 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="UiManager.h" />
     <ClInclude Include="Score.h" />
+    <ClInclude Include="ItemUI.h" />
   </ItemGroup>
 </Project>

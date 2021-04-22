@@ -30,6 +30,7 @@ private:
 
 	bool CheckPlayerHit = false;
 	float damageTime = 0.0f;
+	int SpecialCnt;
 
 public:
 	void AddActiveEnemy(Enemy* enemy) { lEnemys.push_back(enemy); }
@@ -47,6 +48,8 @@ public:
 	
 	inline void SetCheckPlayerHit(bool CheckPlayerHit) { this->CheckPlayerHit = CheckPlayerHit; }
 	inline bool GetCheckPlayerHit() { return this->CheckPlayerHit; }
+	inline void SetSpecialCnt(int SpecialCnt){ this->SpecialCnt = SpecialCnt; }
+	inline bool GetSpecialCnt() { return this->SpecialCnt; }
 
 	void AddItem(Item* item) { lItem.push_back(item); }
 	void EraseItem(Item* item) { lItem.remove(item); }

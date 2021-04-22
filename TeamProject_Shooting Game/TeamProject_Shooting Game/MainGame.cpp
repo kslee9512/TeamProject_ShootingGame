@@ -52,7 +52,7 @@ HRESULT MainGame::Init()
 		"Image/MS_Item.bmp", 210, 46, 5, 1, true, RGB(255, 0, 255));
 
 	ImageManager::GetSingleton()->AddImage("Special",
-		"Image/Special.bmp", 168, 46, 4, 1, true, RGB(255, 0, 255));
+		"Image/Special.bmp", 252, 69, 4, 1, true, RGB(255, 0, 255));
 
 	ImageManager::GetSingleton()->AddImage("SpecialItem",
 		"Image/Special_Item.bmp", 210, 46, 5, 1, true, RGB(255, 0, 255));
@@ -194,6 +194,12 @@ void MainGame::Render()
 			itemMgr->Render(hBackDC);
 		}
 
+		if (uiMgr)
+		{
+			uiMgr->SetSpecial(enemyMgr->GetSpecial());
+			uiMgr->Render(hBackDC);
+		}
+
 		break;
 
 	case 2:
@@ -220,10 +226,7 @@ void MainGame::Render()
 	// Score UI
 	wsprintf(szText, "Score : %d", scoreCnt);
 	TextOut(hBackDC, 20, 70, szText, strlen(szText));
-	if (uiMgr)
-	{
-		uiMgr->Render(hBackDC);
-	}
+
 
 	// FPS
 	TimerManager::GetSingleton()->Render(hBackDC);

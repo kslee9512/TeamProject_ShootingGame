@@ -22,6 +22,8 @@ HRESULT MissileManager::Init(CollisionChecker* collisionChecker, Enemy* owner)
 
     gunLevel = 0;
 
+    specialCnt = 3;
+
     return S_OK;
 }
 
@@ -39,6 +41,9 @@ HRESULT MissileManager::PInit(CollisionChecker* collisionChecker, PlayerShip* ow
 
     currElapsed = 0;
     angleValue = 0;
+
+    specialCnt = 3;
+
 	return S_OK;
 }
 
@@ -58,11 +63,18 @@ void MissileManager::Update()
 {
     currElapsed+= TimerManager::GetSingleton()->GetElapsedTime();
 
-    if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_NUMPAD5))
-    {
-        currElapsed = 0;
-        Special = true;
-    }
+
+       if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_NUMPAD5))
+       {
+           if (specialCnt > 0)
+           {
+               currElapsed = 0;
+               Special = true;
+               if (specialCnt > 0)      specialCnt--;
+           }
+
+       }
+
 
     for (int i = 0; i < vMissiles.size(); i++)
     {

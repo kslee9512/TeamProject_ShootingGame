@@ -214,7 +214,8 @@ void Enemy::Update()
 void Enemy::Render(HDC hdc)
 {
     if (isAlive)
-    {   
+    {
+        SetSpecial(missileMgr->GetSpecial());
         if (IsEnemyDmg)
         {
             enemyCurrHP -= enemyDmg;

@@ -2,20 +2,19 @@
 #include "GameNode.h"
 
 class Image;
-class Number : public GameNode
+class ItemUI : public GameNode
 {
 private:
-	Image* number;
-	const char* number_dir = "Image/Number.bmp";
-	POINT number_size = { 1200, 342 };
+	Image* item;
+	Image* Cnt;
+	POINT itemPos = { 950, 670 };
 
 	int currFrameX;
 	float currElapsed;
 public:
 	HRESULT Init();
 	void Release();
-	void Update();
+	void Update(bool special);
 	void Render(HDC hdc);
 };
-
 
