@@ -58,7 +58,19 @@ HRESULT Missile::PInit(CollisionChecker* collisionChecker, PlayerShip* owner)
 	currElapsed = 0;
 	patternTime = 0.0f;
 	checkFired = FIRED::PLAYER;
+	Bomb = false;
+	Bframe = 0;
+	BcurrElapsed = 0.0f;
+
 	// �̹���
+	bombImg = ImageManager::GetSingleton()->FindImage("Bomb");
+	if (bombImg == nullptr)
+	{
+		MessageBox(g_hWnd,
+			"playerMissile Bomb Fail!", "ERROR!", MB_OK);
+		return E_FAIL;
+	}
+
 	img = ImageManager::GetSingleton()->FindImage("PlayerMissile");
 	if (img == nullptr)
 	{
@@ -66,6 +78,7 @@ HRESULT Missile::PInit(CollisionChecker* collisionChecker, PlayerShip* owner)
 			"playerMissile가 로드안됨!", "실패!", MB_OK);
 		return E_FAIL;
 	}
+
 	this->collisionChecker = collisionChecker;
 	return S_OK;
 }
@@ -77,6 +90,8 @@ void Missile::Release()
 
 void Missile::Update()
 {
+	if(Bomb)	BcurrElapsed += TimerManager::GetSingleton()->GetElapsedTime();
+
 	if (isFired)
 	{
 
@@ -99,9 +114,9 @@ void Missile::Update()
 		if (currElapsed >= 0.02f)
 		{
 			frame++;
-			currElapsed = 0;
 			if (frame > 5)
 				frame = 0;
+			currElapsed = 0;
 		}
 
 		switch (missileType)
@@ -142,6 +157,22 @@ void Missile::Update()
 			}
 		}
 	}
+
+	if (BcurrElapsed >= 0.03f)
+	{
+		if (Bomb)
+		{
+			Bframe++;
+			if (Bframe > 11)
+			{
+				Bframe = 0;
+				Bomb = false;
+			}
+		}
+
+		BcurrElapsed = 0;
+	}
+
 }
 
 void Missile::Render(HDC hdc)
@@ -153,8 +184,11 @@ void Missile::Render(HDC hdc)
 		{
 			img->FrameRender(hdc, pos.x - 12, pos.y, frame, 0);
 		}
+
 		//Ellipse(hdc, shape.left, shape.top, shape.right, shape.bottom);
 	}
+
+	if (Bomb)	bombImg->FrameRender(hdc, bomBpos.x, bomBpos.y, Bframe, 0);
 }
 
 void Missile::MovingNormal()

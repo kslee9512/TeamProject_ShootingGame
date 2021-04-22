@@ -69,6 +69,11 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->AddImage("Unlife",
 		"Image/unlife.bmp", 70, 55, 10, 1, true, RGB(255, 0, 255));
 
+<<<<<<< Updated upstream
+=======
+	ImageManager::GetSingleton()->AddImage("Bomb",
+		"Image/Bomb.bmp", 264, 27, 11, 1, true, RGB(0, 0, 0));
+>>>>>>> Stashed changes
 
 	backBuffer = new Image();
 	backBuffer->Init(WINSIZE_X, WINSIZE_Y);
@@ -191,15 +196,17 @@ void MainGame::Render()
 			stage->MapRender(hBackDC, 1000);		// 기본 설정 1000
 		}
 
+		if (enemyMgr)
+		{
+			enemyMgr->Render(hBackDC);
+		}
+
 		if (playerShip)
 		{
 			playerShip->Render(hBackDC);
 		}
 
-		if (enemyMgr)
-		{
-			enemyMgr->Render(hBackDC);
-		}
+
 		if (itemMgr)
 		{
 			itemMgr->Render(hBackDC);

@@ -18,6 +18,8 @@ void CollisionChecker::CheckCollision()
 					&& (*itlPlayerMissiles)->GetAttackBox().right >= (*itlEnemys)->GetHitBox().left)
 				{
 					(*itlEnemys)->SetIsEnemyDmg(true);
+					(*itlPlayerMissiles)->SetBomb(true);
+					(*itlPlayerMissiles)->SetBombPos((*itlPlayerMissiles)->GetPos());
 					(*itlPlayerMissiles)->SetIsFired(false);
 					itlPlayerMissiles = lPlayerMissiles.erase(itlPlayerMissiles);
 				}
