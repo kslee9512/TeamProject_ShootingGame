@@ -38,9 +38,6 @@ private:
 
 	CollisionChecker* collisionChecker;
 
-	int health;
-	int losshealth;
-
 	int stageCnt;
 	int scoreCnt;
 

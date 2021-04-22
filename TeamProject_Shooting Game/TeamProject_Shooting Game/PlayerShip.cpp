@@ -2,6 +2,8 @@
 #include "Image.h"
 #include "MissileManager.h"
 #include "CommonFunction.h"
+#include "UiManager.h"
+
 HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 {
 	fireImage = ImageManager::GetSingleton()->FindImage("Fire");
@@ -44,7 +46,7 @@ HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 	missileMgr->PInit(collisionChecker, this);
 
 
-	playerCurrHP = 5;
+	playerCurrHP = 3;
 	playerDmg = 1;
 
 	IsPlayerAlive = true;
@@ -75,7 +77,6 @@ void PlayerShip::Update()
 		hitBox = GetRectToCenter(pos.x, pos.y, 25, 45);
 	}	
 
-
 	if (currElapsed >= 1.0f)	
 	{
 		currFrameX++;
@@ -94,6 +95,7 @@ void PlayerShip::Render(HDC hdc)
 		if ((missileMgr->GetSpecial()) == false)
 		{
 			playerCurrHP -= playerDmg;
+			UiManager::GetSingleton()->SetPlayerCurrHP(playerCurrHP);
 			IsPlayerDmg = false;
 		}
 	}
