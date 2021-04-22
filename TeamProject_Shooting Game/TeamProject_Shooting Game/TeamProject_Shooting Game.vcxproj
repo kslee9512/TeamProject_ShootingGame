@@ -155,6 +155,7 @@
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Missile.h" />
     <ClInclude Include="MissileManager.h" />
+    <ClInclude Include="Number.h" />
     <ClInclude Include="PlayerShip.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Score.h" />
@@ -181,6 +182,7 @@
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="MissileManager.cpp" />
+    <ClCompile Include="Number.cpp" />
     <ClCompile Include="PlayerShip.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Score.cpp" />

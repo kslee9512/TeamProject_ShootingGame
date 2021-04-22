@@ -1,21 +1,20 @@
-#pragma once
-class Number
-{
-};
-
-#pragma once
 #include "GameNode.h"
 
 class Image;
 class Number : public GameNode
 {
 private:
-	Image* number;
-	const char* number_dir = "Image/Number.bmp";
-	POINT number_size = { 1200, 342 };
+	Image* number_100;
+	const char* number_100_dir = "Image/Number.bmp";
+	Image* number_10;
+	const char* number_10_dir = "Image/Number.bmp";
+	Image* number_1;
+	const char* number_1_dir = "Image/Number.bmp";
 
-	int currFrameX;
-	float currElapsed;
+	int scoreAdd;		// 점수를 추가해주는 변수
+	int scorePlus;
+	int scoreTenPlus;
+	int scoreHundredPlus;
 public:
 	HRESULT Init();
 	void Release();

@@ -3,46 +3,86 @@
 
 HRESULT Number::Init()
 {
-	number = ImageManager::GetSingleton()->FindImage("Score");
-	if (number == nullptr)
+	number_100 = ImageManager::GetSingleton()->FindImage("Number");
+	if (number_100 == nullptr)
 	{
 		MessageBox(g_hWnd,
-			"Score°¡ ¾ÈµÊ!", "½ÇÆÐ!", MB_OK);
+			"Number°¡ ¾ÈµÊ!", "½ÇÆÐ!", MB_OK);
+		return E_FAIL;
+	}
+	number_10 = ImageManager::GetSingleton()->FindImage("Number");
+	if (number_10 == nullptr)
+	{
+		MessageBox(g_hWnd,
+			"Number°¡ ¾ÈµÊ!", "½ÇÆÐ!", MB_OK);
+		return E_FAIL;
+	}
+	number_1 = ImageManager::GetSingleton()->FindImage("Number");
+	if (number_1 == nullptr)
+	{
+		MessageBox(g_hWnd,
+			"Number°¡ ¾ÈµÊ!", "½ÇÆÐ!", MB_OK);
 		return E_FAIL;
 	}
 
-	currElapsed = 0.0f;
+	scoreHundredPlus = 0;
+	scoreTenPlus = 9;
+	scorePlus = 9;
+
+	scoreAdd = 0;
 
 	return S_OK;
 }
 
 void Number::Release()
 {
-	number->Release();
-	delete number;
-	number = nullptr;
+	SAFE_RELEASE(number_100);
+	SAFE_RELEASE(number_10);
+	SAFE_RELEASE(number_1);
 }
 
 void Number::Update()
 {
-	currElapsed += TimerManager::GetSingleton()->GetElapsedTime();
-
-	if (currElapsed >= 0.2f)
+	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_NUMPAD9))
 	{
-		currFrameX++;
-		if (currFrameX >= 6)
+		if (!(scoreHundredPlus >= 8 && scoreTenPlus >= 8 && scorePlus >= 8))
 		{
-			currFrameX = 0;
+			scorePlus += scoreAdd;
+			if (scorePlus >= 10)
+			{
+				scoreTenPlus += 1;
+				scorePlus = 0;
+
+				if (scoreTenPlus >= 10)
+				{
+					scoreHundredPlus += 1;
+					scoreTenPlus = 0;
+				}
+			}
 		}
-		currElapsed = 0;
+		else
+		{
+			scoreHundredPlus = 8;
+			scoreTenPlus = 8;
+
+			scorePlus = 8;
+		}
 	}
 }
 
 void Number::Render(HDC hdc)
 {
-	if (number)
+
+	if (number_100)
 	{
-		//score->Render(hdc);
-		number->FrameRender(hdc, 40, 80, currFrameX, 0, true);
+		number_100->FrameRender(hdc, 80, 80, scoreHundredPlus, 0, true);
+	}
+	if (number_10)
+	{
+		number_10->FrameRender(hdc, 105, 80, scoreTenPlus, 0, true);
+	}
+	if (number_1)
+	{
+		number_1->FrameRender(hdc, 130, 80, scorePlus, 0, true);
 	}
 }
