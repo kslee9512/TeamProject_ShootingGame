@@ -61,8 +61,5 @@ public:
 	inline void SetGun(int gunlevel) { this->gunLevel = gunlevel; }
 	inline int GetGun() { return this->gunLevel; }
 
-	inline void SetSpecialCnt(int SpecialCnt) { this->SpecialCnt = SpecialCnt; }
-	inline int GetSpecialCnt() { return this->SpecialCnt; }
-
 };
 

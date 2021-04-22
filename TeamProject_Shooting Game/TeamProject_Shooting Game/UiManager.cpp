@@ -8,13 +8,11 @@ HRESULT UiManager::Init()
 	score = new Score();
 	score->Init();
 
-
 	item = new ItemUI();
 	item->Init();
 
 	number = new Number();
 	number->Init();
-
 
 	return S_OK;
 }

@@ -146,14 +146,15 @@ void MainGame::Update()
 				itemMgr->Update();
 			}
 
-			if (uiMgr)
-			{
-				uiMgr->Update();
-			}
-
 			collisionChecker->CheckPlayerCollision(playerShip);
 			collisionChecker->CheckCollision();		
 			collisionChecker->CheckPlayerNoHit();
+
+			if (uiMgr)
+			{
+				uiMgr->SetSpecial(enemyMgr->GetSpecial());
+				uiMgr->Update();
+			}
 
 			if (enemyMgr->GetIsBossAlive() == false)
 			{
@@ -200,7 +201,7 @@ void MainGame::Render()
 
 		if (uiMgr)
 		{
-			uiMgr->SetSpecial(enemyMgr->GetSpecial());
+
 			uiMgr->Render(hBackDC);
 		}
 
@@ -227,11 +228,6 @@ void MainGame::Render()
 	// stage UI
 	wsprintf(szText, "Stage : %d", stageCnt);
 	TextOut(hBackDC, 20, 40, szText, strlen(szText));
-
-	if (uiMgr)
-	{
-		uiMgr->Render(hBackDC);
-	}
 
 	// FPS
 	TimerManager::GetSingleton()->Render(hBackDC);

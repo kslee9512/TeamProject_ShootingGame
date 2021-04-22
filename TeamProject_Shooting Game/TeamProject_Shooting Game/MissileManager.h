@@ -19,10 +19,12 @@ private:
 
 	bool Special;
 	int specialCnt;
+
 	int cnt;
 	float currElapsed;
 	int angleValue;
 	int gunLevel;
+	bool keyDown;
 
 public:
 	HRESULT Init(CollisionChecker* collisionChecker, Enemy* owner);
@@ -39,8 +41,5 @@ public:
 	void SetSpecial(bool Special) { this->Special = Special; }
 	bool GetSpecial() { return this->Special; }
 	float GetTime() { return this->currElapsed; }
-
-	inline void SetSpecialCnt(int specialCnt) { this->specialCnt = specialCnt; }
-	inline bool GetSpecialCnt() { return this->specialCnt; }
 };
 

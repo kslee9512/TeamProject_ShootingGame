@@ -1,5 +1,6 @@
 #include "ItemUI.h"
 #include "Image.h"
+#include "UiManager.h"
 
 HRESULT ItemUI::Init()
 {
@@ -11,7 +12,7 @@ HRESULT ItemUI::Init()
 		return E_FAIL;
 	}
 
-	Cnt = ImageManager::GetSingleton()->FindImage("Score");
+	Cnt = ImageManager::GetSingleton()->FindImage("Number");
 	if (Cnt == nullptr)
 	{
 		MessageBox(g_hWnd,
@@ -21,6 +22,7 @@ HRESULT ItemUI::Init()
 
 	currElapsed = 0.0f;
 	currFrameX = 0;
+
 
 	return S_OK;
 }
@@ -38,6 +40,8 @@ void ItemUI::Release()
 
 void ItemUI::Update(bool special)
 {
+
+
 	if (special)
 	{
 		currElapsed += TimerManager::GetSingleton()->GetElapsedTime();
@@ -64,6 +68,6 @@ void ItemUI::Render(HDC hdc)
 	}
 	if (Cnt)
 	{
-		Cnt->FrameRender(hdc, itemPos.x+50, itemPos.y, 0, 0, true);
+		Cnt->FrameRender(hdc, itemPos.x+50, itemPos.y, UiManager::GetSingleton()->GetSpecialCnt(), 0, true);
 	}
 }

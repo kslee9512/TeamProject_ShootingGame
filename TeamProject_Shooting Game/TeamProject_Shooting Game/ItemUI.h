@@ -11,6 +11,8 @@ private:
 
 	int currFrameX;
 	float currElapsed;
+	int SpecialCnt = 3;
+
 public:
 	HRESULT Init();
 	void Release();

@@ -48,8 +48,6 @@ public:
 	
 	inline void SetCheckPlayerHit(bool CheckPlayerHit) { this->CheckPlayerHit = CheckPlayerHit; }
 	inline bool GetCheckPlayerHit() { return this->CheckPlayerHit; }
-	inline void SetSpecialCnt(int SpecialCnt){ this->SpecialCnt = SpecialCnt; }
-	inline bool GetSpecialCnt() { return this->SpecialCnt; }
 
 	void AddItem(Item* item) { lItem.push_back(item); }
 	void EraseItem(Item* item) { lItem.remove(item); }

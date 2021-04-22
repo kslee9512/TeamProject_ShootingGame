@@ -1,5 +1,6 @@
 #include "MissileManager.h"
 #include "TimerManager.h"
+#include "UiManager.h"
 #include "Missile.h"
 #include <random>
 #include <iostream>
@@ -23,6 +24,7 @@ HRESULT MissileManager::Init(CollisionChecker* collisionChecker, Enemy* owner)
     gunLevel = 0;
 
     specialCnt = 3;
+    keyDown = false;
 
     return S_OK;
 }
@@ -42,7 +44,10 @@ HRESULT MissileManager::PInit(CollisionChecker* collisionChecker, PlayerShip* ow
     currElapsed = 0;
     angleValue = 0;
 
+    Special = false;
     specialCnt = 3;
+
+    keyDown = false;
 
 	return S_OK;
 }
@@ -63,17 +68,24 @@ void MissileManager::Update()
 {
     currElapsed+= TimerManager::GetSingleton()->GetElapsedTime();
 
+    specialCnt = UiManager::GetSingleton()->GetSpecialCnt();
 
-       if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_NUMPAD5))
-       {
-           if (specialCnt > 0)
-           {
-               currElapsed = 0;
-               Special = true;
-               if (specialCnt > 0)      specialCnt--;
-           }
+    if (!keyDown && owner)
+    {
+        if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_NUMPAD5))
+        {
 
-       }
+            if (specialCnt > 0)
+            {
+                currElapsed = 0;
+                Special = true;
+                specialCnt--;
+                UiManager::GetSingleton()->SetSpecialCnt(specialCnt);
+                keyDown = true;
+            }
+
+        }
+    }
 
 
     for (int i = 0; i < vMissiles.size(); i++)
@@ -91,6 +103,7 @@ void MissileManager::Update()
     if (currElapsed >= 4.0f && Special)
     {
         Special = false;
+        keyDown = false;
     }
 
 

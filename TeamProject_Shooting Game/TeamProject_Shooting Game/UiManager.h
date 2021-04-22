@@ -13,6 +13,7 @@ private:
 	ItemUI* item;
 
 	bool Special;
+	int specialCnt = 3;
 
 public:
 	HRESULT Init();
@@ -21,5 +22,7 @@ public:
 	void Render(HDC hdc);
 
 	inline void SetSpecial(bool Special) { this->Special = Special; }
+	inline void SetSpecialCnt(int specialCnt) { this->specialCnt = specialCnt; }
+	inline int GetSpecialCnt() { return this->specialCnt; }
 };
 
