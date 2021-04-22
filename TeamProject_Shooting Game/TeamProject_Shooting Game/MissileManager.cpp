@@ -69,7 +69,7 @@ void MissileManager::Update()
         if (owner)
         {
             if (Special) vMissiles[i]->SetType(vMissiles[i]->FollowTarget);
-             //해당부분 수정 필요- 수정하지 않을 경우 미사일이 해당 타입으로 고정됨
+             //?�당부�??�정 ?�요- ?�정?��? ?�을 경우 미사?�이 ?�당 ?�?�으�?고정??
 
             vMissiles[i]->SetSpecial(Special);
         }
@@ -121,7 +121,7 @@ bool MissileManager::CheckIsFired()
 
 void MissileManager::Fire(int randMissile)
 {
-    //패턴1
+    //?�턴1
     if (randMissile == 0)
     {
         for (itMissiles = vMissiles.begin(); itMissiles != vMissiles.end(); itMissiles++)
@@ -138,7 +138,7 @@ void MissileManager::Fire(int randMissile)
             }
         }
     }
-    //패턴2
+    //?�턴2
     else if (randMissile == 1)
     {
         for (itMissiles = vMissiles.begin(); itMissiles != vMissiles.end(); itMissiles++)
@@ -157,7 +157,7 @@ void MissileManager::Fire(int randMissile)
             }
         }
     }
-    //패턴3
+    //?�턴3
     else if (randMissile == 2)
     {
         for (itMissiles = vMissiles.begin(); itMissiles != vMissiles.end(); itMissiles++)
@@ -177,7 +177,7 @@ void MissileManager::Fire(int randMissile)
             }
         }
     }
-    //패턴4
+    //?�턴4
     else if (randMissile == 3)
     {
         int checkMissile = 0;

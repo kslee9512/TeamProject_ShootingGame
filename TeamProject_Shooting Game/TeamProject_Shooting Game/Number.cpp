@@ -1,5 +1,6 @@
 #include "Number.h"
 #include "Image.h"
+#include "UiManager.h"
 
 HRESULT Number::Init()
 {
@@ -61,48 +62,47 @@ void Number::Release()
 
 void Number::Update()
 {
-	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_NUMPAD9))
+	if (!(score_10000 >= 9 && score_1000 >= 9 && score_100 >= 9 && score_10 >= 9 && score_1 >= 9))
 	{
-		if (!(score_10000 >= 9 && score_1000 >= 9 && score_100 >= 9 && score_10 >= 9 && score_1 >= 9))
+		score_1 = UiManager::GetSingleton()->GetScore();
+		
+		if (score_1 >= 10)
 		{
-			score_1 += scoreAdd;
-			if (score_1 >= 10)
+			score_10 += 1;
+			score_1 -= 10;
+			UiManager::GetSingleton()->SetScore(score_1);
+
+			if (score_10 >= 10)
 			{
-				score_10 += 1;
-				score_1 = 0;
+				score_100 += 1;
+				score_10 -= 10;
 
-				if (score_10 >= 10)
+				if (score_100 >= 10)
 				{
-					score_100 += 1;
-					score_10 = 0;
+					score_1000 += 1;
+					score_100 -= 10;
 
-					if (score_100 >= 10)
+					if (score_1000 >= 10)
 					{
-						score_1000 += 1;
-						score_100 = 0;
+						score_10000 += 1;
+						score_1000 -= 10;
 
-						if (score_1000 >= 10)
+						if (score_10000 >= 10)
 						{
-							score_10000 += 1;
-							score_1000 = 0;
-
-							if (score_10000 >= 10)
-							{
-								score_10000 = 0;
-							}
+							score_10000 -= 10;
 						}
 					}
 				}
 			}
 		}
-		else
-		{
-			score_10000 = 9;
-			score_1000 = 9;
-			score_100 = 9;
-			score_10 = 9;
-			score_1 = 9;
-		}
+	}
+	else
+	{
+		score_10000 = 9;
+		score_1000 = 9;
+		score_100 = 9;
+		score_10 = 9;
+		score_1 = 9;
 	}
 }
 

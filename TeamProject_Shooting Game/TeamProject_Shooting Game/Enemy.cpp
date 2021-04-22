@@ -3,6 +3,8 @@
 #include "Image.h"
 #include "MissileManager.h"
 #include "CollisionChecker.h"
+#include "UiManager.h"
+
 HRESULT Enemy::Init(CollisionChecker* collisionChecker, int posX, int posY)
 {
     image = ImageManager::GetSingleton()->FindImage("Enemy");
@@ -218,6 +220,7 @@ void Enemy::Render(HDC hdc)
         if (IsEnemyDmg)
         {
             enemyCurrHP -= enemyDmg;
+            UiManager::GetSingleton()->SetScore(UiManager::GetSingleton()->GetScore() + 10);
             IsEnemyDmg = false;
         }
 
@@ -254,6 +257,7 @@ void Enemy::Render(HDC hdc)
                         if (enemyCurrHP <= 0)
                         {
                             enemyDamage = ENEMYDAMAGE::DESTROY;
+                            UiManager::GetSingleton()->SetScore(UiManager::GetSingleton()->GetScore() + 10000);
                         }
                     }
                 }
