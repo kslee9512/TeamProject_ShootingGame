@@ -3,11 +3,12 @@
 #include "Singleton.h"
 
 class Score;
+class Number;
 class UiManager : public Singleton<UiManager>
 {
 private:
 	Score* score;
-	//SBullet* sbullet;
+	Number* number;
 
 public:
 	HRESULT Init();
