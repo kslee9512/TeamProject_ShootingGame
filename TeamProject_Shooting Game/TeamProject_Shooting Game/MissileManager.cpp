@@ -93,7 +93,6 @@ void MissileManager::Update()
         if (owner)
         {
             if (Special) vMissiles[i]->SetType(vMissiles[i]->FollowTarget);
-
             vMissiles[i]->SetSpecial(Special);
         }
 
@@ -145,7 +144,6 @@ bool MissileManager::CheckIsFired()
 
 void MissileManager::Fire(int randMissile)
 {
-    //?�턴1
     if (randMissile == 0)
     {
         for (itMissiles = vMissiles.begin(); itMissiles != vMissiles.end(); itMissiles++)
@@ -162,7 +160,7 @@ void MissileManager::Fire(int randMissile)
             }
         }
     }
-    //?�턴2
+
     else if (randMissile == 1)
     {
         for (itMissiles = vMissiles.begin(); itMissiles != vMissiles.end(); itMissiles++)
@@ -181,7 +179,7 @@ void MissileManager::Fire(int randMissile)
             }
         }
     }
-    //?�턴3
+    
     else if (randMissile == 2)
     {
         for (itMissiles = vMissiles.begin(); itMissiles != vMissiles.end(); itMissiles++)
@@ -201,7 +199,7 @@ void MissileManager::Fire(int randMissile)
             }
         }
     }
-    //?�턴4
+    //?�턴4
     else if (randMissile == 3)
     {
         int checkMissile = 0;

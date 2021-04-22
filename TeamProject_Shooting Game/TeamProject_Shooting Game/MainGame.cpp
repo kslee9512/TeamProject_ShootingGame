@@ -225,11 +225,6 @@ void MainGame::Render()
 	}
 
 	//SetBkMode(hBackDC, TRANSPARENT);
-	// �λ�
-	TextOut(hBackDC, 20, 20, "MainGame 랜더 중", strlen("MainGame 랜더 중"));
-	// ���콺 ��ǥ
-	wsprintf(szText, "X : %d, Y : %d", ptMouse.x, ptMouse.y);
-	TextOut(hBackDC, 200, 20, szText, strlen(szText));
 	// stage UI
 	wsprintf(szText, "Stage : %d", stageCnt);
 	TextOut(hBackDC, 20, 40, szText, strlen(szText));

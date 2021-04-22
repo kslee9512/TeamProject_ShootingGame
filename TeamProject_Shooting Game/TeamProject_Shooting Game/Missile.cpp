@@ -4,6 +4,7 @@
 #include "CommonFunction.h"
 #include "Image.h"
 #include "CollisionChecker.h"
+#include "UiManager.h"
 
 HRESULT Missile::Init(CollisionChecker* collisionChecker, Enemy* owner)
 {
@@ -205,6 +206,7 @@ void Missile::MovingFollowTarget()
 		isFired = false;
 		fireStep = 0;
 		collisionChecker->ErasePlayerMissile(this);
+		UiManager::GetSingleton()->SetScore(UiManager::GetSingleton()->GetScore() + 1);
 	}
 }
 
