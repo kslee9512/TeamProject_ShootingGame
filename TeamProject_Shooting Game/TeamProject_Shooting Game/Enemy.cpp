@@ -44,6 +44,7 @@ HRESULT Enemy::Init(CollisionChecker* collisionChecker, int posX, int posY)
     enterStage = false;
     angle = 0.0f;
     dir = 1;
+    verticalDir = 1;
     enemyStatus = NONE;
     // �̻��� �Ŵ���
     this->collisionChecker = collisionChecker;
@@ -99,6 +100,7 @@ HRESULT Enemy::BossInit(CollisionChecker* collisionChecker, int posX, int posY)
     enterStage = false;
     angle = 0.0f;
     dir = 1;
+    verticalDir = 1;
     enemyStatus = NONE;
     // �̻��� �Ŵ���
     missileMgr = new MissileManager();
@@ -152,7 +154,7 @@ void Enemy::Update()
         {
             srand(time(NULL));
             SetStatus(ENEMYSTATUS::FIRE);
-            randMissile = rand() % 3;
+            randMissile = rand() % 4;
             changeStatusTimer = 0.0f;
         }
         // 미사일 발사
@@ -207,7 +209,6 @@ void Enemy::Update()
             }
         }
     }
-
 }
 
 void Enemy::Render(HDC hdc)
@@ -305,6 +306,7 @@ void Enemy::Move()
     else if (enemyStatus == ENEMYSTATUS::MOVE)
     {
         HorizonMove();
+        VerticalMove();
     }
 }
 
@@ -439,4 +441,13 @@ void Enemy::HorizonMove()
         }
     }
     pos.x -= -dir * moveSpeed * TimerManager::GetSingleton()->GetElapsedTime();
+}
+
+void Enemy::VerticalMove()
+{
+    if (pos.y > 200 || pos.y < 150)
+    {
+        verticalDir *= -1;
+    }
+    pos.y += -verticalDir * 70 * TimerManager::GetSingleton()->GetElapsedTime();
 }

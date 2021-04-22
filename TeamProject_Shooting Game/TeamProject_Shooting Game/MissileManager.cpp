@@ -69,7 +69,7 @@ void MissileManager::Update()
         if (owner)
         {
             if (Special) vMissiles[i]->SetType(vMissiles[i]->FollowTarget);
-            else if (!Special)   vMissiles[i]->SetType(vMissiles[i]->Skill_02); //해당부분 수정 필요- 수정하지 않을 경우 미사일이 해당 타입으로 고정됨
+             //해당부분 수정 필요- 수정하지 않을 경우 미사일이 해당 타입으로 고정됨
 
             vMissiles[i]->SetSpecial(Special);
         }
@@ -147,14 +147,12 @@ void MissileManager::Fire(int randMissile)
             {
                 std::random_device rd;
                 std::mt19937 gen(rd());
-                std::uniform_int_distribution<>dis(60, 120);              
+                std::uniform_int_distribution<>dis(60, 120);
 
                 (*itMissiles)->SetType(Missile::TYPE::Skill_02);
                 (*itMissiles)->SetIsFired(true);
-                (*itMissiles)->SetFireIndex(cnt);
                 (*itMissiles)->SetAngle(-(DegToRad(dis(gen))));
                 (*itMissiles)->SetTarget(TargetManager::GetSingleton()->GetTarget());
-                cnt++;
                 break;
             }
         }
@@ -176,6 +174,27 @@ void MissileManager::Fire(int randMissile)
                     angleValue = 0;
                 }
                 break;
+            }
+        }
+    }
+    //패턴4
+    else if (randMissile == 3)
+    {
+        int checkMissile = 0;
+        for (int i = 0; i < vMissiles.size(); i++)
+        {
+            if (vMissiles[i]->GetIsFired() == false && !Special)
+            {
+                vMissiles[i]->SetType(Missile::TYPE::Skill_04);
+                vMissiles[i]->SetIsFired(true);
+                vMissiles[i]->SetAngle(-(DegToRad(angleValue)));
+                vMissiles[i]->SetTarget(TargetManager::GetSingleton()->GetTarget());
+                angleValue += 5;
+                checkMissile++;
+                if (checkMissile >= 72)
+                {
+                    break;
+                }
             }
         }
     }

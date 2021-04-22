@@ -8,14 +8,14 @@ HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 	image = ImageManager::GetSingleton()->FindImage("Move");
 	if (image == nullptr)
 	{
-		MessageBox(g_hWnd, "ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½Ö¼ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½", "ï¿½Ê±ï¿½È­ ï¿½ï¿½ï¿½ï¿½", MB_OK);
+		MessageBox(g_hWnd, "MoveÀÌ¹ÌÁö ºÒ·¯¿À±â ½ÇÆÐ", "ÀÌ¹ÌÁö ºÒ·¯¿À±â ¿À·ù", MB_OK);
 		return E_FAIL;
 	}
 	imageDst = ImageManager::GetSingleton()->FindImage("Destroy");
 	if (imageDst == nullptr)
 	{
 		MessageBox(g_hWnd,
-			"Bossï¿½ï¿½ ï¿½Èµï¿½!", "ï¿½ï¿½ï¿½ï¿½!", MB_OK);
+			"Boss ÆÄ±« ÀÌ¹ÌÁö ºÒ·¯¿À±â ¿À·ù!", "ÀÌ¹ÌÁö ºÒ·¯¿À±â ¿À·ù!", MB_OK);
 		return E_FAIL;
 	}
 
@@ -28,7 +28,7 @@ HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 	pos.x = WINSIZE_X / 2;
 	pos.y = WINSIZE_Y / 2;
 
-	moveSpeed = 150.0f;
+	moveSpeed = 300.0f;
 
 	fireFrame = 0;
 	frame = 2;
@@ -44,7 +44,7 @@ HRESULT PlayerShip::Init(CollisionChecker* collisionChecker)
 	missileMgr->PInit(collisionChecker, this);
 
 
-	playerCurrHP = 3;
+	playerCurrHP = 5;
 	playerDmg = 1;
 
 	IsPlayerAlive = true;
@@ -66,7 +66,7 @@ void PlayerShip::Update()
 	lastUsed += TimerManager::GetSingleton()->GetElapsedTime();	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿?Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿?ï¿½Ã°ï¿½ ï¿½Ë»ï¿½ ( ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿?ï¿½Ê±ï¿½È­ ï¿½ï¿½)
 	currFire += TimerManager::GetSingleton()->GetElapsedTime();
 
-	if (currElapsed >= 1.0f)	currElapsed = 0;
+	//if (currElapsed >= 1.0f)	currElapsed = 0;
 
 	if (!IsPlayerDestroy)
 	{
@@ -132,7 +132,7 @@ void PlayerShip::Render(HDC hdc)
 
 void PlayerShip::Move()
 {
-	if (lastUsed >= 1.0f)		// Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿?ï¿½Ì·ï¿½ï¿½ï¿½ 1ï¿½Ê¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ï¿½ï¿½
+	if (lastUsed >= 1.0f)
 	{
 		if (frame > 2 && currElapsed >= 1.0f)
 		{
