@@ -9,6 +9,7 @@
 #include "MissileManager.h"
 #include "CollisionChecker.h"
 #include "ItemManager.h"
+#include "UiManager.h"
 HRESULT MainGame::Init()
 {
 	hdc = GetDC(g_hWnd);
@@ -56,6 +57,10 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->AddImage("SpecialItem",
 		"Image/Special_Item.bmp", 210, 46, 5, 1, true, RGB(255, 0, 255));
 
+	ImageManager::GetSingleton()->AddImage("Score",
+		"Image/Score.bmp", 181, 81, 6, 1, true, RGB(255, 0, 255));
+
+
 	backBuffer = new Image();
 	backBuffer->Init(WINSIZE_X, WINSIZE_Y);
 
@@ -73,7 +78,11 @@ HRESULT MainGame::Init()
 	sceneMgr = new SceneManager();
 	sceneMgr->Init();
 
+	uiMgr = new UiManager();
+	uiMgr->Init();
+
 	stageCnt = 1;	// stage 변경 변수
+	scoreCnt = 0;
 
 	switch (stageCnt)
 	{
@@ -107,13 +116,13 @@ void MainGame::Release()
 	SAFE_RELEASE(enemyMgr);
 	SAFE_RELEASE(sceneMgr);
 	SAFE_RELEASE(itemMgr);
+	SAFE_RELEASE(uiMgr);
 	delete collisionChecker;
 	ReleaseDC(g_hWnd, hdc);
 }
 
 void MainGame::Update()
 {
-
 	if (sceneMgr)
 	{
 		sceneMgr->Update();
@@ -131,6 +140,11 @@ void MainGame::Update()
 			if (itemMgr)
 			{
 				itemMgr->Update();
+			}
+
+			if (uiMgr)
+			{
+				uiMgr->Update();
 			}
 
 			collisionChecker->CheckPlayerCollision(playerShip);
@@ -179,6 +193,7 @@ void MainGame::Render()
 		{
 			itemMgr->Render(hBackDC);
 		}
+
 		break;
 
 	case 2:
@@ -202,6 +217,13 @@ void MainGame::Render()
 	// stage UI
 	wsprintf(szText, "Stage : %d", stageCnt);
 	TextOut(hBackDC, 20, 40, szText, strlen(szText));
+	// Score UI
+	wsprintf(szText, "Score : %d", scoreCnt);
+	TextOut(hBackDC, 20, 70, szText, strlen(szText));
+	if (uiMgr)
+	{
+		uiMgr->Render(hBackDC);
+	}
 
 	// FPS
 	TimerManager::GetSingleton()->Render(hBackDC);
