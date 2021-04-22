@@ -239,13 +239,23 @@ void Enemy::Render(HDC hdc)
             //image->Render(hdc, pos.x, pos.y, true);
             image->FrameRender(hdc, pos.x, pos.y, currFrameX, 0, true);
 
-            if (image && enemyDamage == ENEMYDAMAGE::DAMAGE && enemyCurrHP <= 3)  // 화재
+            if (image && enemyDamage == ENEMYDAMAGE::DAMAGE && enemyCurrHP <= 30)  // 화재1
             {
-                imageDmg->FrameRender(hdc, pos.x - 100, pos.y - 80, currFrameX, 0, true);
+                imageDmg->FrameRender(hdc, pos.x - 200, pos.y - 120, currFrameX, 0, true);
 
-                if (enemyCurrHP == 0)
+                if (image && enemyDamage == ENEMYDAMAGE::DAMAGE && enemyCurrHP <= 20)  // 화재2
                 {
-                    enemyDamage = ENEMYDAMAGE::DESTROY;
+                    imageDmg->FrameRender(hdc, pos.x + 150, pos.y - 80, currFrameX, 0, true);
+
+                    if (image && enemyDamage == ENEMYDAMAGE::DAMAGE && enemyCurrHP <= 10)  // 화재3
+                    {
+                        imageDmg->FrameRender(hdc, pos.x - 100, pos.y - 60, currFrameX, 0, true);
+
+                        if (enemyCurrHP <= 0)
+                        {
+                            enemyDamage = ENEMYDAMAGE::DESTROY;
+                        }
+                    }
                 }
             }
             if (image && enemyDamage == ENEMYDAMAGE::DESTROY && enemyCurrHP <= 0)  // 폭발
