@@ -29,7 +29,7 @@ HRESULT Number::Init()
 	scoreTenPlus = 9;
 	scorePlus = 9;
 
-	scoreAdd = 0;
+	scoreAdd = 1;
 
 	return S_OK;
 }
